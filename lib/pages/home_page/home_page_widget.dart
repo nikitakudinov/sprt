@@ -1,11 +1,8 @@
-import '/backend/api_requests/api_calls.dart';
 import '/components/list_item_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/instant_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
@@ -27,35 +24,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.instantTimer = InstantTimer.periodic(
-        duration: const Duration(milliseconds: 1000),
-        callback: (timer) async {
-          _model.apiResultplz = await PlayersGroup.lastUpdatedPlayerCall.call();
-          if (FFAppState().LASTUPDATEDPLAYERTIME ==
-              PlayersGroup.lastUpdatedPlayerCall.updatedat(
-                (_model.apiResultplz?.jsonBody ?? ''),
-              )) {
-            setState(() {
-              FFAppState().LASTUPDATEDPLAYERTIME =
-                  PlayersGroup.lastUpdatedPlayerCall.updatedat(
-                (_model.apiResultplz?.jsonBody ?? ''),
-              )!;
-            });
-          } else {
-            setState(() {
-              FFAppState().LASTUPDATEDPLAYERTIME =
-                  PlayersGroup.lastUpdatedPlayerCall.updatedat(
-                (_model.apiResultplz?.jsonBody ?? ''),
-              )!;
-            });
-          }
-        },
-        startImmediately: true,
-      );
-    });
   }
 
   @override

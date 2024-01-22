@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/components/list_item_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -104,39 +105,74 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
-                child: Builder(
-                  builder: (context) {
-                    final players = FFAppState().MAINDATA.players.toList();
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: players.length,
-                      itemBuilder: (context, playersIndex) {
-                        final playersItem = players[playersIndex];
-                        return ListItemWidget(
-                          key: Key(
-                              'Keybi5_${playersIndex}_of_${players.length}'),
-                          contentType: 'player',
-                          imageSize: 50,
-                          title: playersItem.playerNickname,
-                          titleSize: 18,
-                          titleColor: FlutterFlowTheme.of(context).primaryText,
-                          subTitle: playersItem.playerTag,
-                          subTitleSize: 14,
-                          subTitleColor:
-                              FlutterFlowTheme.of(context).primaryText,
-                          titleVISIBILITY: true,
-                          subTitleVISIBILITY: true,
-                          imageVISIBILITY: true,
-                          backgroundColor:
-                              FlutterFlowTheme.of(context).secondaryText,
-                        );
-                      },
-                    );
-                  },
+              Container(
+                decoration: const BoxDecoration(),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                  child: Builder(
+                    builder: (context) {
+                      final players = FFAppState().MAINDATA.players.toList();
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: players.length,
+                        itemBuilder: (context, playersIndex) {
+                          final playersItem = players[playersIndex];
+                          return ListItemWidget(
+                            key: Key(
+                                'Keybi5_${playersIndex}_of_${players.length}'),
+                            contentType: 'player',
+                            imageSize: 50,
+                            title: playersItem.playerNickname,
+                            titleSize: 18,
+                            titleColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                            subTitle: playersItem.playerTag,
+                            subTitleSize: 14,
+                            subTitleColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                            titleVISIBILITY: true,
+                            subTitleVISIBILITY: true,
+                            imageVISIBILITY: true,
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondaryText,
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+              FFButtonWidget(
+                onPressed: () async {
+                  context.pushNamed(
+                    'ADDCONTENTPAGE',
+                    queryParameters: {
+                      'contentType': serializeParam(
+                        'player',
+                        ParamType.String,
+                      ),
+                    }.withoutNulls,
+                  );
+                },
+                text: 'Creat player',
+                options: FFButtonOptions(
+                  height: 40.0,
+                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                  iconPadding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primary,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily: 'Readex Pro',
+                        color: Colors.white,
+                      ),
+                  elevation: 3.0,
+                  borderSide: const BorderSide(
+                    color: Colors.transparent,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
             ],

@@ -47,6 +47,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'PLAYERS',
           path: '/players',
           builder: (context, params) => const PlayersWidget(),
+        ),
+        FFRoute(
+          name: 'ADDCONTENTPAGE',
+          path: '/addcontentpage',
+          builder: (context, params) => AddcontentpageWidget(
+            contentType: params.getParam('contentType', ParamType.String),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

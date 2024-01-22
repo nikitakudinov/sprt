@@ -1,9 +1,8 @@
 import '/backend/api_requests/api_calls.dart';
-import '/backend/supabase/supabase.dart';
+import '/components/list_item_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/instant_timer.dart';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -45,8 +44,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               )!;
             });
           } else {
-            setState(() => _model.requestCompleter = null);
-            await _model.waitForRequestCompleted();
             setState(() {
               FFAppState().LASTUPDATEDPLAYERTIME =
                   PlayersGroup.lastUpdatedPlayerCall.updatedat(
@@ -107,68 +104,40 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              FutureBuilder<List<PlayersView1Row>>(
-                future: (_model.requestCompleter ??=
-                        Completer<List<PlayersView1Row>>()
-                          ..complete(PlayersView1Table().queryRows(
-                            queryFn: (q) => q,
-                          )))
-                    .future,
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50.0,
-                        height: 50.0,
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            FlutterFlowTheme.of(context).primary,
-                          ),
-                        ),
-                      ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                child: Builder(
+                  builder: (context) {
+                    final players = FFAppState().MAINDATA.players.toList();
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: players.length,
+                      itemBuilder: (context, playersIndex) {
+                        final playersItem = players[playersIndex];
+                        return ListItemWidget(
+                          key: Key(
+                              'Keybi5_${playersIndex}_of_${players.length}'),
+                          contentType: 'player',
+                          imageSize: 50,
+                          title: playersItem.playerNickname,
+                          titleSize: 18,
+                          titleColor: FlutterFlowTheme.of(context).primaryText,
+                          subTitle: playersItem.playerTag,
+                          subTitleSize: 14,
+                          subTitleColor:
+                              FlutterFlowTheme.of(context).primaryText,
+                          titleVISIBILITY: true,
+                          subTitleVISIBILITY: true,
+                          imageVISIBILITY: true,
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).secondaryText,
+                        );
+                      },
                     );
-                  }
-                  List<PlayersView1Row> listViewPlayersView1RowList =
-                      snapshot.data!;
-                  return ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: listViewPlayersView1RowList.length,
-                    itemBuilder: (context, listViewIndex) {
-                      final listViewPlayersView1Row =
-                          listViewPlayersView1RowList[listViewIndex];
-                      return Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            valueOrDefault<String>(
-                              listViewPlayersView1Row.playerId?.toString(),
-                              '0',
-                            ),
-                            style: FlutterFlowTheme.of(context).bodyMedium,
-                          ),
-                          Text(
-                            valueOrDefault<String>(
-                              listViewPlayersView1Row.playerNicknmame,
-                              '0',
-                            ),
-                            style: FlutterFlowTheme.of(context).bodyMedium,
-                          ),
-                          Text(
-                            valueOrDefault<String>(
-                              listViewPlayersView1Row.playerTeam?.toString(),
-                              '0',
-                            ),
-                            style: FlutterFlowTheme.of(context).bodyMedium,
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
+                  },
+                ),
               ),
             ],
           ),

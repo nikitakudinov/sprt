@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/backend/schema/structs/index.dart';
 import 'backend/supabase/supabase.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -26,6 +27,16 @@ class FFAppState extends ChangeNotifier {
   String get LASTUPDATEDPLAYERTIME => _LASTUPDATEDPLAYERTIME;
   set LASTUPDATEDPLAYERTIME(String value) {
     _LASTUPDATEDPLAYERTIME = value;
+  }
+
+  MaindataStruct _MAINDATA = MaindataStruct();
+  MaindataStruct get MAINDATA => _MAINDATA;
+  set MAINDATA(MaindataStruct value) {
+    _MAINDATA = value;
+  }
+
+  void updateMAINDATAStruct(Function(MaindataStruct) updateFn) {
+    updateFn(_MAINDATA);
   }
 }
 

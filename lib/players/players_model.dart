@@ -1,16 +1,11 @@
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/instant_timer.dart';
-import 'home_page_widget.dart' show HomePageWidget;
+import 'players_widget.dart' show PlayersWidget;
 import 'package:flutter/material.dart';
 
-class HomePageModel extends FlutterFlowModel<HomePageWidget> {
+class PlayersModel extends FlutterFlowModel<PlayersWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  InstantTimer? instantTimer;
-  // Stores action output result for [Backend Call - API (LastUpdatedPlayer)] action in HomePage widget.
-  ApiCallResponse? apiResultplz;
 
   /// Initialization and disposal methods.
 
@@ -20,7 +15,6 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    instantTimer?.cancel();
   }
 
   /// Action blocks are added here.

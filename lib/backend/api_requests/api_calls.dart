@@ -58,6 +58,42 @@ class LastUpdatedPlayerCall {
 
 /// End PLAYERS Group Code
 
+/// Start TEAMS Group Code
+
+class TeamsGroup {
+  static String baseUrl = 'https://supabase.proplayclub.ru/rest/v1/';
+  static Map<String, String> headers = {
+    'apikey':
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+  };
+  static TeamMembersArrayCall teamMembersArrayCall = TeamMembersArrayCall();
+}
+
+class TeamMembersArrayCall {
+  Future<ApiCallResponse> call({
+    int? teamId,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'teamMembersArray',
+      apiUrl:
+          '${TeamsGroup.baseUrl}team_members?team_members_team_id=eq.$teamId&select=team_members_player_id',
+      callType: ApiCallType.GET,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+/// End TEAMS Group Code
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

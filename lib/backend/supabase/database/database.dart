@@ -5,7 +5,11 @@ export '../supabase.dart';
 export 'row.dart';
 export 'table.dart';
 
+export 'tables/countries.dart';
 export 'tables/teams.dart';
+export 'tables/messages.dart';
+export 'tables/tournaments.dart';
 export 'tables/players.dart';
-export 'tables/team_members.dart';
-export 'tables/players_view1.dart';
+export 'tables/chats.dart';
+export 'tables/notifications.dart';
+export 'tables/matches.dart';

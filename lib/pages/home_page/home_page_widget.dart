@@ -2,7 +2,9 @@ import '/components/list_item_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
@@ -24,6 +26,29 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await actions.supaRealtime(
+        'chats',
+        () async {
+          await showDialog(
+            context: context,
+            builder: (alertDialogContext) {
+              return AlertDialog(
+                title: const Text('1'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext),
+                    child: const Text('Ok'),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      );
+    });
   }
 
   @override

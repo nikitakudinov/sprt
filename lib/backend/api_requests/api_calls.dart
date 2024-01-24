@@ -16,6 +16,8 @@ class PlayersGroup {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
   };
   static LastUpdatedPlayerCall lastUpdatedPlayerCall = LastUpdatedPlayerCall();
+  static TestCall testCall = TestCall();
+  static TestCopyCall testCopyCall = TestCopyCall();
 }
 
 class LastUpdatedPlayerCall {
@@ -54,6 +56,66 @@ class LastUpdatedPlayerCall {
         response,
         r'''$[:].updated_at''',
       ));
+}
+
+class TestCall {
+  Future<ApiCallResponse> call({
+    String? playerUid = '',
+    String? teamName = '',
+    String? teamTag = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+"player_uid": "$playerUid",
+"team_name": "$teamName",
+"team_tag": "$teamTag"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'test',
+      apiUrl: '${PlayersGroup.baseUrl}rpc/create_team',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class TestCopyCall {
+  Future<ApiCallResponse> call({
+    String? playerUid = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "player_uid": "$playerUid"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'test Copy',
+      apiUrl: '${PlayersGroup.baseUrl}rpc/playerByUID',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
 }
 
 /// End PLAYERS Group Code

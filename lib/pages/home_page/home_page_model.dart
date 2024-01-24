@@ -11,14 +11,40 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl = '';
 
+  // State field(s) for email widget.
+  FocusNode? emailFocusNode;
+  TextEditingController? emailController;
+  String? Function(BuildContext, String?)? emailControllerValidator;
+  // State field(s) for pass widget.
+  FocusNode? passFocusNode;
+  TextEditingController? passController;
+  late bool passVisibility;
+  String? Function(BuildContext, String?)? passControllerValidator;
+  // State field(s) for repass widget.
+  FocusNode? repassFocusNode;
+  TextEditingController? repassController;
+  late bool repassVisibility;
+  String? Function(BuildContext, String?)? repassControllerValidator;
+
   /// Initialization and disposal methods.
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    passVisibility = false;
+    repassVisibility = false;
+  }
 
   @override
   void dispose() {
     unfocusNode.dispose();
+    emailFocusNode?.dispose();
+    emailController?.dispose();
+
+    passFocusNode?.dispose();
+    passController?.dispose();
+
+    repassFocusNode?.dispose();
+    repassController?.dispose();
   }
 
   /// Action blocks are added here.

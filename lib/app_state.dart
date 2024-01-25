@@ -38,6 +38,16 @@ class FFAppState extends ChangeNotifier {
   void updateMAINDATAStruct(Function(MaindataStruct) updateFn) {
     updateFn(_MAINDATA);
   }
+
+  UpdatesStruct _UPDATES = UpdatesStruct();
+  UpdatesStruct get UPDATES => _UPDATES;
+  set UPDATES(UpdatesStruct value) {
+    _UPDATES = value;
+  }
+
+  void updateUPDATESStruct(Function(UpdatesStruct) updateFn) {
+    updateFn(_UPDATES);
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

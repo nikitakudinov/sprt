@@ -13,14 +13,14 @@ class AddcontentWidget extends StatefulWidget {
     int? imageSize,
     this.backgroundColor,
     required this.contentType,
-  })  : imageSize = imageSize ?? 50;
+  }) : imageSize = imageSize ?? 50;
 
   final int imageSize;
   final Color? backgroundColor;
   final String? contentType;
 
   @override
-  _AddcontentWidgetState createState() => _AddcontentWidgetState();
+  State<AddcontentWidget> createState() => _AddcontentWidgetState();
 }
 
 class _AddcontentWidgetState extends State<AddcontentWidget> {

@@ -38,7 +38,7 @@ class ListItemWidget extends StatefulWidget {
   final Color? backgroundColor;
 
   @override
-  _ListItemWidgetState createState() => _ListItemWidgetState();
+  State<ListItemWidget> createState() => _ListItemWidgetState();
 }
 
 class _ListItemWidgetState extends State<ListItemWidget> {

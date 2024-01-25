@@ -20,8 +20,8 @@ class CountriesRow extends SupabaseDataRow {
   String? get enName => getField<String>('enName');
   set enName(String? value) => setField<String>('enName', value);
 
-  String get ruName => getField<String>('ruName')!;
-  set ruName(String value) => setField<String>('ruName', value);
+  String? get ruName => getField<String>('ruName');
+  set ruName(String? value) => setField<String>('ruName', value);
 
   String? get flagLink16x12 => getField<String>('flagLink16x12');
   set flagLink16x12(String? value) => setField<String>('flagLink16x12', value);
@@ -34,4 +34,7 @@ class CountriesRow extends SupabaseDataRow {
 
   String? get flagLinkH24 => getField<String>('flagLinkH24');
   set flagLinkH24(String? value) => setField<String>('flagLinkH24', value);
+
+  int get id => getField<int>('id')!;
+  set id(int value) => setField<int>('id', value);
 }

@@ -10,7 +10,7 @@ class PlayersWidget extends StatefulWidget {
   const PlayersWidget({super.key});
 
   @override
-  _PlayersWidgetState createState() => _PlayersWidgetState();
+  State<PlayersWidget> createState() => _PlayersWidgetState();
 }
 
 class _PlayersWidgetState extends State<PlayersWidget> {

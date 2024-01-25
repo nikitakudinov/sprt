@@ -14,14 +14,21 @@ class PlayersRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => PlayersTable();
 
-  String get playerUid => getField<String>('player_uid')!;
-  set playerUid(String value) => setField<String>('player_uid', value);
+  String get uid => getField<String>('uid')!;
+  set uid(String value) => setField<String>('uid', value);
 
-  DateTime get playerCreatedAt => getField<DateTime>('player_created_at')!;
-  set playerCreatedAt(DateTime value) =>
-      setField<DateTime>('player_created_at', value);
+  DateTime get createdAt => getField<DateTime>('created_at')!;
+  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
 
-  String? get playerNickname => getField<String>('player_nickname');
-  set playerNickname(String? value) =>
-      setField<String>('player_nickname', value);
+  String? get nickname => getField<String>('nickname');
+  set nickname(String? value) => setField<String>('nickname', value);
+
+  DateTime? get updatedAt => getField<DateTime>('updated_at');
+  set updatedAt(DateTime? value) => setField<DateTime>('updated_at', value);
+
+  int? get team => getField<int>('team');
+  set team(int? value) => setField<int>('team', value);
+
+  int? get country => getField<int>('country');
+  set country(int? value) => setField<int>('country', value);
 }

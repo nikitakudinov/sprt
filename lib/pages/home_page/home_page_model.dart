@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/instant_timer.dart';
 import 'home_page_widget.dart' show HomePageWidget;
 import 'package:flutter/material.dart';
 
@@ -6,6 +7,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  InstantTimer? instantTimer;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -37,6 +39,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
+    instantTimer?.cancel();
     emailFocusNode?.dispose();
     emailController?.dispose();
 

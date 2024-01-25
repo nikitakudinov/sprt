@@ -1,11 +1,13 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/list_item_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/instant_timer.dart';
 import '/flutter_flow/upload_data.dart';
+import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
@@ -15,7 +17,7 @@ class HomePageWidget extends StatefulWidget {
   const HomePageWidget({super.key});
 
   @override
-  _HomePageWidgetState createState() => _HomePageWidgetState();
+  State<HomePageWidget> createState() => _HomePageWidgetState();
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
@@ -27,6 +29,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.instantTimer = InstantTimer.periodic(
+        duration: const Duration(milliseconds: 1000),
+        callback: (timer) async {
+          await action_blocks.baseloader(context);
+        },
+        startImmediately: true,
+      );
+    });
 
     _model.emailController ??= TextEditingController();
     _model.emailFocusNode ??= FocusNode();
@@ -91,32 +104,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                   child: Builder(
                     builder: (context) {
-                      final players = FFAppState().MAINDATA.players.toList();
+                      final chats = FFAppState().MAINDATA.chats.toList();
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
-                        itemCount: players.length,
-                        itemBuilder: (context, playersIndex) {
-                          final playersItem = players[playersIndex];
-                          return ListItemWidget(
-                            key: Key(
-                                'Keybi5_${playersIndex}_of_${players.length}'),
-                            contentType: 'player',
-                            imageSize: 50,
-                            title: playersItem.playerNickname,
-                            titleSize: 18,
-                            titleColor:
-                                FlutterFlowTheme.of(context).primaryText,
-                            subTitle: playersItem.playerTag,
-                            subTitleSize: 14,
-                            subTitleColor:
-                                FlutterFlowTheme.of(context).primaryText,
-                            titleVISIBILITY: true,
-                            subTitleVISIBILITY: true,
-                            imageVISIBILITY: true,
-                            backgroundColor:
-                                FlutterFlowTheme.of(context).secondaryText,
+                        itemCount: chats.length,
+                        itemBuilder: (context, chatsIndex) {
+                          final chatsItem = chats[chatsIndex];
+                          return Text(
+                            chatsItem.lastMessage,
+                            style: FlutterFlowTheme.of(context).bodyMedium,
                           );
                         },
                       );

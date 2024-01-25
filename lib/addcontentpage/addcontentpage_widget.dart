@@ -16,7 +16,7 @@ class AddcontentpageWidget extends StatefulWidget {
   final String? contentType;
 
   @override
-  _AddcontentpageWidgetState createState() => _AddcontentpageWidgetState();
+  State<AddcontentpageWidget> createState() => _AddcontentpageWidgetState();
 }
 
 class _AddcontentpageWidgetState extends State<AddcontentpageWidget> {

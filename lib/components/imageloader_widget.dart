@@ -10,13 +10,13 @@ class ImageloaderWidget extends StatefulWidget {
   const ImageloaderWidget({
     super.key,
     String? imagePath,
-  })  : imagePath = imagePath ??
+  }) : imagePath = imagePath ??
             'Cg9CdXR0b25fMjV3bGZ5ajUYCSJuSl0KEgoGQnV0dG9uOgYI/////w9ABRkAAAAAAAAIQEkAAAAAAADwP1ICEAFaAggAcgsoAjEAAAAAAAAgQHoSCQAAAAAAADhAGQAAAAAAADhAwgELEgkJAAAAAAAARED6AwDyBQkJAAAAAAAA8D9iAMIBAA==';
 
   final String imagePath;
 
   @override
-  _ImageloaderWidgetState createState() => _ImageloaderWidgetState();
+  State<ImageloaderWidget> createState() => _ImageloaderWidgetState();
 }
 
 class _ImageloaderWidgetState extends State<ImageloaderWidget> {

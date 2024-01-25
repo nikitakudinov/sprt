@@ -26,10 +26,11 @@ Future baseloader(BuildContext context) async {
     FFAppState().update(() {
       FFAppState().updateMAINDATAStruct(
         (e) => e
-          ..chats = (ChatsGroup.authchatsCall
-                  .chats(
-                    (chats?.jsonBody ?? ''),
-                  )!
+          ..chats = (getJsonField(
+            (chats?.jsonBody ?? ''),
+            r'''$[:].chats''',
+            true,
+          )!
                   .toList()
                   .map<ChatStruct?>(ChatStruct.maybeFromMap)
                   .toList() as Iterable<ChatStruct?>)

@@ -9,10 +9,17 @@ Future baseloader(BuildContext context) async {
   ApiCallResponse? chats;
 
   updates = await UpdatesGroup.updatesCall.call();
-  if (FFAppState().UPDATES.chats !=
+  if (FFAppState().UPDATES.chats ==
       UpdatesGroup.updatesCall.chats(
         (updates.jsonBody ?? ''),
       )) {
+    FFAppState().updateUPDATESStruct(
+      (e) => e
+        ..chats = UpdatesGroup.updatesCall.chats(
+          (updates?.jsonBody ?? ''),
+        ),
+    );
+  } else {
     chats = await ChatsGroup.authchatsCall.call(
       playerUid: currentUserUid,
     );

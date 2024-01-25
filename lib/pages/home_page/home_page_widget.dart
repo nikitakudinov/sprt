@@ -471,6 +471,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ),
                 ),
               ),
+              Text(
+                currentUserUid,
+                style: FlutterFlowTheme.of(context).bodyMedium,
+              ),
             ],
           ),
         ),

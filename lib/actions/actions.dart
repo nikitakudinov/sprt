@@ -1,3 +1,4 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -19,15 +20,16 @@ Future baseloader(BuildContext context) async {
         ),
     );
   } else {
-    chats = await ChatsGroup.chatsCall.call();
+    chats = await ChatsGroup.authchatsCall.call(
+      playerUid: currentUserUid,
+    );
     FFAppState().update(() {
       FFAppState().updateMAINDATAStruct(
         (e) => e
-          ..chats = (getJsonField(
-            (chats?.jsonBody ?? ''),
-            r'''$''',
-            true,
-          )!
+          ..chats = (ChatsGroup.authchatsCall
+                  .chats(
+                    (chats?.jsonBody ?? ''),
+                  )!
                   .toList()
                   .map<ChatStruct?>(ChatStruct.maybeFromMap)
                   .toList() as Iterable<ChatStruct?>)

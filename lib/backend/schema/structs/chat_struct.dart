@@ -11,15 +11,15 @@ class ChatStruct extends BaseStruct {
     String? lastMessage,
     String? lastmessageSander,
     String? updatedAt,
-    String? chatOfTeam,
     int? chatOfTournament,
+    int? chatOfTeam,
     String? chatType,
   })  : _id = id,
         _lastMessage = lastMessage,
         _lastmessageSander = lastmessageSander,
         _updatedAt = updatedAt,
-        _chatOfTeam = chatOfTeam,
         _chatOfTournament = chatOfTournament,
+        _chatOfTeam = chatOfTeam,
         _chatType = chatType;
 
   // "id" field.
@@ -47,12 +47,6 @@ class ChatStruct extends BaseStruct {
   set updatedAt(String? val) => _updatedAt = val;
   bool hasUpdatedAt() => _updatedAt != null;
 
-  // "chat_of_team" field.
-  String? _chatOfTeam;
-  String get chatOfTeam => _chatOfTeam ?? '';
-  set chatOfTeam(String? val) => _chatOfTeam = val;
-  bool hasChatOfTeam() => _chatOfTeam != null;
-
   // "chat_of_tournament" field.
   int? _chatOfTournament;
   int get chatOfTournament => _chatOfTournament ?? 0;
@@ -60,6 +54,13 @@ class ChatStruct extends BaseStruct {
   void incrementChatOfTournament(int amount) =>
       _chatOfTournament = chatOfTournament + amount;
   bool hasChatOfTournament() => _chatOfTournament != null;
+
+  // "chat_of_team" field.
+  int? _chatOfTeam;
+  int get chatOfTeam => _chatOfTeam ?? 0;
+  set chatOfTeam(int? val) => _chatOfTeam = val;
+  void incrementChatOfTeam(int amount) => _chatOfTeam = chatOfTeam + amount;
+  bool hasChatOfTeam() => _chatOfTeam != null;
 
   // "chat_type" field.
   String? _chatType;
@@ -72,8 +73,8 @@ class ChatStruct extends BaseStruct {
         lastMessage: data['last_message'] as String?,
         lastmessageSander: data['lastmessage_sander'] as String?,
         updatedAt: data['updated_at'] as String?,
-        chatOfTeam: data['chat_of_team'] as String?,
         chatOfTournament: castToType<int>(data['chat_of_tournament']),
+        chatOfTeam: castToType<int>(data['chat_of_team']),
         chatType: data['chat_type'] as String?,
       );
 
@@ -85,8 +86,8 @@ class ChatStruct extends BaseStruct {
         'last_message': _lastMessage,
         'lastmessage_sander': _lastmessageSander,
         'updated_at': _updatedAt,
-        'chat_of_team': _chatOfTeam,
         'chat_of_tournament': _chatOfTournament,
+        'chat_of_team': _chatOfTeam,
         'chat_type': _chatType,
       }.withoutNulls;
 
@@ -108,12 +109,12 @@ class ChatStruct extends BaseStruct {
           _updatedAt,
           ParamType.String,
         ),
-        'chat_of_team': serializeParam(
-          _chatOfTeam,
-          ParamType.String,
-        ),
         'chat_of_tournament': serializeParam(
           _chatOfTournament,
+          ParamType.int,
+        ),
+        'chat_of_team': serializeParam(
+          _chatOfTeam,
           ParamType.int,
         ),
         'chat_type': serializeParam(
@@ -144,13 +145,13 @@ class ChatStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
-        chatOfTeam: deserializeParam(
-          data['chat_of_team'],
-          ParamType.String,
-          false,
-        ),
         chatOfTournament: deserializeParam(
           data['chat_of_tournament'],
+          ParamType.int,
+          false,
+        ),
+        chatOfTeam: deserializeParam(
+          data['chat_of_team'],
           ParamType.int,
           false,
         ),
@@ -171,8 +172,8 @@ class ChatStruct extends BaseStruct {
         lastMessage == other.lastMessage &&
         lastmessageSander == other.lastmessageSander &&
         updatedAt == other.updatedAt &&
-        chatOfTeam == other.chatOfTeam &&
         chatOfTournament == other.chatOfTournament &&
+        chatOfTeam == other.chatOfTeam &&
         chatType == other.chatType;
   }
 
@@ -182,8 +183,8 @@ class ChatStruct extends BaseStruct {
         lastMessage,
         lastmessageSander,
         updatedAt,
-        chatOfTeam,
         chatOfTournament,
+        chatOfTeam,
         chatType
       ]);
 }
@@ -193,8 +194,8 @@ ChatStruct createChatStruct({
   String? lastMessage,
   String? lastmessageSander,
   String? updatedAt,
-  String? chatOfTeam,
   int? chatOfTournament,
+  int? chatOfTeam,
   String? chatType,
 }) =>
     ChatStruct(
@@ -202,7 +203,7 @@ ChatStruct createChatStruct({
       lastMessage: lastMessage,
       lastmessageSander: lastmessageSander,
       updatedAt: updatedAt,
-      chatOfTeam: chatOfTeam,
       chatOfTournament: chatOfTournament,
+      chatOfTeam: chatOfTeam,
       chatType: chatType,
     );

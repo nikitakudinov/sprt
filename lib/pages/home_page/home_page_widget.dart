@@ -154,6 +154,29 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ),
               ),
               FFButtonWidget(
+                onPressed: () {
+                  print('Button pressed ...');
+                },
+                text: 'LOGIN AS ADMIN',
+                options: FFButtonOptions(
+                  height: 40.0,
+                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                  iconPadding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primary,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily: 'Readex Pro',
+                        color: Colors.white,
+                      ),
+                  elevation: 3.0,
+                  borderSide: const BorderSide(
+                    color: Colors.transparent,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              FFButtonWidget(
                 onPressed: () async {
                   final selectedMedia = await selectMedia(
                     storageFolderPath: 'pg',

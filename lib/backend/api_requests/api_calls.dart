@@ -669,7 +669,8 @@ class ChatsGroup {
   };
   static LASTUPDATEDchatsCall lASTUPDATEDchatsCall = LASTUPDATEDchatsCall();
   static ChatsCall chatsCall = ChatsCall();
-  static AuthchatsCall authchatsCall = AuthchatsCall();
+  static ChatsbyidsCall chatsbyidsCall = ChatsbyidsCall();
+  static AuthchatmembersCall authchatmembersCall = AuthchatmembersCall();
   static ChatmessagesCall chatmessagesCall = ChatmessagesCall();
   static ChatmembersCall chatmembersCall = ChatmembersCall();
 }
@@ -742,14 +743,15 @@ class ChatsCall {
       ));
 }
 
-class AuthchatsCall {
+class ChatsbyidsCall {
   Future<ApiCallResponse> call({
-    String? playerUid = '',
+    List<int>? chatIdsList,
   }) async {
+    final chatIds = _serializeList(chatIdsList);
+
     return ApiManager.instance.makeApiCall(
-      callName: 'AUTHCHATS',
-      apiUrl:
-          '${ChatsGroup.baseUrl}chat_members?select=chats(*)&player_uid=eq.$playerUid',
+      callName: 'chatsbyids',
+      apiUrl: '${ChatsGroup.baseUrl}chats?id=in.($chatIds)',
       callType: ApiCallType.GET,
       headers: {
         'apikey':
@@ -785,10 +787,38 @@ class AuthchatsCall {
         response,
         r'''$[:].chat_type''',
       ));
-  dynamic chats(dynamic response) => getJsonField(
+}
+
+class AuthchatmembersCall {
+  Future<ApiCallResponse> call({
+    String? playerUid = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'authchatmembers',
+      apiUrl: '${ChatsGroup.baseUrl}chat_members?player_uid=eq.$playerUid',
+      callType: ApiCallType.GET,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List<int>? chatid(dynamic response) => (getJsonField(
         response,
-        r'''$[:].chats''',
-      );
+        r'''$[:].chat_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
 }
 
 class ChatmessagesCall {

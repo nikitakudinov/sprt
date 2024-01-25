@@ -20,8 +20,13 @@ Future baseloader(BuildContext context) async {
         ),
     );
   } else {
-    chats = await ChatsGroup.authchatsCall.call(
+    chats = await ChatsGroup.authchatmembersCall.call(
       playerUid: currentUserUid,
+    );
+    await ChatsGroup.chatsbyidsCall.call(
+      chatIdsList: ChatsGroup.authchatmembersCall.chatid(
+        (chats.jsonBody ?? ''),
+      ),
     );
     FFAppState().update(() {
       FFAppState().updateMAINDATAStruct(

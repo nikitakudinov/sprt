@@ -2,7 +2,6 @@ import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 
 Future baseloader(BuildContext context) async {
@@ -25,13 +24,7 @@ Future baseloader(BuildContext context) async {
     chatsmembers = await ChatsGroup.authchatmembersCall.call(
       playerUid: currentUserUid,
     );
-    chats = await ChatsGroup.chatsbyidsCall.call(
-      chatIds: functions.arrayToString(ChatsGroup.authchatmembersCall
-          .chatid(
-            (chatsmembers.jsonBody ?? ''),
-          )!
-          .toList()),
-    );
+    chats = await ChatsGroup.chatsCall.call();
     FFAppState().update(() {
       FFAppState().updateMAINDATAStruct(
         (e) => e

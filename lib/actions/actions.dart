@@ -1,3 +1,4 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -30,7 +31,9 @@ Future baseloader(BuildContext context) async {
       ),
     );
   } else {
-    chats = await ChatsGroup.chatsCall.call();
+    chats = await DevGroup.authuserchatsCall.call(
+      uid: currentUserUid,
+    );
     FFAppState().update(() {
       FFAppState().updateMAINDATAStruct(
         (e) => e

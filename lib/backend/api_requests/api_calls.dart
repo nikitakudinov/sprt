@@ -794,7 +794,7 @@ class AuthchatmembersCall {
     return ApiManager.instance.makeApiCall(
       callName: 'authchatmembers',
       apiUrl:
-          '${ChatsGroup.baseUrl}chat_members?player_uid=eq.$playerUid&select=chats(*)',
+          '${ChatsGroup.baseUrl}chat_members?player_uid=eq.$playerUid&select=chat_id,player_uid',
       callType: ApiCallType.GET,
       headers: {
         'apikey':
@@ -809,15 +809,14 @@ class AuthchatmembersCall {
     );
   }
 
-  List<int>? chatsid(dynamic response) => (getJsonField(
+  int? chatid(dynamic response) => castToType<int>(getJsonField(
         response,
-        r'''$[:].chats.id''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<int>(x))
-          .withoutNulls
-          .toList();
+        r'''$[:].chat_id''',
+      ));
+  String? playeruid(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].player_uid''',
+      ));
 }
 
 class ChatmessagesCall {

@@ -1,4 +1,3 @@
-import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -20,9 +19,7 @@ Future baseloader(BuildContext context) async {
         ),
     );
   } else {
-    chatsmembers = await ChatsGroup.authchatmembersCall.call(
-      playerUid: currentUserUid,
-    );
+    chatsmembers = await ChatsGroup.chatsCall.call();
     FFAppState().update(() {
       FFAppState().updateMAINDATAStruct(
         (e) => e

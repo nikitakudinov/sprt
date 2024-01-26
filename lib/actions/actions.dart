@@ -2,10 +2,12 @@ import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 
 Future baseloader(BuildContext context) async {
   ApiCallResponse? updates;
+  ApiCallResponse? chatsmembers;
   ApiCallResponse? chats;
 
   updates = await UpdatesGroup.updatesCall.call();
@@ -20,19 +22,21 @@ Future baseloader(BuildContext context) async {
         ),
     );
   } else {
-    chats = await ChatsGroup.authchatmembersCall.call(
+    chatsmembers = await ChatsGroup.authchatmembersCall.call(
       playerUid: currentUserUid,
     );
-    await ChatsGroup.chatsbyidsCall.call(
-      chatIdsList: ChatsGroup.authchatmembersCall.chatid(
-        (chats.jsonBody ?? ''),
-      ),
+    chats = await ChatsGroup.chatsbyidsCall.call(
+      chatIds: functions.arrayToString(ChatsGroup.authchatmembersCall
+          .chatid(
+            (chatsmembers.jsonBody ?? ''),
+          )!
+          .toList()),
     );
     FFAppState().update(() {
       FFAppState().updateMAINDATAStruct(
         (e) => e
           ..chats = (getJsonField(
-            (chats?.jsonBody ?? ''),
+            (chatsmembers?.jsonBody ?? ''),
             r'''$[:].chats''',
             true,
           )!

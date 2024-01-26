@@ -745,10 +745,8 @@ class ChatsCall {
 
 class ChatsbyidsCall {
   Future<ApiCallResponse> call({
-    List<int>? chatIdsList,
+    String? chatIds = '',
   }) async {
-    final chatIds = _serializeList(chatIdsList);
-
     return ApiManager.instance.makeApiCall(
       callName: 'chatsbyids',
       apiUrl: '${ChatsGroup.baseUrl}chats?id=in.($chatIds)',

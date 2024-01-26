@@ -73,13 +73,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const HomePageWidget() : const HomePageWidget(),
+          appStateNotifier.loggedIn ? const HomeWidget() : const HomePageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const HomePageWidget() : const HomePageWidget(),
+              appStateNotifier.loggedIn ? const HomeWidget() : const HomePageWidget(),
         ),
         FFRoute(
           name: 'HomePage',
@@ -97,6 +97,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => AddcontentpageWidget(
             contentType: params.getParam('contentType', ParamType.String),
           ),
+        ),
+        FFRoute(
+          name: 'HOME',
+          path: '/home',
+          builder: (context, params) => const HomeWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

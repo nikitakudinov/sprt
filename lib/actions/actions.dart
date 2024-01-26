@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,16 @@ Future baseloader(BuildContext context) async {
         ..chats = UpdatesGroup.updatesCall.chats(
           (updates?.jsonBody ?? ''),
         ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text(
+          'нет',
+          style: TextStyle(),
+        ),
+        duration: const Duration(milliseconds: 500),
+        backgroundColor: FlutterFlowTheme.of(context).secondary,
+      ),
     );
   } else {
     chats = await ChatsGroup.chatsCall.call();

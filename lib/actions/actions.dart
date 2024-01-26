@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 Future baseloader(BuildContext context) async {
   ApiCallResponse? updates;
   ApiCallResponse? chatsmembers;
-  ApiCallResponse? chats;
 
   updates = await UpdatesGroup.updatesCall.call();
   if (FFAppState().UPDATES.chats ==
@@ -24,7 +23,6 @@ Future baseloader(BuildContext context) async {
     chatsmembers = await ChatsGroup.authchatmembersCall.call(
       playerUid: currentUserUid,
     );
-    chats = await ChatsGroup.chatsCall.call();
     FFAppState().update(() {
       FFAppState().updateMAINDATAStruct(
         (e) => e

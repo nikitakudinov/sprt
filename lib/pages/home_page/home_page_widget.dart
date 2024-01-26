@@ -33,7 +33,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.instantTimer = InstantTimer.periodic(
-        duration: const Duration(milliseconds: 1000),
+        duration: const Duration(milliseconds: 5000),
         callback: (timer) async {
           await action_blocks.baseloader(context);
         },

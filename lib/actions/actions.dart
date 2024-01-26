@@ -36,11 +36,14 @@ Future baseloader(BuildContext context) async {
       playerUid: currentUserUid,
     );
     chats = await ChatsGroup.chatsbyidsCall.call(
-      chatIds: ChatsGroup.authchatmembersCall
-          .chatid(
-            (chatidarray.jsonBody ?? ''),
-          )
-          ?.toString(),
+      chatIds: valueOrDefault<String>(
+        ChatsGroup.authchatmembersCall
+            .chatid(
+              (chatidarray.jsonBody ?? ''),
+            )
+            ?.toString(),
+        '1',
+      ),
     );
     FFAppState().update(() {
       FFAppState().updateMAINDATAStruct(

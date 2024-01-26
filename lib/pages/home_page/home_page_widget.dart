@@ -84,7 +84,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           title: Text(
             'Page Title',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Roboto',
                   color: Colors.white,
                   fontSize: 22.0,
                 ),
@@ -142,7 +142,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).primary,
                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'Roboto',
                         color: Colors.white,
                       ),
                   elevation: 3.0,
@@ -165,7 +165,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).primary,
                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'Roboto',
                         color: Colors.white,
                       ),
                   elevation: 3.0,
@@ -228,7 +228,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).primary,
                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'Roboto',
                         color: Colors.white,
                       ),
                   elevation: 3.0,
@@ -273,7 +273,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).primary,
                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'Roboto',
                         color: Colors.white,
                       ),
                   elevation: 3.0,
@@ -299,7 +299,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       labelText: 'email',
                       labelStyle:
                           FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Readex Pro',
+                                fontFamily: 'Roboto',
                                 color: FlutterFlowTheme.of(context).primaryText,
                               ),
                       hintStyle: FlutterFlowTheme.of(context).labelMedium,
@@ -353,7 +353,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       labelText: 'pass',
                       labelStyle:
                           FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Readex Pro',
+                                fontFamily: 'Roboto',
                                 color: FlutterFlowTheme.of(context).primaryText,
                               ),
                       hintStyle: FlutterFlowTheme.of(context).labelMedium,
@@ -419,7 +419,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       labelText: 'repass',
                       labelStyle:
                           FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Readex Pro',
+                                fontFamily: 'Roboto',
                                 color: FlutterFlowTheme.of(context).primaryText,
                               ),
                       hintStyle: FlutterFlowTheme.of(context).labelMedium,

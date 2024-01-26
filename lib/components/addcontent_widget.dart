@@ -157,7 +157,7 @@ class _AddcontentWidgetState extends State<AddcontentWidget> {
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Readex Pro',
+                                    fontFamily: 'Roboto',
                                     color: Colors.white,
                                   ),
                           elevation: 3.0,

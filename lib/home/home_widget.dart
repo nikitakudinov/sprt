@@ -57,7 +57,7 @@ class _HomeWidgetState extends State<HomeWidget> {
           title: Text(
             'Page Title',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Roboto',
                   color: Colors.white,
                   fontSize: 22.0,
                 ),

@@ -57,7 +57,7 @@ class _PlayersWidgetState extends State<PlayersWidget> {
           title: Text(
             'Игроки',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Roboto',
                   color: Colors.white,
                   fontSize: 22.0,
                 ),

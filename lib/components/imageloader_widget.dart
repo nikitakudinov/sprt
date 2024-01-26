@@ -75,7 +75,7 @@ class _ImageloaderWidgetState extends State<ImageloaderWidget> {
             iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
             color: FlutterFlowTheme.of(context).primary,
             textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                  fontFamily: 'Readex Pro',
+                  fontFamily: 'Roboto',
                   color: Colors.white,
                 ),
             elevation: 3.0,
@@ -97,7 +97,7 @@ class _ImageloaderWidgetState extends State<ImageloaderWidget> {
             iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
             color: FlutterFlowTheme.of(context).primary,
             textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                  fontFamily: 'Readex Pro',
+                  fontFamily: 'Roboto',
                   color: Colors.white,
                 ),
             elevation: 3.0,

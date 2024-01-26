@@ -99,7 +99,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                   'title',
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'Roboto',
                       color: widget.titleColor,
                       fontSize: widget.titleSize?.toDouble(),
                     ),
@@ -110,7 +110,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                   'subTitle',
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'Roboto',
                       color: widget.subTitleColor,
                       fontSize: widget.subTitleSize?.toDouble(),
                     ),

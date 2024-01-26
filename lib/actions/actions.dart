@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 Future baseloader(BuildContext context) async {
   ApiCallResponse? updates;
-  ApiCallResponse? chatsmembers;
+  ApiCallResponse? chats;
 
   updates = await UpdatesGroup.updatesCall.call();
   if (FFAppState().UPDATES.chats ==
@@ -19,13 +19,13 @@ Future baseloader(BuildContext context) async {
         ),
     );
   } else {
-    chatsmembers = await ChatsGroup.chatsCall.call();
+    chats = await ChatsGroup.chatsCall.call();
     FFAppState().update(() {
       FFAppState().updateMAINDATAStruct(
         (e) => e
           ..chats = (getJsonField(
-            (chatsmembers?.jsonBody ?? ''),
-            r'''$[:].chats''',
+            (chats?.jsonBody ?? ''),
+            r'''$''',
             true,
           )!
                   .toList()

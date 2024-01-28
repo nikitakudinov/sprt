@@ -32,6 +32,7 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
         duration: const Duration(milliseconds: 3000),
         callback: (timer) async {
           await action_blocks.baseloader(context);
+          setState(() {});
         },
         startImmediately: true,
       );

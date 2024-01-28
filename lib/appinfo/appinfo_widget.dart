@@ -165,10 +165,13 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
                     ),
                     Expanded(
                       child: Text(
-                        dateTimeFormat(
-                            'd/M H:mm',
-                            functions
-                                .stringTOdatetime(FFAppState().UPDATES.chats)),
+                        valueOrDefault<String>(
+                          dateTimeFormat(
+                              'MEd',
+                              functions.stringTOdatetime(
+                                  FFAppState().UPDATES.chats)),
+                          '00:00',
+                        ),
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),
@@ -193,10 +196,13 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
                     ),
                     Expanded(
                       child: Text(
-                        dateTimeFormat(
-                            'd/M H:mm',
-                            functions.stringTOdatetime(
-                                FFAppState().UPDATES.chatMembers)),
+                        valueOrDefault<String>(
+                          dateTimeFormat(
+                              'd/M H:mm',
+                              functions.stringTOdatetime(
+                                  FFAppState().UPDATES.chatMembers)),
+                          '00:00',
+                        ),
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),

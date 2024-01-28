@@ -973,6 +973,7 @@ class UpdatesGroup {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
   };
   static UpdatesCall updatesCall = UpdatesCall();
+  static RpcgetupdatesCall rpcgetupdatesCall = RpcgetupdatesCall();
 }
 
 class UpdatesCall {
@@ -1028,6 +1029,43 @@ class UpdatesCall {
       ));
 }
 
+class RpcgetupdatesCall {
+  Future<ApiCallResponse> call({
+    String? uid = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'rpcgetupdates',
+      apiUrl: '${UpdatesGroup.baseUrl}rpc/get_updates',
+      callType: ApiCallType.GET,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {
+        'uid': uid,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? chats(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].chats''',
+      ));
+  String? chatmembers(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].chat_members''',
+      ));
+  String? chatmessages(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].chat_messages''',
+      ));
+}
+
 /// End UPDATES Group Code
 
 /// Start DEV Group Code
@@ -1044,6 +1082,7 @@ class DevGroup {
       GetunreadedmessagesbychatidCall();
   static ReadChatMessagesCall readChatMessagesCall = ReadChatMessagesCall();
   static AuthchatsCall authchatsCall = AuthchatsCall();
+  static GetupdatesCall getupdatesCall = GetupdatesCall();
 }
 
 class AuthmessagesCall {
@@ -1181,6 +1220,30 @@ class AuthchatsCall {
     return ApiManager.instance.makeApiCall(
       callName: 'AUTHCHATS',
       apiUrl: '${DevGroup.baseUrl}rpc/get_chats?select=*,chat_messages(*)',
+      callType: ApiCallType.GET,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {
+        'uid': uid,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetupdatesCall {
+  Future<ApiCallResponse> call({
+    String? uid = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getupdates',
+      apiUrl: '${DevGroup.baseUrl}rpc/get_updates',
       callType: ApiCallType.GET,
       headers: {
         'apikey':

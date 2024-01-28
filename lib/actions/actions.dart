@@ -9,13 +9,15 @@ Future baseloader(BuildContext context) async {
   ApiCallResponse? chatMembers;
   ApiCallResponse? chats;
 
-  updates = await UpdatesGroup.updatesCall.call();
+  updates = await UpdatesGroup.rpcgetupdatesCall.call(
+    uid: currentUserUid,
+  );
   if ((FFAppState().UPDATES.chats !=
-          UpdatesGroup.updatesCall.chats(
+          UpdatesGroup.rpcgetupdatesCall.chats(
             (updates.jsonBody ?? ''),
           )) ||
       (FFAppState().UPDATES.chatMembers !=
-          UpdatesGroup.updatesCall.chatmembers(
+          UpdatesGroup.rpcgetupdatesCall.chatmembers(
             (updates.jsonBody ?? ''),
           ))) {
     chatMembers = await ChatsGroup.authchatmembersCall.call(
@@ -39,6 +41,15 @@ Future baseloader(BuildContext context) async {
                   .toList() as Iterable<ChatMemberStruct?>)
               .withoutNulls
               .toList(),
+      );
+      FFAppState().updateUPDATESStruct(
+        (e) => e
+          ..chats = UpdatesGroup.rpcgetupdatesCall.chats(
+            (updates?.jsonBody ?? ''),
+          )
+          ..chatMembers = UpdatesGroup.rpcgetupdatesCall.chatmembers(
+            (updates?.jsonBody ?? ''),
+          ),
       );
     });
   }

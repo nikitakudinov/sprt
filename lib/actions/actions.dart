@@ -11,36 +11,10 @@ Future baseloader(BuildContext context) async {
   ApiCallResponse? chatMembers;
 
   updates = await UpdatesGroup.updatesCall.call();
-  if ((FFAppState().UPDATES.chats ==
-          UpdatesGroup.updatesCall.chats(
-            (updates.jsonBody ?? ''),
-          )) ||
-      (FFAppState().UPDATES.chatMembers ==
-          UpdatesGroup.updatesCall.chatmembers(
-            (updates.jsonBody ?? ''),
-          ))) {
-    FFAppState().update(() {
-      FFAppState().updateUPDATESStruct(
-        (e) => e
-          ..chats = UpdatesGroup.updatesCall.chats(
-            (updates?.jsonBody ?? ''),
-          )
-          ..chatMembers = UpdatesGroup.updatesCall.chatmembers(
-            (updates?.jsonBody ?? ''),
-          ),
-      );
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text(
-          'нет',
-          style: TextStyle(),
-        ),
-        duration: const Duration(milliseconds: 500),
-        backgroundColor: FlutterFlowTheme.of(context).secondary,
-      ),
-    );
-  } else {
+  if (UpdatesGroup.updatesCall.chats(
+        (updates.jsonBody ?? ''),
+      ) ==
+      FFAppState().UPDATES.chats) {
     chats = await ChatsGroup.getchatsCall.call(
       uid: currentUserUid,
     );
@@ -70,9 +44,6 @@ Future baseloader(BuildContext context) async {
       FFAppState().updateUPDATESStruct(
         (e) => e
           ..chats = UpdatesGroup.updatesCall.chats(
-            (updates?.jsonBody ?? ''),
-          )
-          ..chatMembers = UpdatesGroup.updatesCall.chatmembers(
             (updates?.jsonBody ?? ''),
           ),
       );

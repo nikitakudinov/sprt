@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/instant_timer.dart';
 import '/actions/actions.dart' as action_blocks;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -165,13 +164,7 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
                     ),
                     Expanded(
                       child: Text(
-                        valueOrDefault<String>(
-                          dateTimeFormat(
-                              'MEd',
-                              functions.stringTOdatetime(
-                                  FFAppState().UPDATES.chats)),
-                          '00:00',
-                        ),
+                        '1',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),
@@ -196,13 +189,7 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
                     ),
                     Expanded(
                       child: Text(
-                        valueOrDefault<String>(
-                          dateTimeFormat(
-                              'd/M H:mm',
-                              functions.stringTOdatetime(
-                                  FFAppState().UPDATES.chatMembers)),
-                          '00:00',
-                        ),
+                        '1',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),

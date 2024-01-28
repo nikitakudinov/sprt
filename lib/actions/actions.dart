@@ -1,6 +1,7 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
@@ -52,6 +53,16 @@ Future baseloader(BuildContext context) async {
           ),
       );
     });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text(
+          'UPDATED',
+          style: TextStyle(),
+        ),
+        duration: const Duration(milliseconds: 1000),
+        backgroundColor: FlutterFlowTheme.of(context).secondary,
+      ),
+    );
   } else {
     FFAppState().update(() {
       FFAppState().updateUPDATESStruct(
@@ -64,19 +75,5 @@ Future baseloader(BuildContext context) async {
           ),
       );
     });
-    await showDialog(
-      context: context,
-      builder: (alertDialogContext) {
-        return AlertDialog(
-          title: const Text('1'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(alertDialogContext),
-              child: const Text('Ok'),
-            ),
-          ],
-        );
-      },
-    );
   }
 }

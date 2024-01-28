@@ -9,7 +9,7 @@ class UpdatesStruct extends BaseStruct {
   UpdatesStruct({
     String? chats,
     String? teams,
-    DateTime? chatMembers,
+    String? chatMembers,
   })  : _chats = chats,
         _teams = teams,
         _chatMembers = chatMembers;
@@ -27,15 +27,15 @@ class UpdatesStruct extends BaseStruct {
   bool hasTeams() => _teams != null;
 
   // "chat_members" field.
-  DateTime? _chatMembers;
-  DateTime? get chatMembers => _chatMembers;
-  set chatMembers(DateTime? val) => _chatMembers = val;
+  String? _chatMembers;
+  String get chatMembers => _chatMembers ?? '';
+  set chatMembers(String? val) => _chatMembers = val;
   bool hasChatMembers() => _chatMembers != null;
 
   static UpdatesStruct fromMap(Map<String, dynamic> data) => UpdatesStruct(
         chats: data['chats'] as String?,
         teams: data['teams'] as String?,
-        chatMembers: data['chat_members'] as DateTime?,
+        chatMembers: data['chat_members'] as String?,
       );
 
   static UpdatesStruct? maybeFromMap(dynamic data) =>
@@ -59,7 +59,7 @@ class UpdatesStruct extends BaseStruct {
         ),
         'chat_members': serializeParam(
           _chatMembers,
-          ParamType.DateTime,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -77,7 +77,7 @@ class UpdatesStruct extends BaseStruct {
         ),
         chatMembers: deserializeParam(
           data['chat_members'],
-          ParamType.DateTime,
+          ParamType.String,
           false,
         ),
       );
@@ -100,7 +100,7 @@ class UpdatesStruct extends BaseStruct {
 UpdatesStruct createUpdatesStruct({
   String? chats,
   String? teams,
-  DateTime? chatMembers,
+  String? chatMembers,
 }) =>
     UpdatesStruct(
       chats: chats,

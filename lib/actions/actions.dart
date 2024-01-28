@@ -53,6 +53,17 @@ Future baseloader(BuildContext context) async {
       );
     });
   } else {
+    FFAppState().update(() {
+      FFAppState().updateUPDATESStruct(
+        (e) => e
+          ..chats = UpdatesGroup.rpcgetupdatesCall.chats(
+            (updates?.jsonBody ?? ''),
+          )
+          ..chatMembers = UpdatesGroup.rpcgetupdatesCall.chatmembers(
+            (updates?.jsonBody ?? ''),
+          ),
+      );
+    });
     await showDialog(
       context: context,
       builder: (alertDialogContext) {

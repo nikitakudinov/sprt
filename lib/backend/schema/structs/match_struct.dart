@@ -5,8 +5,8 @@ import '/backend/schema/util/schema_util.dart';
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
-class MatchesStruct extends BaseStruct {
-  MatchesStruct({
+class MatchStruct extends BaseStruct {
+  MatchStruct({
     int? id,
     String? updatedAt,
     String? createdAt,
@@ -51,7 +51,7 @@ class MatchesStruct extends BaseStruct {
   set dateOfGame(String? val) => _dateOfGame = val;
   bool hasDateOfGame() => _dateOfGame != null;
 
-  static MatchesStruct fromMap(Map<String, dynamic> data) => MatchesStruct(
+  static MatchStruct fromMap(Map<String, dynamic> data) => MatchStruct(
         id: castToType<int>(data['id']),
         updatedAt: data['updated_at'] as String?,
         createdAt: data['created_at'] as String?,
@@ -59,8 +59,8 @@ class MatchesStruct extends BaseStruct {
         dateOfGame: data['date_of_game'] as String?,
       );
 
-  static MatchesStruct? maybeFromMap(dynamic data) =>
-      data is Map ? MatchesStruct.fromMap(data.cast<String, dynamic>()) : null;
+  static MatchStruct? maybeFromMap(dynamic data) =>
+      data is Map ? MatchStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'id': _id,
@@ -94,8 +94,8 @@ class MatchesStruct extends BaseStruct {
         ),
       }.withoutNulls;
 
-  static MatchesStruct fromSerializableMap(Map<String, dynamic> data) =>
-      MatchesStruct(
+  static MatchStruct fromSerializableMap(Map<String, dynamic> data) =>
+      MatchStruct(
         id: deserializeParam(
           data['id'],
           ParamType.int,
@@ -124,11 +124,11 @@ class MatchesStruct extends BaseStruct {
       );
 
   @override
-  String toString() => 'MatchesStruct(${toMap()})';
+  String toString() => 'MatchStruct(${toMap()})';
 
   @override
   bool operator ==(Object other) {
-    return other is MatchesStruct &&
+    return other is MatchStruct &&
         id == other.id &&
         updatedAt == other.updatedAt &&
         createdAt == other.createdAt &&
@@ -141,14 +141,14 @@ class MatchesStruct extends BaseStruct {
       .hash([id, updatedAt, createdAt, forTournament, dateOfGame]);
 }
 
-MatchesStruct createMatchesStruct({
+MatchStruct createMatchStruct({
   int? id,
   String? updatedAt,
   String? createdAt,
   int? forTournament,
   String? dateOfGame,
 }) =>
-    MatchesStruct(
+    MatchStruct(
       id: id,
       updatedAt: updatedAt,
       createdAt: createdAt,

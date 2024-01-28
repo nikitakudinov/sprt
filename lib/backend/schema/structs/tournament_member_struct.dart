@@ -5,20 +5,18 @@ import '/backend/schema/util/schema_util.dart';
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
-class MatchOpponentsStruct extends BaseStruct {
-  MatchOpponentsStruct({
+class TournamentMemberStruct extends BaseStruct {
+  TournamentMemberStruct({
     int? id,
     String? createdAt,
+    int? tournamentId,
     String? updatedAt,
     int? teamId,
-    int? scores,
-    int? matchId,
   })  : _id = id,
         _createdAt = createdAt,
+        _tournamentId = tournamentId,
         _updatedAt = updatedAt,
-        _teamId = teamId,
-        _scores = scores,
-        _matchId = matchId;
+        _teamId = teamId;
 
   // "id" field.
   int? _id;
@@ -33,6 +31,14 @@ class MatchOpponentsStruct extends BaseStruct {
   set createdAt(String? val) => _createdAt = val;
   bool hasCreatedAt() => _createdAt != null;
 
+  // "tournament_id" field.
+  int? _tournamentId;
+  int get tournamentId => _tournamentId ?? 0;
+  set tournamentId(int? val) => _tournamentId = val;
+  void incrementTournamentId(int amount) =>
+      _tournamentId = tournamentId + amount;
+  bool hasTournamentId() => _tournamentId != null;
+
   // "updated_at" field.
   String? _updatedAt;
   String get updatedAt => _updatedAt ?? '';
@@ -46,41 +52,25 @@ class MatchOpponentsStruct extends BaseStruct {
   void incrementTeamId(int amount) => _teamId = teamId + amount;
   bool hasTeamId() => _teamId != null;
 
-  // "scores" field.
-  int? _scores;
-  int get scores => _scores ?? 0;
-  set scores(int? val) => _scores = val;
-  void incrementScores(int amount) => _scores = scores + amount;
-  bool hasScores() => _scores != null;
-
-  // "match_id" field.
-  int? _matchId;
-  int get matchId => _matchId ?? 0;
-  set matchId(int? val) => _matchId = val;
-  void incrementMatchId(int amount) => _matchId = matchId + amount;
-  bool hasMatchId() => _matchId != null;
-
-  static MatchOpponentsStruct fromMap(Map<String, dynamic> data) =>
-      MatchOpponentsStruct(
+  static TournamentMemberStruct fromMap(Map<String, dynamic> data) =>
+      TournamentMemberStruct(
         id: castToType<int>(data['id']),
         createdAt: data['created_at'] as String?,
+        tournamentId: castToType<int>(data['tournament_id']),
         updatedAt: data['updated_at'] as String?,
         teamId: castToType<int>(data['team_id']),
-        scores: castToType<int>(data['scores']),
-        matchId: castToType<int>(data['match_id']),
       );
 
-  static MatchOpponentsStruct? maybeFromMap(dynamic data) => data is Map
-      ? MatchOpponentsStruct.fromMap(data.cast<String, dynamic>())
+  static TournamentMemberStruct? maybeFromMap(dynamic data) => data is Map
+      ? TournamentMemberStruct.fromMap(data.cast<String, dynamic>())
       : null;
 
   Map<String, dynamic> toMap() => {
         'id': _id,
         'created_at': _createdAt,
+        'tournament_id': _tournamentId,
         'updated_at': _updatedAt,
         'team_id': _teamId,
-        'scores': _scores,
-        'match_id': _matchId,
       }.withoutNulls;
 
   @override
@@ -93,6 +83,10 @@ class MatchOpponentsStruct extends BaseStruct {
           _createdAt,
           ParamType.String,
         ),
+        'tournament_id': serializeParam(
+          _tournamentId,
+          ParamType.int,
+        ),
         'updated_at': serializeParam(
           _updatedAt,
           ParamType.String,
@@ -101,18 +95,11 @@ class MatchOpponentsStruct extends BaseStruct {
           _teamId,
           ParamType.int,
         ),
-        'scores': serializeParam(
-          _scores,
-          ParamType.int,
-        ),
-        'match_id': serializeParam(
-          _matchId,
-          ParamType.int,
-        ),
       }.withoutNulls;
 
-  static MatchOpponentsStruct fromSerializableMap(Map<String, dynamic> data) =>
-      MatchOpponentsStruct(
+  static TournamentMemberStruct fromSerializableMap(
+          Map<String, dynamic> data) =>
+      TournamentMemberStruct(
         id: deserializeParam(
           data['id'],
           ParamType.int,
@@ -121,6 +108,11 @@ class MatchOpponentsStruct extends BaseStruct {
         createdAt: deserializeParam(
           data['created_at'],
           ParamType.String,
+          false,
+        ),
+        tournamentId: deserializeParam(
+          data['tournament_id'],
+          ParamType.int,
           false,
         ),
         updatedAt: deserializeParam(
@@ -133,50 +125,37 @@ class MatchOpponentsStruct extends BaseStruct {
           ParamType.int,
           false,
         ),
-        scores: deserializeParam(
-          data['scores'],
-          ParamType.int,
-          false,
-        ),
-        matchId: deserializeParam(
-          data['match_id'],
-          ParamType.int,
-          false,
-        ),
       );
 
   @override
-  String toString() => 'MatchOpponentsStruct(${toMap()})';
+  String toString() => 'TournamentMemberStruct(${toMap()})';
 
   @override
   bool operator ==(Object other) {
-    return other is MatchOpponentsStruct &&
+    return other is TournamentMemberStruct &&
         id == other.id &&
         createdAt == other.createdAt &&
+        tournamentId == other.tournamentId &&
         updatedAt == other.updatedAt &&
-        teamId == other.teamId &&
-        scores == other.scores &&
-        matchId == other.matchId;
+        teamId == other.teamId;
   }
 
   @override
   int get hashCode => const ListEquality()
-      .hash([id, createdAt, updatedAt, teamId, scores, matchId]);
+      .hash([id, createdAt, tournamentId, updatedAt, teamId]);
 }
 
-MatchOpponentsStruct createMatchOpponentsStruct({
+TournamentMemberStruct createTournamentMemberStruct({
   int? id,
   String? createdAt,
+  int? tournamentId,
   String? updatedAt,
   int? teamId,
-  int? scores,
-  int? matchId,
 }) =>
-    MatchOpponentsStruct(
+    TournamentMemberStruct(
       id: id,
       createdAt: createdAt,
+      tournamentId: tournamentId,
       updatedAt: updatedAt,
       teamId: teamId,
-      scores: scores,
-      matchId: matchId,
     );

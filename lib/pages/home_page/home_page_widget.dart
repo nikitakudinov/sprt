@@ -156,7 +156,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 return;
                               }
 
-                              context.goNamedAuth('HOME', context.mounted);
+                              context.goNamedAuth('APPINFO', context.mounted);
                             },
                             text: 'register',
                             options: FFButtonOptions(

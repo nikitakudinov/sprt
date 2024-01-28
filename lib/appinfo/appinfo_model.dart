@@ -1,14 +1,13 @@
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'players_widget.dart' show PlayersWidget;
+import '/flutter_flow/instant_timer.dart';
+import 'appinfo_widget.dart' show AppinfoWidget;
 import 'package:flutter/material.dart';
 
-class PlayersModel extends FlutterFlowModel<PlayersWidget> {
+class AppinfoModel extends FlutterFlowModel<AppinfoWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Backend Call - API (PLAYERS)] action in PLAYERS widget.
-  ApiCallResponse? playersdata;
+  InstantTimer? instantTimer;
 
   /// Initialization and disposal methods.
 
@@ -18,6 +17,7 @@ class PlayersModel extends FlutterFlowModel<PlayersWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
+    instantTimer?.cancel();
   }
 
   /// Action blocks are added here.

@@ -949,16 +949,149 @@ class DevGroup {
     'apikey':
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
   };
-  static AuthuserchatsCall authuserchatsCall = AuthuserchatsCall();
+  static AuthmessagesCall authmessagesCall = AuthmessagesCall();
+  static GetchatmembersCall getchatmembersCall = GetchatmembersCall();
+  static GetunreadedmessagesbychatidCall getunreadedmessagesbychatidCall =
+      GetunreadedmessagesbychatidCall();
+  static ReadChatMessagesCall readChatMessagesCall = ReadChatMessagesCall();
+  static AuthchatsCall authchatsCall = AuthchatsCall();
 }
 
-class AuthuserchatsCall {
+class AuthmessagesCall {
+  Future<ApiCallResponse> call({
+    String? uid = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "uid": "$uid"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'AUTHMESSAGES',
+      apiUrl: '${DevGroup.baseUrl}rpc/get_messages?',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List? chatmessagesreadedby(dynamic response) => getJsonField(
+        response,
+        r'''$[:].chat_messages_readed_by''',
+        true,
+      ) as List?;
+}
+
+class GetchatmembersCall {
+  Future<ApiCallResponse> call({
+    String? uid = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "uid": "$uid"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'getchatmembers',
+      apiUrl: '${DevGroup.baseUrl}rpc/get_chat_members',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List? chatmessagesreadedby(dynamic response) => getJsonField(
+        response,
+        r'''$[:].chat_messages_readed_by''',
+        true,
+      ) as List?;
+}
+
+class GetunreadedmessagesbychatidCall {
+  Future<ApiCallResponse> call({
+    String? uid = '',
+    int? chat,
+  }) async {
+    final ffApiRequestBody = '''
+{
+"uid": "$uid",
+"chat": "$chat"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'getunreadedmessagesbychatid',
+      apiUrl: '${DevGroup.baseUrl}rpc/get_unreaded_messages_by_chat_id',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class ReadChatMessagesCall {
+  Future<ApiCallResponse> call({
+    String? uid = '',
+    int? chat,
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "uid": "$uid",
+  "chat": $chat
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'readChatMessages',
+      apiUrl: '${DevGroup.baseUrl}rpc/add_readed_by',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class AuthchatsCall {
   Future<ApiCallResponse> call({
     String? uid = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'AUTHUSERCHATS',
-      apiUrl: '${DevGroup.baseUrl}rpc/get_chats',
+      callName: 'AUTHCHATS',
+      apiUrl: '${DevGroup.baseUrl}rpc/get_chats?select=*,chat_messages(*)',
       callType: ApiCallType.GET,
       headers: {
         'apikey':

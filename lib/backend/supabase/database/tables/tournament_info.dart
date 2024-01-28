@@ -30,11 +30,8 @@ class TournamentInfoRow extends SupabaseDataRow {
   String? get name => getField<String>('name');
   set name(String? value) => setField<String>('name', value);
 
-  String? get tagText => getField<String>('tag-text');
-  set tagText(String? value) => setField<String>('tag-text', value);
-
-  String? get tagSymbols => getField<String>('tag-symbols');
-  set tagSymbols(String? value) => setField<String>('tag-symbols', value);
+  String? get tag => getField<String>('tag');
+  set tag(String? value) => setField<String>('tag', value);
 
   int? get country => getField<int>('country');
   set country(int? value) => setField<int>('country', value);

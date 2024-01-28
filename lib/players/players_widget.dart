@@ -1,6 +1,9 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'players_model.dart';
@@ -22,6 +25,24 @@ class _PlayersWidgetState extends State<PlayersWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PlayersModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.playersdata = await PlayersGroup.playersCall.call();
+      if ((_model.playersdata?.succeeded ?? true)) {
+        setState(() {
+          FFAppState().updateMAINDATAStruct(
+            (e) => e
+              ..players = ((_model.playersdata?.jsonBody ?? '')
+                      .toList()
+                      .map<PlayerStruct?>(PlayerStruct.maybeFromMap)
+                      .toList() as Iterable<PlayerStruct?>)
+                  .withoutNulls
+                  .toList(),
+          );
+        });
+      }
+    });
   }
 
   @override
@@ -55,7 +76,7 @@ class _PlayersWidgetState extends State<PlayersWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
           title: Text(
-            'Игроки',
+            'Page Title',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Roboto',
                   color: Colors.white,
@@ -66,11 +87,86 @@ class _PlayersWidgetState extends State<PlayersWidget> {
           centerTitle: false,
           elevation: 2.0,
         ),
-        body: const SafeArea(
+        body: SafeArea(
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: [],
+            children: [
+              Builder(
+                builder: (context) {
+                  final players = FFAppState().MAINDATA.players.toList();
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: players.length,
+                    itemBuilder: (context, playersIndex) {
+                      final playersItem = players[playersIndex];
+                      return Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    child: Image.network(
+                                      'https://picsum.photos/seed/846/600',
+                                      width: 50.0,
+                                      height: 50.0,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        playersItem.nickname,
+                                        style: FlutterFlowTheme.of(context)
+                                            .titleSmall,
+                                      ),
+                                      Text(
+                                        playersItem.uid,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [],
+                                ),
+                              ].divide(const SizedBox(width: 10.0)),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),

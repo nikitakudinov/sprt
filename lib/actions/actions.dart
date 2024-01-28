@@ -1,4 +1,3 @@
-import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -14,12 +13,6 @@ Future baseloader(BuildContext context) async {
       UpdatesGroup.updatesCall.chats(
         (updates.jsonBody ?? ''),
       )) {
-    FFAppState().updateUPDATESStruct(
-      (e) => e
-        ..chats = UpdatesGroup.updatesCall.chats(
-          (updates?.jsonBody ?? ''),
-        ),
-    );
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: const Text(
@@ -31,9 +24,7 @@ Future baseloader(BuildContext context) async {
       ),
     );
   } else {
-    chats = await DevGroup.authuserchatsCall.call(
-      uid: currentUserUid,
-    );
+    chats = await DevGroup.authmessagesCall.call();
     FFAppState().update(() {
       FFAppState().updateMAINDATAStruct(
         (e) => e

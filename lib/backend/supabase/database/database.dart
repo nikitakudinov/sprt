@@ -6,6 +6,7 @@ export 'row.dart';
 export 'table.dart';
 
 export 'tables/chat_members.dart';
+export 'tables/chat_messages_readed_by.dart';
 export 'tables/chat_messages.dart';
 export 'tables/tournament_organizators.dart';
 export 'tables/countries.dart';
@@ -18,4 +19,5 @@ export 'tables/players.dart';
 export 'tables/tournament_members.dart';
 export 'tables/updates.dart';
 export 'tables/chats.dart';
+export 'tables/updates2.dart';
 export 'tables/matches.dart';

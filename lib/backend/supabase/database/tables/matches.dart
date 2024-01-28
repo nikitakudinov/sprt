@@ -28,7 +28,4 @@ class MatchesRow extends SupabaseDataRow {
 
   DateTime? get dateOfGame => getField<DateTime>('date_of_game');
   set dateOfGame(DateTime? value) => setField<DateTime>('date_of_game', value);
-
-  int? get opponents => getField<int>('opponents');
-  set opponents(int? value) => setField<int>('opponents', value);
 }

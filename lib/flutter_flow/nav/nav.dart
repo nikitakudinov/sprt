@@ -73,23 +73,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const HomeWidget() : const HomePageWidget(),
+          appStateNotifier.loggedIn ? const AppinfoWidget() : const LoginWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const HomeWidget() : const HomePageWidget(),
+              appStateNotifier.loggedIn ? const AppinfoWidget() : const LoginWidget(),
         ),
         FFRoute(
           name: 'HomePage',
           path: '/homePage',
           builder: (context, params) => const HomePageWidget(),
-        ),
-        FFRoute(
-          name: 'PLAYERS',
-          path: '/players',
-          builder: (context, params) => const PlayersWidget(),
         ),
         FFRoute(
           name: 'ADDCONTENTPAGE',
@@ -102,6 +97,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'HOME',
           path: '/home',
           builder: (context, params) => const HomeWidget(),
+        ),
+        FFRoute(
+          name: 'PLAYERS',
+          path: '/players',
+          builder: (context, params) => const PlayersWidget(),
+        ),
+        FFRoute(
+          name: 'LOGIN',
+          path: '/login',
+          builder: (context, params) => const LoginWidget(),
+        ),
+        FFRoute(
+          name: 'APPINFO',
+          path: '/appinfo',
+          builder: (context, params) => const AppinfoWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -270,7 +280,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/homePage';
+            return '/login';
           }
           return null;
         },

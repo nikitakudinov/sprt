@@ -669,6 +669,7 @@ class ChatsGroup {
   };
   static LASTUPDATEDchatsCall lASTUPDATEDchatsCall = LASTUPDATEDchatsCall();
   static ChatsCall chatsCall = ChatsCall();
+  static GetchatsCall getchatsCall = GetchatsCall();
   static ChatsbyidsCall chatsbyidsCall = ChatsbyidsCall();
   static AuthchatmembersCall authchatmembersCall = AuthchatmembersCall();
   static ChatmessagesCall chatmessagesCall = ChatmessagesCall();
@@ -741,6 +742,70 @@ class ChatsCall {
         response,
         r'''$[:].chat_type''',
       ));
+}
+
+class GetchatsCall {
+  Future<ApiCallResponse> call({
+    String? uid = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getchats',
+      apiUrl: '${ChatsGroup.baseUrl}rpc/get_chats',
+      callType: ApiCallType.GET,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {
+        'uid': uid,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  int? id(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].id''',
+      ));
+  String? lastmessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].last_message''',
+      ));
+  String? lastmessagesander(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$[:].lastmessage_sander''',
+      ));
+  String? updatedat(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].updated_at''',
+      ));
+  String? chattype(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].chat_type''',
+      ));
+  List<int>? chatofteam(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].chat_of_team''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<int>? chatoftournament(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].chat_of_tournament''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
 }
 
 class ChatsbyidsCall {

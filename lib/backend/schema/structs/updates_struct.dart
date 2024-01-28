@@ -9,8 +9,10 @@ class UpdatesStruct extends BaseStruct {
   UpdatesStruct({
     String? chats,
     String? teams,
+    String? chatMembers,
   })  : _chats = chats,
-        _teams = teams;
+        _teams = teams,
+        _chatMembers = chatMembers;
 
   // "chats" field.
   String? _chats;
@@ -24,9 +26,16 @@ class UpdatesStruct extends BaseStruct {
   set teams(String? val) => _teams = val;
   bool hasTeams() => _teams != null;
 
+  // "chat_members" field.
+  String? _chatMembers;
+  String get chatMembers => _chatMembers ?? '';
+  set chatMembers(String? val) => _chatMembers = val;
+  bool hasChatMembers() => _chatMembers != null;
+
   static UpdatesStruct fromMap(Map<String, dynamic> data) => UpdatesStruct(
         chats: data['chats'] as String?,
         teams: data['teams'] as String?,
+        chatMembers: data['chat_members'] as String?,
       );
 
   static UpdatesStruct? maybeFromMap(dynamic data) =>
@@ -35,6 +44,7 @@ class UpdatesStruct extends BaseStruct {
   Map<String, dynamic> toMap() => {
         'chats': _chats,
         'teams': _teams,
+        'chat_members': _chatMembers,
       }.withoutNulls;
 
   @override
@@ -45,6 +55,10 @@ class UpdatesStruct extends BaseStruct {
         ),
         'teams': serializeParam(
           _teams,
+          ParamType.String,
+        ),
+        'chat_members': serializeParam(
+          _chatMembers,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -61,6 +75,11 @@ class UpdatesStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        chatMembers: deserializeParam(
+          data['chat_members'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -70,18 +89,21 @@ class UpdatesStruct extends BaseStruct {
   bool operator ==(Object other) {
     return other is UpdatesStruct &&
         chats == other.chats &&
-        teams == other.teams;
+        teams == other.teams &&
+        chatMembers == other.chatMembers;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([chats, teams]);
+  int get hashCode => const ListEquality().hash([chats, teams, chatMembers]);
 }
 
 UpdatesStruct createUpdatesStruct({
   String? chats,
   String? teams,
+  String? chatMembers,
 }) =>
     UpdatesStruct(
       chats: chats,
       teams: teams,
+      chatMembers: chatMembers,
     );

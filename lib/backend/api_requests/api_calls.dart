@@ -1002,6 +1002,30 @@ class UpdatesCall {
         response,
         r'''$[:].teams''',
       ));
+  String? chatmembers(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].chat_members''',
+      ));
+  String? chatmessages(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].chat_messages''',
+      ));
+  String? matchopponents(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].match_opponents''',
+      ));
+  String? matches(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].matches''',
+      ));
+  String? players(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].players''',
+      ));
+  String? teaminfo(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].team_info''',
+      ));
 }
 
 /// End UPDATES Group Code

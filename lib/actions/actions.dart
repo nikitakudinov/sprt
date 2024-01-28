@@ -8,12 +8,17 @@ import 'package:flutter/material.dart';
 Future baseloader(BuildContext context) async {
   ApiCallResponse? updates;
   ApiCallResponse? chats;
+  ApiCallResponse? chatMembers;
 
   updates = await UpdatesGroup.updatesCall.call();
-  if (FFAppState().UPDATES.chats ==
-      UpdatesGroup.updatesCall.chats(
-        (updates.jsonBody ?? ''),
-      )) {
+  if ((FFAppState().UPDATES.chats ==
+          UpdatesGroup.updatesCall.chats(
+            (updates.jsonBody ?? ''),
+          )) ||
+      (FFAppState().UPDATES.chatMembers ==
+          UpdatesGroup.updatesCall.chatmembers(
+            (updates.jsonBody ?? ''),
+          ))) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: const Text(
@@ -28,6 +33,9 @@ Future baseloader(BuildContext context) async {
     chats = await ChatsGroup.getchatsCall.call(
       uid: currentUserUid,
     );
+    chatMembers = await DevGroup.getchatmembersCall.call(
+      uid: currentUserUid,
+    );
     FFAppState().update(() {
       FFAppState().updateMAINDATAStruct(
         (e) => e
@@ -40,11 +48,20 @@ Future baseloader(BuildContext context) async {
                   .map<ChatStruct?>(ChatStruct.maybeFromMap)
                   .toList() as Iterable<ChatStruct?>)
               .withoutNulls
+              .toList()
+          ..chatMembers = ((chatMembers?.jsonBody ?? '')
+                  .toList()
+                  .map<ChatMemberStruct?>(ChatMemberStruct.maybeFromMap)
+                  .toList() as Iterable<ChatMemberStruct?>)
+              .withoutNulls
               .toList(),
       );
       FFAppState().updateUPDATESStruct(
         (e) => e
           ..chats = UpdatesGroup.updatesCall.chats(
+            (updates?.jsonBody ?? ''),
+          )
+          ..chatMembers = UpdatesGroup.updatesCall.chatmembers(
             (updates?.jsonBody ?? ''),
           ),
       );

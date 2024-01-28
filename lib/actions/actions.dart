@@ -13,14 +13,10 @@ Future baseloader(BuildContext context) async {
   updates = await UpdatesGroup.rpcgetupdatesCall.call(
     uid: currentUserUid,
   );
-  if ((FFAppState().UPDATES.chats !=
-          UpdatesGroup.rpcgetupdatesCall.chats(
-            (updates.jsonBody ?? ''),
-          )) ||
-      (FFAppState().UPDATES.chatMembers !=
-          UpdatesGroup.rpcgetupdatesCall.chatmembers(
-            (updates.jsonBody ?? ''),
-          ))) {
+  if (FFAppState().UPDATES.chatMembers !=
+      UpdatesGroup.rpcgetupdatesCall.chatmembers(
+        (updates.jsonBody ?? ''),
+      )) {
     chatMembers = await ChatsGroup.authchatmembersCall.call(
       playerUid: currentUserUid,
     );
@@ -63,17 +59,5 @@ Future baseloader(BuildContext context) async {
         backgroundColor: FlutterFlowTheme.of(context).secondary,
       ),
     );
-  } else {
-    FFAppState().update(() {
-      FFAppState().updateUPDATESStruct(
-        (e) => e
-          ..chats = UpdatesGroup.rpcgetupdatesCall.chats(
-            (updates?.jsonBody ?? ''),
-          )
-          ..chatMembers = UpdatesGroup.rpcgetupdatesCall.chatmembers(
-            (updates?.jsonBody ?? ''),
-          ),
-      );
-    });
   }
 }

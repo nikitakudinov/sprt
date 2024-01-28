@@ -19,6 +19,17 @@ Future baseloader(BuildContext context) async {
           UpdatesGroup.updatesCall.chatmembers(
             (updates.jsonBody ?? ''),
           ))) {
+    FFAppState().update(() {
+      FFAppState().updateUPDATESStruct(
+        (e) => e
+          ..chats = UpdatesGroup.updatesCall.chats(
+            (updates?.jsonBody ?? ''),
+          )
+          ..chatMembers = UpdatesGroup.updatesCall.chatmembers(
+            (updates?.jsonBody ?? ''),
+          ),
+      );
+    });
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: const Text(

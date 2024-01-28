@@ -13,7 +13,7 @@ import '/backend/supabase/supabase.dart';
 import '/auth/supabase_auth/auth_util.dart';
 
 DateTime? timestamptzTOdatetime(String? timestamptz) {
-  // convert timestamptz to datetime
+  // string timestamptz convert datetime
   if (timestamptz == null) {
     return null;
   }

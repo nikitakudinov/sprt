@@ -52,5 +52,20 @@ Future baseloader(BuildContext context) async {
           ),
       );
     });
+  } else {
+    await showDialog(
+      context: context,
+      builder: (alertDialogContext) {
+        return AlertDialog(
+          title: const Text('1'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(alertDialogContext),
+              child: const Text('Ok'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

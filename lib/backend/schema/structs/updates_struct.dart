@@ -8,11 +8,13 @@ import '/flutter_flow/flutter_flow_util.dart';
 class UpdatesStruct extends BaseStruct {
   UpdatesStruct({
     String? chats,
-    String? teams,
     String? chatMembers,
+    String? teams,
+    String? chatMessages,
   })  : _chats = chats,
+        _chatMembers = chatMembers,
         _teams = teams,
-        _chatMembers = chatMembers;
+        _chatMessages = chatMessages;
 
   // "chats" field.
   String? _chats;
@@ -20,22 +22,29 @@ class UpdatesStruct extends BaseStruct {
   set chats(String? val) => _chats = val;
   bool hasChats() => _chats != null;
 
-  // "teams" field.
-  String? _teams;
-  String get teams => _teams ?? '';
-  set teams(String? val) => _teams = val;
-  bool hasTeams() => _teams != null;
-
   // "chat_members" field.
   String? _chatMembers;
   String get chatMembers => _chatMembers ?? '';
   set chatMembers(String? val) => _chatMembers = val;
   bool hasChatMembers() => _chatMembers != null;
 
+  // "teams" field.
+  String? _teams;
+  String get teams => _teams ?? '';
+  set teams(String? val) => _teams = val;
+  bool hasTeams() => _teams != null;
+
+  // "chat_messages" field.
+  String? _chatMessages;
+  String get chatMessages => _chatMessages ?? '';
+  set chatMessages(String? val) => _chatMessages = val;
+  bool hasChatMessages() => _chatMessages != null;
+
   static UpdatesStruct fromMap(Map<String, dynamic> data) => UpdatesStruct(
         chats: data['chats'] as String?,
-        teams: data['teams'] as String?,
         chatMembers: data['chat_members'] as String?,
+        teams: data['teams'] as String?,
+        chatMessages: data['chat_messages'] as String?,
       );
 
   static UpdatesStruct? maybeFromMap(dynamic data) =>
@@ -43,8 +52,9 @@ class UpdatesStruct extends BaseStruct {
 
   Map<String, dynamic> toMap() => {
         'chats': _chats,
-        'teams': _teams,
         'chat_members': _chatMembers,
+        'teams': _teams,
+        'chat_messages': _chatMessages,
       }.withoutNulls;
 
   @override
@@ -53,12 +63,16 @@ class UpdatesStruct extends BaseStruct {
           _chats,
           ParamType.String,
         ),
+        'chat_members': serializeParam(
+          _chatMembers,
+          ParamType.String,
+        ),
         'teams': serializeParam(
           _teams,
           ParamType.String,
         ),
-        'chat_members': serializeParam(
-          _chatMembers,
+        'chat_messages': serializeParam(
+          _chatMessages,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -70,13 +84,18 @@ class UpdatesStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        chatMembers: deserializeParam(
+          data['chat_members'],
+          ParamType.String,
+          false,
+        ),
         teams: deserializeParam(
           data['teams'],
           ParamType.String,
           false,
         ),
-        chatMembers: deserializeParam(
-          data['chat_members'],
+        chatMessages: deserializeParam(
+          data['chat_messages'],
           ParamType.String,
           false,
         ),
@@ -89,21 +108,25 @@ class UpdatesStruct extends BaseStruct {
   bool operator ==(Object other) {
     return other is UpdatesStruct &&
         chats == other.chats &&
+        chatMembers == other.chatMembers &&
         teams == other.teams &&
-        chatMembers == other.chatMembers;
+        chatMessages == other.chatMessages;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([chats, teams, chatMembers]);
+  int get hashCode =>
+      const ListEquality().hash([chats, chatMembers, teams, chatMessages]);
 }
 
 UpdatesStruct createUpdatesStruct({
   String? chats,
-  String? teams,
   String? chatMembers,
+  String? teams,
+  String? chatMessages,
 }) =>
     UpdatesStruct(
       chats: chats,
-      teams: teams,
       chatMembers: chatMembers,
+      teams: teams,
+      chatMessages: chatMessages,
     );

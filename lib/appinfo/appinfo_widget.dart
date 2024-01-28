@@ -196,6 +196,31 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
                     ),
                   ],
                 ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'chat_messages',
+                        style: FlutterFlowTheme.of(context).bodyLarge,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        FFAppState().MAINDATA.chatMembers.length.toString(),
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        FFAppState().UPDATES.chatMessages,
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                      ),
+                    ),
+                  ],
+                ),
               ].divide(const SizedBox(height: 5.0)),
             ),
           ),

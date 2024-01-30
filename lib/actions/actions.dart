@@ -7,19 +7,23 @@ import 'package:flutter/material.dart';
 
 Future baseloader(BuildContext context) async {
   ApiCallResponse? updates;
-  ApiCallResponse? chatMembers;
   ApiCallResponse? chats;
 
   updates = await UpdatesGroup.rpcgetupdatesCall.call(
     uid: currentUserUid,
   );
-  if (FFAppState().UPDATES.chatMembers !=
-      UpdatesGroup.rpcgetupdatesCall.chatmembers(
-        (updates.jsonBody ?? ''),
-      )) {
-    chatMembers = await ChatsGroup.authchatmembersCall.call(
-      playerUid: currentUserUid,
-    );
+  if (!((FFAppState().UPDATES.chatsUpdated ==
+          UpdatesGroup.rpcgetupdatesCall.chatsupdated(
+            (updates.jsonBody ?? ''),
+          )) ||
+      (FFAppState().UPDATES.chatMessagesUpdated ==
+          UpdatesGroup.rpcgetupdatesCall.chatmessagesupdated(
+            (updates.jsonBody ?? ''),
+          )) ||
+      (FFAppState().UPDATES.chatMembersUpdated ==
+          UpdatesGroup.rpcgetupdatesCall.chatmembersupdated(
+            (updates.jsonBody ?? ''),
+          )))) {
     chats = await ChatsGroup.getchatsCall.call(
       uid: currentUserUid,
     );
@@ -31,20 +35,25 @@ Future baseloader(BuildContext context) async {
                   .map<ChatStruct?>(ChatStruct.maybeFromMap)
                   .toList() as Iterable<ChatStruct?>)
               .withoutNulls
-              .toList()
-          ..chatMembers = ((chatMembers?.jsonBody ?? '')
-                  .toList()
-                  .map<ChatMemberStruct?>(ChatMemberStruct.maybeFromMap)
-                  .toList() as Iterable<ChatMemberStruct?>)
-              .withoutNulls
               .toList(),
       );
       FFAppState().updateUPDATESStruct(
         (e) => e
-          ..chats = UpdatesGroup.rpcgetupdatesCall.chats(
+          ..chatsUpdated = UpdatesGroup.rpcgetupdatesCall.chatsupdated(
             (updates?.jsonBody ?? ''),
           )
-          ..chatMembers = UpdatesGroup.rpcgetupdatesCall.chatmembers(
+          ..chatMessagesUpdated =
+              UpdatesGroup.rpcgetupdatesCall.chatmessagesupdated(
+            (updates?.jsonBody ?? ''),
+          )
+          ..chatMembersUpdated =
+              UpdatesGroup.rpcgetupdatesCall.chatmembersupdated(
+            (updates?.jsonBody ?? ''),
+          )
+          ..teamsUpdated = UpdatesGroup.rpcgetupdatesCall.teamsupdated(
+            (updates?.jsonBody ?? ''),
+          )
+          ..teamInfoUpdated = UpdatesGroup.rpcgetupdatesCall.teaminfoupdated(
             (updates?.jsonBody ?? ''),
           ),
       );

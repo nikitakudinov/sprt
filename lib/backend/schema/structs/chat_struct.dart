@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
 
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -14,13 +13,15 @@ class ChatStruct extends BaseStruct {
     int? chatOfTournament,
     int? chatOfTeam,
     String? chatType,
+    List<ChatMemberStruct>? chatMembers,
   })  : _id = id,
         _lastMessage = lastMessage,
         _lastmessageSander = lastmessageSander,
         _updatedAt = updatedAt,
         _chatOfTournament = chatOfTournament,
         _chatOfTeam = chatOfTeam,
-        _chatType = chatType;
+        _chatType = chatType,
+        _chatMembers = chatMembers;
 
   // "id" field.
   int? _id;
@@ -68,6 +69,14 @@ class ChatStruct extends BaseStruct {
   set chatType(String? val) => _chatType = val;
   bool hasChatType() => _chatType != null;
 
+  // "chat_members" field.
+  List<ChatMemberStruct>? _chatMembers;
+  List<ChatMemberStruct> get chatMembers => _chatMembers ?? const [];
+  set chatMembers(List<ChatMemberStruct>? val) => _chatMembers = val;
+  void updateChatMembers(Function(List<ChatMemberStruct>) updateFn) =>
+      updateFn(_chatMembers ??= []);
+  bool hasChatMembers() => _chatMembers != null;
+
   static ChatStruct fromMap(Map<String, dynamic> data) => ChatStruct(
         id: castToType<int>(data['id']),
         lastMessage: data['last_message'] as String?,
@@ -76,6 +85,10 @@ class ChatStruct extends BaseStruct {
         chatOfTournament: castToType<int>(data['chat_of_tournament']),
         chatOfTeam: castToType<int>(data['chat_of_team']),
         chatType: data['chat_type'] as String?,
+        chatMembers: getStructList(
+          data['chat_members'],
+          ChatMemberStruct.fromMap,
+        ),
       );
 
   static ChatStruct? maybeFromMap(dynamic data) =>
@@ -89,6 +102,7 @@ class ChatStruct extends BaseStruct {
         'chat_of_tournament': _chatOfTournament,
         'chat_of_team': _chatOfTeam,
         'chat_type': _chatType,
+        'chat_members': _chatMembers?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -120,6 +134,11 @@ class ChatStruct extends BaseStruct {
         'chat_type': serializeParam(
           _chatType,
           ParamType.String,
+        ),
+        'chat_members': serializeParam(
+          _chatMembers,
+          ParamType.DataStruct,
+          true,
         ),
       }.withoutNulls;
 
@@ -160,6 +179,12 @@ class ChatStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        chatMembers: deserializeStructParam<ChatMemberStruct>(
+          data['chat_members'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: ChatMemberStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -167,6 +192,7 @@ class ChatStruct extends BaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is ChatStruct &&
         id == other.id &&
         lastMessage == other.lastMessage &&
@@ -174,7 +200,8 @@ class ChatStruct extends BaseStruct {
         updatedAt == other.updatedAt &&
         chatOfTournament == other.chatOfTournament &&
         chatOfTeam == other.chatOfTeam &&
-        chatType == other.chatType;
+        chatType == other.chatType &&
+        listEquality.equals(chatMembers, other.chatMembers);
   }
 
   @override
@@ -185,7 +212,8 @@ class ChatStruct extends BaseStruct {
         updatedAt,
         chatOfTournament,
         chatOfTeam,
-        chatType
+        chatType,
+        chatMembers
       ]);
 }
 

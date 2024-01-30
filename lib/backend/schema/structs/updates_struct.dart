@@ -7,95 +7,114 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class UpdatesStruct extends BaseStruct {
   UpdatesStruct({
-    String? chats,
-    String? chatMembers,
-    String? teams,
-    String? chatMessages,
-  })  : _chats = chats,
-        _chatMembers = chatMembers,
-        _teams = teams,
-        _chatMessages = chatMessages;
+    String? chatsUpdated,
+    String? chatMessagesUpdated,
+    String? chatMembersUpdated,
+    String? teamsUpdated,
+    String? teamInfoUpdated,
+  })  : _chatsUpdated = chatsUpdated,
+        _chatMessagesUpdated = chatMessagesUpdated,
+        _chatMembersUpdated = chatMembersUpdated,
+        _teamsUpdated = teamsUpdated,
+        _teamInfoUpdated = teamInfoUpdated;
 
-  // "chats" field.
-  String? _chats;
-  String get chats => _chats ?? '';
-  set chats(String? val) => _chats = val;
-  bool hasChats() => _chats != null;
+  // "chats_updated" field.
+  String? _chatsUpdated;
+  String get chatsUpdated => _chatsUpdated ?? '';
+  set chatsUpdated(String? val) => _chatsUpdated = val;
+  bool hasChatsUpdated() => _chatsUpdated != null;
 
-  // "chat_members" field.
-  String? _chatMembers;
-  String get chatMembers => _chatMembers ?? '';
-  set chatMembers(String? val) => _chatMembers = val;
-  bool hasChatMembers() => _chatMembers != null;
+  // "chat_messages_updated" field.
+  String? _chatMessagesUpdated;
+  String get chatMessagesUpdated => _chatMessagesUpdated ?? '';
+  set chatMessagesUpdated(String? val) => _chatMessagesUpdated = val;
+  bool hasChatMessagesUpdated() => _chatMessagesUpdated != null;
 
-  // "teams" field.
-  String? _teams;
-  String get teams => _teams ?? '';
-  set teams(String? val) => _teams = val;
-  bool hasTeams() => _teams != null;
+  // "chat_members_updated" field.
+  String? _chatMembersUpdated;
+  String get chatMembersUpdated => _chatMembersUpdated ?? '';
+  set chatMembersUpdated(String? val) => _chatMembersUpdated = val;
+  bool hasChatMembersUpdated() => _chatMembersUpdated != null;
 
-  // "chat_messages" field.
-  String? _chatMessages;
-  String get chatMessages => _chatMessages ?? '';
-  set chatMessages(String? val) => _chatMessages = val;
-  bool hasChatMessages() => _chatMessages != null;
+  // "teams_updated" field.
+  String? _teamsUpdated;
+  String get teamsUpdated => _teamsUpdated ?? '';
+  set teamsUpdated(String? val) => _teamsUpdated = val;
+  bool hasTeamsUpdated() => _teamsUpdated != null;
+
+  // "team_info_updated" field.
+  String? _teamInfoUpdated;
+  String get teamInfoUpdated => _teamInfoUpdated ?? '';
+  set teamInfoUpdated(String? val) => _teamInfoUpdated = val;
+  bool hasTeamInfoUpdated() => _teamInfoUpdated != null;
 
   static UpdatesStruct fromMap(Map<String, dynamic> data) => UpdatesStruct(
-        chats: data['chats'] as String?,
-        chatMembers: data['chat_members'] as String?,
-        teams: data['teams'] as String?,
-        chatMessages: data['chat_messages'] as String?,
+        chatsUpdated: data['chats_updated'] as String?,
+        chatMessagesUpdated: data['chat_messages_updated'] as String?,
+        chatMembersUpdated: data['chat_members_updated'] as String?,
+        teamsUpdated: data['teams_updated'] as String?,
+        teamInfoUpdated: data['team_info_updated'] as String?,
       );
 
   static UpdatesStruct? maybeFromMap(dynamic data) =>
       data is Map ? UpdatesStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
-        'chats': _chats,
-        'chat_members': _chatMembers,
-        'teams': _teams,
-        'chat_messages': _chatMessages,
+        'chats_updated': _chatsUpdated,
+        'chat_messages_updated': _chatMessagesUpdated,
+        'chat_members_updated': _chatMembersUpdated,
+        'teams_updated': _teamsUpdated,
+        'team_info_updated': _teamInfoUpdated,
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'chats': serializeParam(
-          _chats,
+        'chats_updated': serializeParam(
+          _chatsUpdated,
           ParamType.String,
         ),
-        'chat_members': serializeParam(
-          _chatMembers,
+        'chat_messages_updated': serializeParam(
+          _chatMessagesUpdated,
           ParamType.String,
         ),
-        'teams': serializeParam(
-          _teams,
+        'chat_members_updated': serializeParam(
+          _chatMembersUpdated,
           ParamType.String,
         ),
-        'chat_messages': serializeParam(
-          _chatMessages,
+        'teams_updated': serializeParam(
+          _teamsUpdated,
+          ParamType.String,
+        ),
+        'team_info_updated': serializeParam(
+          _teamInfoUpdated,
           ParamType.String,
         ),
       }.withoutNulls;
 
   static UpdatesStruct fromSerializableMap(Map<String, dynamic> data) =>
       UpdatesStruct(
-        chats: deserializeParam(
-          data['chats'],
+        chatsUpdated: deserializeParam(
+          data['chats_updated'],
           ParamType.String,
           false,
         ),
-        chatMembers: deserializeParam(
-          data['chat_members'],
+        chatMessagesUpdated: deserializeParam(
+          data['chat_messages_updated'],
           ParamType.String,
           false,
         ),
-        teams: deserializeParam(
-          data['teams'],
+        chatMembersUpdated: deserializeParam(
+          data['chat_members_updated'],
           ParamType.String,
           false,
         ),
-        chatMessages: deserializeParam(
-          data['chat_messages'],
+        teamsUpdated: deserializeParam(
+          data['teams_updated'],
+          ParamType.String,
+          false,
+        ),
+        teamInfoUpdated: deserializeParam(
+          data['team_info_updated'],
           ParamType.String,
           false,
         ),
@@ -107,26 +126,34 @@ class UpdatesStruct extends BaseStruct {
   @override
   bool operator ==(Object other) {
     return other is UpdatesStruct &&
-        chats == other.chats &&
-        chatMembers == other.chatMembers &&
-        teams == other.teams &&
-        chatMessages == other.chatMessages;
+        chatsUpdated == other.chatsUpdated &&
+        chatMessagesUpdated == other.chatMessagesUpdated &&
+        chatMembersUpdated == other.chatMembersUpdated &&
+        teamsUpdated == other.teamsUpdated &&
+        teamInfoUpdated == other.teamInfoUpdated;
   }
 
   @override
-  int get hashCode =>
-      const ListEquality().hash([chats, chatMembers, teams, chatMessages]);
+  int get hashCode => const ListEquality().hash([
+        chatsUpdated,
+        chatMessagesUpdated,
+        chatMembersUpdated,
+        teamsUpdated,
+        teamInfoUpdated
+      ]);
 }
 
 UpdatesStruct createUpdatesStruct({
-  String? chats,
-  String? chatMembers,
-  String? teams,
-  String? chatMessages,
+  String? chatsUpdated,
+  String? chatMessagesUpdated,
+  String? chatMembersUpdated,
+  String? teamsUpdated,
+  String? teamInfoUpdated,
 }) =>
     UpdatesStruct(
-      chats: chats,
-      chatMembers: chatMembers,
-      teams: teams,
-      chatMessages: chatMessages,
+      chatsUpdated: chatsUpdated,
+      chatMessagesUpdated: chatMessagesUpdated,
+      chatMembersUpdated: chatMembersUpdated,
+      teamsUpdated: teamsUpdated,
+      teamInfoUpdated: teamInfoUpdated,
     );

@@ -7,7 +7,7 @@ class AppinfoModel extends FlutterFlowModel<AppinfoWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  InstantTimer? instantTimer;
+  InstantTimer? instantTimer1;
 
   /// Initialization and disposal methods.
 
@@ -17,7 +17,7 @@ class AppinfoModel extends FlutterFlowModel<AppinfoWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    instantTimer?.cancel();
+    instantTimer1?.cancel();
   }
 
   /// Action blocks are added here.

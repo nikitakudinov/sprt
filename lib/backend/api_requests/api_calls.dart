@@ -750,7 +750,7 @@ class GetchatsCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'getchats',
-      apiUrl: '${ChatsGroup.baseUrl}rpc/get_chats',
+      apiUrl: '${ChatsGroup.baseUrl}rpc/get_chats?select=*,chat_members(*)',
       callType: ApiCallType.GET,
       headers: {
         'apikey':
@@ -806,6 +806,11 @@ class GetchatsCall {
           .map((x) => castToType<int>(x))
           .withoutNulls
           .toList();
+  List? chatmembers(dynamic response) => getJsonField(
+        response,
+        r'''$[:].chat_members''',
+        true,
+      ) as List?;
 }
 
 class ChatsbyidsCall {
@@ -973,6 +978,7 @@ class UpdatesGroup {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
   };
   static UpdatesCall updatesCall = UpdatesCall();
+  static GetchatsupdatesCall getchatsupdatesCall = GetchatsupdatesCall();
   static RpcgetupdatesCall rpcgetupdatesCall = RpcgetupdatesCall();
 }
 
@@ -1029,13 +1035,13 @@ class UpdatesCall {
       ));
 }
 
-class RpcgetupdatesCall {
+class GetchatsupdatesCall {
   Future<ApiCallResponse> call({
     String? uid = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'rpcgetupdates',
-      apiUrl: '${UpdatesGroup.baseUrl}rpc/get_updates',
+      callName: 'getchatsupdates',
+      apiUrl: '${UpdatesGroup.baseUrl}rpc/get_chats_updates',
       callType: ApiCallType.GET,
       headers: {
         'apikey':
@@ -1063,6 +1069,57 @@ class RpcgetupdatesCall {
   String? chatmessages(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].chat_messages''',
+      ));
+}
+
+class RpcgetupdatesCall {
+  Future<ApiCallResponse> call({
+    String? uid = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "uid": "$uid"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'rpcgetupdates',
+      apiUrl: '${UpdatesGroup.baseUrl}rpc/get_updates',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? chatsupdated(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].chats_updated''',
+      ));
+  String? chatmessagesupdated(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$[:].chat_messages_updated''',
+      ));
+  String? chatmembersupdated(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$[:].chat_members_updated''',
+      ));
+  String? teamsupdated(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].teams_updated''',
+      ));
+  String? teaminfoupdated(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].team_info_updated''',
       ));
 }
 

@@ -1,3 +1,4 @@
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/instant_timer.dart';
@@ -28,7 +29,7 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.instantTimer = InstantTimer.periodic(
+      _model.instantTimer1 = InstantTimer.periodic(
         duration: const Duration(milliseconds: 3000),
         callback: (timer) async {
           await action_blocks.baseloader(context);
@@ -177,32 +178,7 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
                     ),
                     Expanded(
                       child: Text(
-                        FFAppState().UPDATES.chats,
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'chat_members',
-                        style: FlutterFlowTheme.of(context).bodyLarge,
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        FFAppState().MAINDATA.chatMembers.length.toString(),
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium,
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        FFAppState().UPDATES.chatMembers,
+                        FFAppState().UPDATES.chatsUpdated,
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),
@@ -219,15 +195,37 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
                       ),
                     ),
                     Expanded(
-                      child: Text(
-                        FFAppState().MAINDATA.chatMembers.length.toString(),
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyMedium,
+                      child: FutureBuilder<List<ChatsRow>>(
+                        future: ChatsTable().queryRows(
+                          queryFn: (q) => q,
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          List<ChatsRow> textChatsRowList = snapshot.data!;
+                          return Text(
+                            textChatsRowList.length.toString(),
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          );
+                        },
                       ),
                     ),
                     Expanded(
                       child: Text(
-                        FFAppState().UPDATES.chatMessages,
+                        FFAppState().UPDATES.chatMessagesUpdated,
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),

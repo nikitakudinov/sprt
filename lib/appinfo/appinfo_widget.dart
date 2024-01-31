@@ -234,7 +234,7 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
                     ),
                   ],
                 ),
-              ].divide(const SizedBox(height: 5.0)),
+              ],
             ),
           ),
         ),

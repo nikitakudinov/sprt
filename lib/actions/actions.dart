@@ -36,16 +36,15 @@ Future baseloader(BuildContext context) async {
                   .toList() as Iterable<ChatStruct?>)
               .withoutNulls
               .toList()
-          ..chatMessages = ChatsGroup.getchatsCall
-              .chatmessages(
-                (chats?.jsonBody ?? ''),
-              )!
-              .map((e) => ChatMessageStruct.maybeFromMap(getJsonField(
-                    e,
-                    r'''$''',
-                  )))
+          ..chatMessages = (getJsonField(
+            (chats?.jsonBody ?? ''),
+            r'''$[:].chat_messages''',
+            true,
+          )!
+                  .toList()
+                  .map<ChatMessageStruct?>(ChatMessageStruct.maybeFromMap)
+                  .toList() as Iterable<ChatMessageStruct?>)
               .withoutNulls
-              .toList()
               .toList(),
       );
       FFAppState().updateUPDATESStruct(

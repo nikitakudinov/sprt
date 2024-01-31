@@ -33,18 +33,6 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
         callback: (timer) async {
           await action_blocks.baseloader(context);
           setState(() {});
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                '1',
-                style: TextStyle(
-                  color: FlutterFlowTheme.of(context).primaryText,
-                ),
-              ),
-              duration: const Duration(milliseconds: 500),
-              backgroundColor: FlutterFlowTheme.of(context).secondary,
-            ),
-          );
         },
         startImmediately: true,
       );

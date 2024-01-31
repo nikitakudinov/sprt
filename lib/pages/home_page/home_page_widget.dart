@@ -3,11 +3,8 @@ import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/instant_timer.dart';
 import '/flutter_flow/upload_data.dart';
-import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
@@ -29,17 +26,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.instantTimer = InstantTimer.periodic(
-        duration: const Duration(milliseconds: 5000),
-        callback: (timer) async {
-          await action_blocks.baseloader(context);
-        },
-        startImmediately: true,
-      );
-    });
 
     _model.emailController ??= TextEditingController();
     _model.emailFocusNode ??= FocusNode();
@@ -102,18 +88,39 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 decoration: const BoxDecoration(),
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
-                  child: Builder(
-                    builder: (context) {
-                      final chats = FFAppState().MAINDATA.chats.toList();
+                  child: FutureBuilder<List<ChatsRow>>(
+                    future: ChatsTable().queryRows(
+                      queryFn: (q) => q,
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                      List<ChatsRow> listViewChatsRowList = snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
-                        itemCount: chats.length,
-                        itemBuilder: (context, chatsIndex) {
-                          final chatsItem = chats[chatsIndex];
+                        itemCount: listViewChatsRowList.length,
+                        itemBuilder: (context, listViewIndex) {
+                          final listViewChatsRow =
+                              listViewChatsRowList[listViewIndex];
                           return Text(
-                            chatsItem.lastMessage,
+                            valueOrDefault<String>(
+                              listViewChatsRow.lastMessage,
+                              '0',
+                            ),
                             style: FlutterFlowTheme.of(context).bodyMedium,
                           );
                         },

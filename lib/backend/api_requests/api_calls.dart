@@ -671,8 +671,9 @@ class ChatsGroup {
   static ChatsCall chatsCall = ChatsCall();
   static GetchatsCall getchatsCall = GetchatsCall();
   static ChatsbyidsCall chatsbyidsCall = ChatsbyidsCall();
-  static AuthchatmembersCall authchatmembersCall = AuthchatmembersCall();
-  static ChatmessagesCall chatmessagesCall = ChatmessagesCall();
+  static AuthchatmembersAAACall authchatmembersAAACall =
+      AuthchatmembersAAACall();
+  static ChatmessagesAAACall chatmessagesAAACall = ChatmessagesAAACall();
   static ChatmembersCall chatmembersCall = ChatmembersCall();
 }
 
@@ -750,8 +751,7 @@ class GetchatsCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'getchats',
-      apiUrl:
-          '${ChatsGroup.baseUrl}rpc/get_chats?select=*,chat_members(*),chat_messages(*)',
+      apiUrl: '${ChatsGroup.baseUrl}rpc/get_chats',
       callType: ApiCallType.GET,
       headers: {
         'apikey':
@@ -863,20 +863,21 @@ class ChatsbyidsCall {
       ));
 }
 
-class AuthchatmembersCall {
+class AuthchatmembersAAACall {
   Future<ApiCallResponse> call({
-    String? playerUid = '',
+    String? uid = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'authchatmembers',
-      apiUrl:
-          '${ChatsGroup.baseUrl}chat_members?player_uid=eq.$playerUid&select=chat_id,player_uid',
+      callName: 'authchatmembersAAA',
+      apiUrl: '${ChatsGroup.baseUrl}rpc/get_chat_members',
       callType: ApiCallType.GET,
       headers: {
         'apikey':
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
       },
-      params: {},
+      params: {
+        'uid': uid,
+      },
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -895,17 +896,21 @@ class AuthchatmembersCall {
       ));
 }
 
-class ChatmessagesCall {
-  Future<ApiCallResponse> call() async {
+class ChatmessagesAAACall {
+  Future<ApiCallResponse> call({
+    String? uid = '',
+  }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'chatmessages',
-      apiUrl: '${ChatsGroup.baseUrl}chat_messages?',
+      callName: 'chatmessagesAAA',
+      apiUrl: '${ChatsGroup.baseUrl}rpc/get_messages',
       callType: ApiCallType.GET,
       headers: {
         'apikey':
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
       },
-      params: {},
+      params: {
+        'uid': uid,
+      },
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

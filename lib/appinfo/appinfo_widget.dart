@@ -205,7 +205,10 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
                     ),
                     Expanded(
                       child: Text(
-                        FFAppState().UPDATES.chatMessagesUpdated,
+                        valueOrDefault<String>(
+                          FFAppState().UPDATES.chatMessagesUpdated,
+                          '15.02 15:20',
+                        ),
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),
@@ -230,7 +233,10 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
                     ),
                     Expanded(
                       child: Text(
-                        FFAppState().UPDATES.chatMessagesUpdated,
+                        valueOrDefault<String>(
+                          FFAppState().UPDATES.chatMembersUpdated,
+                          '15.02 15:20',
+                        ),
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),

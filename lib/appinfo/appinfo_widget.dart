@@ -1,6 +1,7 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/country_widget.dart';
 import '/components/imageloader_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -278,6 +279,15 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
                     updateCallback: () => setState(() {}),
                     child: const ImageloaderWidget(
                       imageSize: 80,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: wrapWithModel(
+                    model: _model.countryModel,
+                    updateCallback: () => setState(() {}),
+                    child: const CountryWidget(
+                      countruId: 1,
                     ),
                   ),
                 ),

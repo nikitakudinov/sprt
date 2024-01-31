@@ -42,7 +42,7 @@ class _ImageloaderWidgetState extends State<ImageloaderWidget> {
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setState(() {
-        _model.image = '';
+        _model.image = widget.imagePath;
       });
     });
   }
@@ -59,7 +59,7 @@ class _ImageloaderWidgetState extends State<ImageloaderWidget> {
     context.watch<FFAppState>();
 
     return Column(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           width: valueOrDefault<double>(

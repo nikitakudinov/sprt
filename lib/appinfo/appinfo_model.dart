@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/country_widget.dart';
 import '/components/imageloader_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'appinfo_widget.dart' show AppinfoWidget;
@@ -22,18 +23,22 @@ class AppinfoModel extends FlutterFlowModel<AppinfoWidget> {
   ApiCallResponse? chatmembers;
   // Model for IMAGELOADER component.
   late ImageloaderModel imageloaderModel;
+  // Model for COUNTRY component.
+  late CountryModel countryModel;
 
   /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {
     imageloaderModel = createModel(context, () => ImageloaderModel());
+    countryModel = createModel(context, () => CountryModel());
   }
 
   @override
   void dispose() {
     unfocusNode.dispose();
     imageloaderModel.dispose();
+    countryModel.dispose();
   }
 
   /// Action blocks are added here.

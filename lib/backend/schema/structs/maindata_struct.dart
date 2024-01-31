@@ -11,11 +11,13 @@ class MaindataStruct extends BaseStruct {
     List<ChatMemberStruct>? chatMembers,
     List<TeamStruct>? teams,
     List<PlayerStruct>? players,
+    List<CountryStruct>? countries,
   })  : _chats = chats,
         _chatMessages = chatMessages,
         _chatMembers = chatMembers,
         _teams = teams,
-        _players = players;
+        _players = players,
+        _countries = countries;
 
   // "CHATS" field.
   List<ChatStruct>? _chats;
@@ -57,6 +59,14 @@ class MaindataStruct extends BaseStruct {
       updateFn(_players ??= []);
   bool hasPlayers() => _players != null;
 
+  // "COUNTRIES" field.
+  List<CountryStruct>? _countries;
+  List<CountryStruct> get countries => _countries ?? const [];
+  set countries(List<CountryStruct>? val) => _countries = val;
+  void updateCountries(Function(List<CountryStruct>) updateFn) =>
+      updateFn(_countries ??= []);
+  bool hasCountries() => _countries != null;
+
   static MaindataStruct fromMap(Map<String, dynamic> data) => MaindataStruct(
         chats: getStructList(
           data['CHATS'],
@@ -78,6 +88,10 @@ class MaindataStruct extends BaseStruct {
           data['PLAYERS'],
           PlayerStruct.fromMap,
         ),
+        countries: getStructList(
+          data['COUNTRIES'],
+          CountryStruct.fromMap,
+        ),
       );
 
   static MaindataStruct? maybeFromMap(dynamic data) =>
@@ -89,6 +103,7 @@ class MaindataStruct extends BaseStruct {
         'chat_members': _chatMembers?.map((e) => e.toMap()).toList(),
         'TEAMS': _teams?.map((e) => e.toMap()).toList(),
         'PLAYERS': _players?.map((e) => e.toMap()).toList(),
+        'COUNTRIES': _countries?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -115,6 +130,11 @@ class MaindataStruct extends BaseStruct {
         ),
         'PLAYERS': serializeParam(
           _players,
+          ParamType.DataStruct,
+          true,
+        ),
+        'COUNTRIES': serializeParam(
+          _countries,
           ParamType.DataStruct,
           true,
         ),
@@ -152,6 +172,12 @@ class MaindataStruct extends BaseStruct {
           true,
           structBuilder: PlayerStruct.fromSerializableMap,
         ),
+        countries: deserializeStructParam<CountryStruct>(
+          data['COUNTRIES'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: CountryStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -165,12 +191,13 @@ class MaindataStruct extends BaseStruct {
         listEquality.equals(chatMessages, other.chatMessages) &&
         listEquality.equals(chatMembers, other.chatMembers) &&
         listEquality.equals(teams, other.teams) &&
-        listEquality.equals(players, other.players);
+        listEquality.equals(players, other.players) &&
+        listEquality.equals(countries, other.countries);
   }
 
   @override
   int get hashCode => const ListEquality()
-      .hash([chats, chatMessages, chatMembers, teams, players]);
+      .hash([chats, chatMessages, chatMembers, teams, players, countries]);
 }
 
 MaindataStruct createMaindataStruct() => MaindataStruct();

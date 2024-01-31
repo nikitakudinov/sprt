@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/imageloader_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'appinfo_widget.dart' show AppinfoWidget;
 import 'package:flutter/material.dart';
@@ -19,15 +20,20 @@ class AppinfoModel extends FlutterFlowModel<AppinfoWidget> {
   ApiCallResponse? chatmessages;
   // Stores action output result for [Backend Call - API (authchatmembersAAA)] action in APPINFO widget.
   ApiCallResponse? chatmembers;
+  // Model for IMAGELOADER component.
+  late ImageloaderModel imageloaderModel;
 
   /// Initialization and disposal methods.
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    imageloaderModel = createModel(context, () => ImageloaderModel());
+  }
 
   @override
   void dispose() {
     unfocusNode.dispose();
+    imageloaderModel.dispose();
   }
 
   /// Action blocks are added here.

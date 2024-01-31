@@ -1053,7 +1053,7 @@ class GetchatsupdatesCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'getchatsupdates',
-      apiUrl: '${UpdatesGroup.baseUrl}rpc/get_chats_updates',
+      apiUrl: '${UpdatesGroup.baseUrl}rpc/get_authuserdata_updates',
       callType: ApiCallType.GET,
       headers: {
         'apikey':

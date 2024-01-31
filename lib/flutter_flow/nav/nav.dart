@@ -82,26 +82,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? const AppinfoWidget() : const LoginWidget(),
         ),
         FFRoute(
-          name: 'HomePage',
-          path: '/homePage',
-          builder: (context, params) => const HomePageWidget(),
-        ),
-        FFRoute(
-          name: 'ADDCONTENTPAGE',
-          path: '/addcontentpage',
-          builder: (context, params) => AddcontentpageWidget(
-            contentType: params.getParam('contentType', ParamType.String),
-          ),
-        ),
-        FFRoute(
           name: 'HOME',
           path: '/home',
           builder: (context, params) => const HomeWidget(),
-        ),
-        FFRoute(
-          name: 'PLAYERS',
-          path: '/players',
-          builder: (context, params) => const PlayersWidget(),
         ),
         FFRoute(
           name: 'LOGIN',

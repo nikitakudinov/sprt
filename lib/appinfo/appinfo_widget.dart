@@ -1,7 +1,8 @@
+import '/auth/supabase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/instant_timer.dart';
-import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -28,14 +29,53 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.instantTimer1 = InstantTimer.periodic(
-        duration: const Duration(milliseconds: 3000),
-        callback: (timer) async {
-          await action_blocks.baseloader(context);
-          setState(() {});
-        },
-        startImmediately: true,
+      _model.players = await PlayersGroup.playersCall.call();
+      _model.teams = await TeamsGroup.teamsCall.call();
+      _model.tournaments = await TournamentsGroup.tournamentsCall.call();
+      _model.chats = await ChatsGroup.getchatsCall.call(
+        uid: currentUserUid,
       );
+      _model.chatmessages = await ChatsGroup.chatmessagesAAACall.call(
+        uid: currentUserUid,
+      );
+      _model.chatmembers = await ChatsGroup.authchatmembersAAACall.call(
+        uid: currentUserUid,
+      );
+      setState(() {
+        FFAppState().updateMAINDATAStruct(
+          (e) => e
+            ..chats = ((_model.chats?.jsonBody ?? '')
+                    .toList()
+                    .map<ChatStruct?>(ChatStruct.maybeFromMap)
+                    .toList() as Iterable<ChatStruct?>)
+                .withoutNulls
+                .toList()
+            ..chatMessages = ((_model.chatmessages?.jsonBody ?? '')
+                    .toList()
+                    .map<ChatMessageStruct?>(ChatMessageStruct.maybeFromMap)
+                    .toList() as Iterable<ChatMessageStruct?>)
+                .withoutNulls
+                .toList()
+            ..chatMembers = ((_model.chatmembers?.jsonBody ?? '')
+                    .toList()
+                    .map<ChatMemberStruct?>(ChatMemberStruct.maybeFromMap)
+                    .toList() as Iterable<ChatMemberStruct?>)
+                .withoutNulls
+                .toList()
+            ..teams = ((_model.teams?.jsonBody ?? '')
+                    .toList()
+                    .map<TeamStruct?>(TeamStruct.maybeFromMap)
+                    .toList() as Iterable<TeamStruct?>)
+                .withoutNulls
+                .toList()
+            ..players = ((_model.players?.jsonBody ?? '')
+                    .toList()
+                    .map<PlayerStruct?>(PlayerStruct.maybeFromMap)
+                    .toList() as Iterable<PlayerStruct?>)
+                .withoutNulls
+                .toList(),
+        );
+      });
     });
   }
 

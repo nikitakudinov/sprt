@@ -218,7 +218,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             return;
                           }
 
-                          context.goNamedAuth('HomePage', context.mounted);
+                          context.goNamedAuth('APPINFO', context.mounted);
                         },
                         text: 'LOGIN',
                         options: FFButtonOptions(

@@ -42,7 +42,10 @@ class _ImageloaderWidgetState extends State<ImageloaderWidget> {
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setState(() {
-        _model.image = widget.imagePath;
+        _model.image = valueOrDefault<String>(
+          widget.imagePath,
+          'https://supabase.proplayclub.ru/storage/v1/object/public/images/image-placeholder.jpg',
+        );
       });
     });
   }

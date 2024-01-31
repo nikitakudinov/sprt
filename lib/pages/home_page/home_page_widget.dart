@@ -4,7 +4,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/custom_code/actions/index.dart' as actions;
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
@@ -26,6 +29,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await actions.supaRealtime(
+        'chats',
+        () async {
+          setState(() => _model.requestCompleter = null);
+          await _model.waitForRequestCompleted();
+        },
+      );
+    });
 
     _model.emailController ??= TextEditingController();
     _model.emailFocusNode ??= FocusNode();
@@ -89,9 +103,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                   child: FutureBuilder<List<ChatsRow>>(
-                    future: ChatsTable().queryRows(
-                      queryFn: (q) => q,
-                    ),
+                    future:
+                        (_model.requestCompleter ??= Completer<List<ChatsRow>>()
+                              ..complete(ChatsTable().queryRows(
+                                queryFn: (q) => q,
+                              )))
+                            .future,
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {
@@ -163,7 +180,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 return;
                               }
 
-                              context.goNamedAuth('APPINFO', context.mounted);
+                              context.goNamedAuth('HomePage', context.mounted);
                             },
                             text: 'register',
                             options: FFButtonOptions(

@@ -22,7 +22,7 @@ Future<void> supaRealtime(
       eventsPerSecond: 2,
     ),
   );
-  final supabase = SupaFlow.client;
+  final supabase = Supabase.instance.client;
   String table = tableName ?? '*';
   final channel = supabase.channel('public:' + table);
   channel.on(

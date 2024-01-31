@@ -28,4 +28,7 @@ class TeamsRow extends SupabaseDataRow {
 
   int? get info => getField<int>('info');
   set info(int? value) => setField<int>('info', value);
+
+  String? get teamStatus => getField<String>('team_status');
+  set teamStatus(String? value) => setField<String>('team_status', value);
 }

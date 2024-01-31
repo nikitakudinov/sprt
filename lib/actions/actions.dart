@@ -9,19 +9,19 @@ Future baseloader(BuildContext context) async {
   ApiCallResponse? updates;
   ApiCallResponse? chats;
 
-  updates = await UpdatesGroup.rpcgetupdatesCall.call(
+  updates = await UpdatesGroup.getauthuserdataupdatesCall.call(
     uid: currentUserUid,
   );
   if (!((FFAppState().UPDATES.chatsUpdated ==
-          UpdatesGroup.rpcgetupdatesCall.chatsupdated(
+          UpdatesGroup.getauthuserdataupdatesCall.chatsupdated(
             (updates.jsonBody ?? ''),
           )) ||
       (FFAppState().UPDATES.chatMessagesUpdated ==
-          UpdatesGroup.rpcgetupdatesCall.chatmessagesupdated(
+          UpdatesGroup.getauthuserdataupdatesCall.chatmessagesupdated(
             (updates.jsonBody ?? ''),
           )) ||
       (FFAppState().UPDATES.chatMembersUpdated ==
-          UpdatesGroup.rpcgetupdatesCall.chatmembersupdated(
+          UpdatesGroup.getauthuserdataupdatesCall.chatmembersupdated(
             (updates.jsonBody ?? ''),
           )))) {
     chats = await ChatsGroup.getchatsCall.call(
@@ -35,25 +35,37 @@ Future baseloader(BuildContext context) async {
                   .map<ChatStruct?>(ChatStruct.maybeFromMap)
                   .toList() as Iterable<ChatStruct?>)
               .withoutNulls
+              .toList()
+          ..chatMessages = ChatsGroup.getchatsCall
+              .chatmessages(
+                (chats?.jsonBody ?? ''),
+              )!
+              .map((e) => ChatMessageStruct.maybeFromMap(getJsonField(
+                    e,
+                    r'''$''',
+                  )))
+              .withoutNulls
+              .toList()
               .toList(),
       );
       FFAppState().updateUPDATESStruct(
         (e) => e
-          ..chatsUpdated = UpdatesGroup.rpcgetupdatesCall.chatsupdated(
+          ..chatsUpdated = UpdatesGroup.getauthuserdataupdatesCall.chatsupdated(
             (updates?.jsonBody ?? ''),
           )
           ..chatMessagesUpdated =
-              UpdatesGroup.rpcgetupdatesCall.chatmessagesupdated(
+              UpdatesGroup.getauthuserdataupdatesCall.chatmessagesupdated(
             (updates?.jsonBody ?? ''),
           )
           ..chatMembersUpdated =
-              UpdatesGroup.rpcgetupdatesCall.chatmembersupdated(
+              UpdatesGroup.getauthuserdataupdatesCall.chatmembersupdated(
             (updates?.jsonBody ?? ''),
           )
-          ..teamsUpdated = UpdatesGroup.rpcgetupdatesCall.teamsupdated(
+          ..teamsUpdated = UpdatesGroup.getauthuserdataupdatesCall.teamsupdated(
             (updates?.jsonBody ?? ''),
           )
-          ..teamInfoUpdated = UpdatesGroup.rpcgetupdatesCall.teaminfoupdated(
+          ..teamInfoUpdated =
+              UpdatesGroup.getauthuserdataupdatesCall.teaminfoupdated(
             (updates?.jsonBody ?? ''),
           ),
       );

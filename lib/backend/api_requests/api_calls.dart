@@ -750,7 +750,8 @@ class GetchatsCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'getchats',
-      apiUrl: '${ChatsGroup.baseUrl}rpc/get_chats?select=*,chat_members(*)',
+      apiUrl:
+          '${ChatsGroup.baseUrl}rpc/get_chats?select=*,chat_members(*),chat_messages(*)',
       callType: ApiCallType.GET,
       headers: {
         'apikey':
@@ -809,6 +810,11 @@ class GetchatsCall {
   List? chatmembers(dynamic response) => getJsonField(
         response,
         r'''$[:].chat_members''',
+        true,
+      ) as List?;
+  List? chatmessages(dynamic response) => getJsonField(
+        response,
+        r'''$[:].chat_messages''',
         true,
       ) as List?;
 }
@@ -979,7 +985,8 @@ class UpdatesGroup {
   };
   static UpdatesCall updatesCall = UpdatesCall();
   static GetchatsupdatesCall getchatsupdatesCall = GetchatsupdatesCall();
-  static RpcgetupdatesCall rpcgetupdatesCall = RpcgetupdatesCall();
+  static GetauthuserdataupdatesCall getauthuserdataupdatesCall =
+      GetauthuserdataupdatesCall();
 }
 
 class UpdatesCall {
@@ -1072,7 +1079,7 @@ class GetchatsupdatesCall {
       ));
 }
 
-class RpcgetupdatesCall {
+class GetauthuserdataupdatesCall {
   Future<ApiCallResponse> call({
     String? uid = '',
   }) async {
@@ -1081,8 +1088,8 @@ class RpcgetupdatesCall {
   "uid": "$uid"
 }''';
     return ApiManager.instance.makeApiCall(
-      callName: 'rpcgetupdates',
-      apiUrl: '${UpdatesGroup.baseUrl}rpc/get_updates',
+      callName: 'getauthuserdataupdates',
+      apiUrl: '${UpdatesGroup.baseUrl}rpc/get_authuserdata_updates',
       callType: ApiCallType.POST,
       headers: {
         'apikey':

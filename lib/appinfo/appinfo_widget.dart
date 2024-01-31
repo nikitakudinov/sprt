@@ -31,6 +31,7 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.countries = await UpdatesGroup.getcountriesCall.call();
       _model.players = await PlayersGroup.playersCall.call();
       _model.teams = await TeamsGroup.teamsCall.call();
       _model.tournaments = await TournamentsGroup.tournamentsCall.call();
@@ -74,6 +75,12 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
                     .toList()
                     .map<PlayerStruct?>(PlayerStruct.maybeFromMap)
                     .toList() as Iterable<PlayerStruct?>)
+                .withoutNulls
+                .toList()
+            ..countries = ((_model.countries?.jsonBody ?? '')
+                    .toList()
+                    .map<CountryStruct?>(CountryStruct.maybeFromMap)
+                    .toList() as Iterable<CountryStruct?>)
                 .withoutNulls
                 .toList(),
         );

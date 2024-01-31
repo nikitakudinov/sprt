@@ -992,6 +992,7 @@ class UpdatesGroup {
   static GetchatsupdatesCall getchatsupdatesCall = GetchatsupdatesCall();
   static GetauthuserdataupdatesCall getauthuserdataupdatesCall =
       GetauthuserdataupdatesCall();
+  static GetcountriesCall getcountriesCall = GetcountriesCall();
 }
 
 class UpdatesCall {
@@ -1133,6 +1134,99 @@ class GetauthuserdataupdatesCall {
         response,
         r'''$[:].team_info_updated''',
       ));
+}
+
+class GetcountriesCall {
+  Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getcountries',
+      apiUrl: '${UpdatesGroup.baseUrl}countries',
+      callType: ApiCallType.GET,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List<String>? iso2(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].iso2''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? enName(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].enName''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? ruName(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].ruName''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? flagLink16x12(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].flagLink16x12''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? flagLink32x24(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].flagLink32x24''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? flagLink48x36(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].flagLink48x36''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<String>? flagLinkH24(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].flagLinkH24''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  List<int>? id(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
 }
 
 /// End UPDATES Group Code

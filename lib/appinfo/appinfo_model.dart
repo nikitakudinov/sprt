@@ -9,6 +9,8 @@ class AppinfoModel extends FlutterFlowModel<AppinfoWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (getcountries)] action in APPINFO widget.
+  ApiCallResponse? countries;
   // Stores action output result for [Backend Call - API (PLAYERS)] action in APPINFO widget.
   ApiCallResponse? players;
   // Stores action output result for [Backend Call - API (TEAMS)] action in APPINFO widget.

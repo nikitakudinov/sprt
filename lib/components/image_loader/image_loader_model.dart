@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'imageloader_widget.dart' show ImageloaderWidget;
+import 'image_loader_widget.dart' show ImageLoaderWidget;
 import 'package:flutter/material.dart';
 
-class ImageloaderModel extends FlutterFlowModel<ImageloaderWidget> {
+class ImageLoaderModel extends FlutterFlowModel<ImageLoaderWidget> {
   ///  Local state fields for this component.
 
   String? image =

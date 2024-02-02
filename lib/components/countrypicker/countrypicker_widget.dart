@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'countrypicker_model.dart';
@@ -60,6 +61,15 @@ class _CountrypickerWidgetState extends State<CountrypickerWidget> {
                     child: TextFormField(
                       controller: _model.textController,
                       focusNode: _model.textFieldFocusNode,
+                      onChanged: (_) => EasyDebounce.debounce(
+                        '_model.textController',
+                        const Duration(milliseconds: 2000),
+                        () async {
+                          setState(() {
+                            _model.serchText = _model.textController.text;
+                          });
+                        },
+                      ),
                       obscureText: false,
                       decoration: InputDecoration(
                         labelText: 'Название страны',
@@ -116,7 +126,7 @@ class _CountrypickerWidgetState extends State<CountrypickerWidget> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(0.0),
                               child: Image.network(
-                                'https://picsum.photos/seed/229/600',
+                                countriesItem.flagLinkH24,
                                 width: 20.0,
                                 height: 14.0,
                                 fit: BoxFit.cover,
@@ -127,7 +137,7 @@ class _CountrypickerWidgetState extends State<CountrypickerWidget> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 5.0, 0.0, 5.0),
                             child: Text(
-                              'Hello World',
+                              countriesItem.ruName,
                               style: FlutterFlowTheme.of(context).bodyMedium,
                             ),
                           ),

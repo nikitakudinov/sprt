@@ -7,6 +7,8 @@ class CountrypickerModel extends FlutterFlowModel<CountrypickerWidget> {
 
   int? selectedCountryId = 0;
 
+  String? serchText;
+
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for TextField widget.

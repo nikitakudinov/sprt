@@ -233,14 +233,14 @@ class ThemeTypography extends Typography {
   String get titleMediumFamily => 'Roboto';
   TextStyle get titleMedium => GoogleFonts.getFont(
         'Roboto',
-        color: theme.info,
+        color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 18.0,
       );
   String get titleSmallFamily => 'Roboto';
   TextStyle get titleSmall => GoogleFonts.getFont(
         'Roboto',
-        color: theme.info,
+        color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 16.0,
       );

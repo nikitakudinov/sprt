@@ -6,11 +6,11 @@ import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import 'imageloader_model.dart';
-export 'imageloader_model.dart';
+import 'image_loader_model.dart';
+export 'image_loader_model.dart';
 
-class ImageloaderWidget extends StatefulWidget {
-  const ImageloaderWidget({
+class ImageLoaderWidget extends StatefulWidget {
+  const ImageLoaderWidget({
     super.key,
     int? imageSize,
     String? imagePath,
@@ -22,11 +22,11 @@ class ImageloaderWidget extends StatefulWidget {
   final String imagePath;
 
   @override
-  State<ImageloaderWidget> createState() => _ImageloaderWidgetState();
+  State<ImageLoaderWidget> createState() => _ImageLoaderWidgetState();
 }
 
-class _ImageloaderWidgetState extends State<ImageloaderWidget> {
-  late ImageloaderModel _model;
+class _ImageLoaderWidgetState extends State<ImageLoaderWidget> {
+  late ImageLoaderModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -37,7 +37,7 @@ class _ImageloaderWidgetState extends State<ImageloaderWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ImageloaderModel());
+    _model = createModel(context, () => ImageLoaderModel());
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {

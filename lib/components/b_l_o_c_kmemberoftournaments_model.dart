@@ -1,8 +1,16 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'country_widget.dart' show CountryWidget;
+import 'b_l_o_c_kmemberoftournaments_widget.dart'
+    show BLOCKmemberoftournamentsWidget;
 import 'package:flutter/material.dart';
 
-class CountryModel extends FlutterFlowModel<CountryWidget> {
+class BLOCKmemberoftournamentsModel
+    extends FlutterFlowModel<BLOCKmemberoftournamentsWidget> {
+  ///  Local state fields for this component.
+
+  bool selectedACTIVE = true;
+
+  bool selectedCOMPLITED = false;
+
   /// Initialization and disposal methods.
 
   @override

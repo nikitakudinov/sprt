@@ -95,6 +95,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'APPINFO',
           path: '/appinfo',
           builder: (context, params) => const AppinfoWidget(),
+        ),
+        FFRoute(
+          name: 'PROFILE',
+          path: '/profile',
+          builder: (context, params) => const ProfileWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -2,11 +2,11 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'country_model.dart';
-export 'country_model.dart';
+import 'countryview_model.dart';
+export 'countryview_model.dart';
 
-class CountryWidget extends StatefulWidget {
-  const CountryWidget({
+class CountryviewWidget extends StatefulWidget {
+  const CountryviewWidget({
     super.key,
     required this.countruId,
   });
@@ -14,11 +14,11 @@ class CountryWidget extends StatefulWidget {
   final int? countruId;
 
   @override
-  State<CountryWidget> createState() => _CountryWidgetState();
+  State<CountryviewWidget> createState() => _CountryviewWidgetState();
 }
 
-class _CountryWidgetState extends State<CountryWidget> {
-  late CountryModel _model;
+class _CountryviewWidgetState extends State<CountryviewWidget> {
+  late CountryviewModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -29,7 +29,7 @@ class _CountryWidgetState extends State<CountryWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => CountryModel());
+    _model = createModel(context, () => CountryviewModel());
   }
 
   @override

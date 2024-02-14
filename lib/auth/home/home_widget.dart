@@ -1,3 +1,4 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -27,14 +28,14 @@ class _HomeWidgetState extends State<HomeWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await actions.supaRealtime(
-        'chats',
+      await actions.chats(
+        currentUserUid,
         () async {
           await showDialog(
             context: context,
             builder: (alertDialogContext) {
               return AlertDialog(
-                title: const Text('1'),
+                title: const Text('works'),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(alertDialogContext),

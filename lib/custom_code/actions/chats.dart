@@ -10,20 +10,9 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future chats(
-  String uid,
-  Future Function() action,
-) async {
+Future<List<ChatStruct>> chats() async {
   // Add your function code here!
   final supabase = SupaFlow.client;
-  supabase.channel('public:chats').on(
-      RealtimeListenTypes.postgresChanges,
-      ChannelFilter(
-        event: 'UPDATE',
-        schema: 'public',
-        table: 'chats',
-        filter: 'id=in.[4]',
-      ), (payload, [ref]) {
-    action();
-  }).subscribe();
+  final data = await supabase.from('chats').select('*');
+  return data;
 }

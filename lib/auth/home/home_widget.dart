@@ -1,4 +1,3 @@
-import '/auth/supabase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -28,25 +27,12 @@ class _HomeWidgetState extends State<HomeWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await actions.chats(
-        currentUserUid,
-        () async {
-          await showDialog(
-            context: context,
-            builder: (alertDialogContext) {
-              return AlertDialog(
-                title: const Text('works'),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(alertDialogContext),
-                    child: const Text('Ok'),
-                  ),
-                ],
-              );
-            },
-          );
-        },
-      );
+      _model.chatsData = await actions.chats();
+      setState(() {
+        FFAppState().updateMAINDATAStruct(
+          (e) => e..chats = _model.chatsData!.toList(),
+        );
+      });
     });
   }
 
@@ -92,11 +78,30 @@ class _HomeWidgetState extends State<HomeWidget> {
           centerTitle: false,
           elevation: 2.0,
         ),
-        body: const SafeArea(
+        body: SafeArea(
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: [],
+            children: [
+              Builder(
+                builder: (context) {
+                  final chats = FFAppState().MAINDATA.chats.toList();
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: chats.length,
+                    itemBuilder: (context, chatsIndex) {
+                      final chatsItem = chats[chatsIndex];
+                      return Text(
+                        chatsItem.lastMessage,
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),

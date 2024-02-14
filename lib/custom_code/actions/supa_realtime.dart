@@ -21,7 +21,8 @@ Future<void> supaRealtime(
   final channel = supabase.channel('public:' + table);
   channel.on(
     RealtimeListenTypes.postgresChanges,
-    ChannelFilter(event: '*', schema: 'public', table: table),
+    ChannelFilter(
+        event: '*', schema: 'public', table: table, filter: 'id=eq.4'),
     (payload, [ref]) {
       reloadAction();
       print('Reloaded.');

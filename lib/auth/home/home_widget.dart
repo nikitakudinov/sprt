@@ -28,7 +28,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.supaRealtime(
-        'ty',
+        'chats',
         () async {
           await showDialog(
             context: context,

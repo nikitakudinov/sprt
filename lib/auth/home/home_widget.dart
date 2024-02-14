@@ -1,6 +1,8 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'home_model.dart';
@@ -22,6 +24,29 @@ class _HomeWidgetState extends State<HomeWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HomeModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await actions.supaRealtime(
+        'ty',
+        () async {
+          await showDialog(
+            context: context,
+            builder: (alertDialogContext) {
+              return AlertDialog(
+                title: const Text('1'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext),
+                    child: const Text('Ok'),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      );
+    });
   }
 
   @override

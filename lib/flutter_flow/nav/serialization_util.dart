@@ -101,9 +101,9 @@ DateTimeRange? dateTimeRangeFromString(String dateTimeRangeStr) {
   );
 }
 
-LatLng? latLngFromString(String latLngStr) {
-  final pieces = latLngStr.split(',');
-  if (pieces.length != 2) {
+LatLng? latLngFromString(String? latLngStr) {
+  final pieces = latLngStr?.split(',');
+  if (pieces == null || pieces.length != 2) {
     return null;
   }
   return LatLng(
@@ -215,36 +215,20 @@ dynamic deserializeParam<T>(
         switch (T) {
           case ChatMembersRow:
             return ChatMembersRow(data);
-          case ChatMessagesReadedByRow:
-            return ChatMessagesReadedByRow(data);
-          case ChatMessagesRow:
-            return ChatMessagesRow(data);
-          case TournamentOrganizatorsRow:
-            return TournamentOrganizatorsRow(data);
-          case CountriesRow:
-            return CountriesRow(data);
-          case TeamInfoRow:
-            return TeamInfoRow(data);
-          case TeamsRow:
-            return TeamsRow(data);
-          case MatchOpponentsRow:
-            return MatchOpponentsRow(data);
-          case TournamentsRow:
-            return TournamentsRow(data);
-          case TournamentInfoRow:
-            return TournamentInfoRow(data);
+          case MessagesRow:
+            return MessagesRow(data);
+          case MessageDelitedByRow:
+            return MessageDelitedByRow(data);
           case PlayersRow:
             return PlayersRow(data);
-          case TournamentMembersRow:
-            return TournamentMembersRow(data);
-          case UpdatesRow:
-            return UpdatesRow(data);
           case ChatsRow:
             return ChatsRow(data);
-          case Updates2Row:
-            return Updates2Row(data);
-          case MatchesRow:
-            return MatchesRow(data);
+          case ChatDelitedByRow:
+            return ChatDelitedByRow(data);
+          case PlayerFriendsRow:
+            return PlayerFriendsRow(data);
+          case MessageReadedByRow:
+            return MessageReadedByRow(data);
           default:
             return null;
         }

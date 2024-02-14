@@ -1,18 +1,19 @@
 import '../database.dart';
 
-class ChatMembersTable extends SupabaseTable<ChatMembersRow> {
+class ChatDelitedByTable extends SupabaseTable<ChatDelitedByRow> {
   @override
-  String get tableName => 'chat_members';
+  String get tableName => 'chat_delited_by';
 
   @override
-  ChatMembersRow createRow(Map<String, dynamic> data) => ChatMembersRow(data);
+  ChatDelitedByRow createRow(Map<String, dynamic> data) =>
+      ChatDelitedByRow(data);
 }
 
-class ChatMembersRow extends SupabaseDataRow {
-  ChatMembersRow(super.data);
+class ChatDelitedByRow extends SupabaseDataRow {
+  ChatDelitedByRow(super.data);
 
   @override
-  SupabaseTable get table => ChatMembersTable();
+  SupabaseTable get table => ChatDelitedByTable();
 
   int get id => getField<int>('id')!;
   set id(int value) => setField<int>('id', value);

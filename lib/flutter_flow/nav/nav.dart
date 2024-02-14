@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
+import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
@@ -73,18 +74,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const AppinfoWidget() : const LoginWidget(),
+          appStateNotifier.loggedIn ? const NavBarPage() : const LoginWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const AppinfoWidget() : const LoginWidget(),
+              appStateNotifier.loggedIn ? const NavBarPage() : const LoginWidget(),
         ),
         FFRoute(
           name: 'HOME',
           path: '/home',
-          builder: (context, params) => const HomeWidget(),
+          builder: (context, params) =>
+              params.isEmpty ? const NavBarPage(initialPage: 'HOME') : const HomeWidget(),
         ),
         FFRoute(
           name: 'LOGIN',
@@ -97,9 +99,29 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const AppinfoWidget(),
         ),
         FFRoute(
-          name: 'PROFILE',
-          path: '/profile',
-          builder: (context, params) => const ProfileWidget(),
+          name: 'PLAYER-PROFILE',
+          path: '/playerProfile',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'PLAYER-PROFILE')
+              : const PlayerProfileWidget(),
+        ),
+        FFRoute(
+          name: 'TEAM-PROFILE',
+          path: '/teamProfile',
+          builder: (context, params) => const TeamProfileWidget(),
+        ),
+        FFRoute(
+          name: 'CHATS',
+          path: '/chats',
+          builder: (context, params) =>
+              params.isEmpty ? const NavBarPage(initialPage: 'CHATS') : const ChatsWidget(),
+        ),
+        FFRoute(
+          name: 'CHAT',
+          path: '/chat',
+          builder: (context, params) => ChatWidget(
+            chat: params.getParam('chat', ParamType.int),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -3,7 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart' hide Provider;
 export 'database/database.dart';
 export 'storage/storage.dart';
 
-const _kSupabaseUrl = 'https://supabase.proplayclub.ru';
+const _kSupabaseUrl = 'https://supa.nkbase.ru';
 const _kSupabaseAnonKey =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI';
 

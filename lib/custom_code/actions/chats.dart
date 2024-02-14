@@ -22,7 +22,7 @@ Future chats(
         event: 'UPDATE',
         schema: 'public',
         table: 'chats',
-        filter: 'id=eq.4',
+        filter: 'id=in.["4"]',
       ), (payload, [ref]) {
     action();
   }).subscribe();

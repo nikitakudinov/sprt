@@ -27,12 +27,25 @@ class _HomeWidgetState extends State<HomeWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.chatsData = await actions.chats();
-      setState(() {
-        FFAppState().updateMAINDATAStruct(
-          (e) => e..chats = _model.chatsData!.toList(),
-        );
-      });
+      await actions.supaRealtime(
+        'chats',
+        () async {
+          await showDialog(
+            context: context,
+            builder: (alertDialogContext) {
+              return AlertDialog(
+                title: const Text('works'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext),
+                    child: const Text('Ok'),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      );
     });
   }
 

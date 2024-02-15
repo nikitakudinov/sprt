@@ -123,16 +123,16 @@ class _HomeWidgetState extends State<HomeWidget> {
             children: [
               Builder(
                 builder: (context) {
-                  final chats = FFAppState().MAINDATA.chats.toList();
+                  final player = FFAppState().MAINDATA.players.toList();
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
-                    itemCount: chats.length,
-                    itemBuilder: (context, chatsIndex) {
-                      final chatsItem = chats[chatsIndex];
+                    itemCount: player.length,
+                    itemBuilder: (context, playerIndex) {
+                      final playerItem = player[playerIndex];
                       return Text(
-                        chatsItem.lastMessage,
+                        playerItem.nickname,
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       );
                     },

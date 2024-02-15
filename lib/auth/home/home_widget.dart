@@ -30,7 +30,6 @@ class _HomeWidgetState extends State<HomeWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.playersData = await PlayersGroup.playersCall.call();
       await actions.supaRealtime(
         currentUserUid,
         'chats',
@@ -55,17 +54,23 @@ class _HomeWidgetState extends State<HomeWidget> {
                         .map<ChatMessageStruct?>(ChatMessageStruct.maybeFromMap)
                         .toList() as Iterable<ChatMessageStruct?>)
                     .withoutNulls
-                    .toList()
-                ..players = ((_model.playersData?.jsonBody ?? '')
-                        .toList()
-                        .map<PlayerStruct?>(PlayerStruct.maybeFromMap)
-                        .toList() as Iterable<PlayerStruct?>)
-                    .withoutNulls
                     .toList(),
             );
           });
         },
       );
+      _model.playersData = await PlayersGroup.playersCall.call();
+      setState(() {
+        FFAppState().updateMAINDATAStruct(
+          (e) => e
+            ..players = ((_model.playersData?.jsonBody ?? '')
+                    .toList()
+                    .map<PlayerStruct?>(PlayerStruct.maybeFromMap)
+                    .toList() as Iterable<PlayerStruct?>)
+                .withoutNulls
+                .toList(),
+        );
+      });
     });
   }
 

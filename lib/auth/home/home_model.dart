@@ -7,12 +7,12 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Backend Call - API (PLAYERS)] action in HOME widget.
-  ApiCallResponse? playersData;
   // Stores action output result for [Backend Call - API (getchats)] action in HOME widget.
   ApiCallResponse? chatsData;
   // Stores action output result for [Backend Call - API (getmessages)] action in HOME widget.
   ApiCallResponse? messagesData;
+  // Stores action output result for [Backend Call - API (PLAYERS)] action in HOME widget.
+  ApiCallResponse? playersData;
 
   /// Initialization and disposal methods.
 

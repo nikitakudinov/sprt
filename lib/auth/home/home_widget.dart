@@ -60,6 +60,12 @@ class _HomeWidgetState extends State<HomeWidget> {
         },
       );
       _model.playersData = await PlayersGroup.playersCall.call();
+      _model.chatsDataLoad = await ChatsGroup.getchatsCall.call(
+        uid: currentUserUid,
+      );
+      _model.messagesLoad = await ChatsGroup.getmessagesCall.call(
+        uid: currentUserUid,
+      );
       setState(() {
         FFAppState().updateMAINDATAStruct(
           (e) => e
@@ -67,6 +73,18 @@ class _HomeWidgetState extends State<HomeWidget> {
                     .toList()
                     .map<PlayerStruct?>(PlayerStruct.maybeFromMap)
                     .toList() as Iterable<PlayerStruct?>)
+                .withoutNulls
+                .toList()
+            ..chats = ((_model.chatsDataLoad?.jsonBody ?? '')
+                    .toList()
+                    .map<ChatStruct?>(ChatStruct.maybeFromMap)
+                    .toList() as Iterable<ChatStruct?>)
+                .withoutNulls
+                .toList()
+            ..chatMessages = ((_model.messagesLoad?.jsonBody ?? '')
+                    .toList()
+                    .map<ChatMessageStruct?>(ChatMessageStruct.maybeFromMap)
+                    .toList() as Iterable<ChatMessageStruct?>)
                 .withoutNulls
                 .toList(),
         );

@@ -13,6 +13,10 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   ApiCallResponse? messagesData;
   // Stores action output result for [Backend Call - API (PLAYERS)] action in HOME widget.
   ApiCallResponse? playersData;
+  // Stores action output result for [Backend Call - API (getchats)] action in HOME widget.
+  ApiCallResponse? chatsDataLoad;
+  // Stores action output result for [Backend Call - API (getmessages)] action in HOME widget.
+  ApiCallResponse? messagesLoad;
 
   /// Initialization and disposal methods.
 

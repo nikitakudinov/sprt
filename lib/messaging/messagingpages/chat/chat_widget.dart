@@ -199,36 +199,44 @@ class _ChatWidgetState extends State<ChatWidget> {
             child: Stack(
               alignment: const AlignmentDirectional(0.0, 1.0),
               children: [
-                SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Builder(
-                        builder: (context) {
-                          final messages = FFAppState()
-                              .MAINDATA
-                              .chatMessages
-                              .where((e) => e.chatId == widget.chat)
-                              .toList();
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: messages.length,
-                            itemBuilder: (context, messagesIndex) {
-                              final messagesItem = messages[messagesIndex];
-                              return MessageWidget(
-                                key: Key(
-                                    'Key9lx_${messagesIndex}_of_${messages.length}'),
-                                sander: messagesItem.sander,
-                                text: messagesItem.body,
-                                time: messagesItem.createdAt,
+                Align(
+                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  child: Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 50.0),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Builder(
+                            builder: (context) {
+                              final messages = FFAppState()
+                                  .MAINDATA
+                                  .chatMessages
+                                  .where((e) => e.chatId == widget.chat)
+                                  .toList();
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                primary: false,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: messages.length,
+                                itemBuilder: (context, messagesIndex) {
+                                  final messagesItem = messages[messagesIndex];
+                                  return MessageWidget(
+                                    key: Key(
+                                        'Key9lx_${messagesIndex}_of_${messages.length}'),
+                                    sander: messagesItem.sander,
+                                    text: messagesItem.body,
+                                    time: messagesItem.createdAt,
+                                  );
+                                },
                               );
                             },
-                          );
-                        },
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
                 Container(

@@ -1,3 +1,5 @@
+import '/auth/supabase_auth/auth_util.dart';
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -93,9 +95,48 @@ class _ChatWidgetState extends State<ChatWidget> {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'SIB | WOx',
-                      style: FlutterFlowTheme.of(context).bodyLarge,
+                    FutureBuilder<List<ChatMembersRow>>(
+                      future: ChatMembersTable().queryRows(
+                        queryFn: (q) => q
+                            .eq(
+                              'chat_id',
+                              widget.chat,
+                            )
+                            .neq(
+                              'player_uid',
+                              currentUserUid,
+                            ),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                        List<ChatMembersRow> textChatMembersRowList =
+                            snapshot.data!;
+                        return Text(
+                          FFAppState()
+                              .MAINDATA
+                              .players
+                              .where((e) =>
+                                  e.uid ==
+                                  textChatMembersRowList.first.playerUid)
+                              .toList()
+                              .first
+                              .nickname,
+                          style: FlutterFlowTheme.of(context).bodyLarge,
+                        );
+                      },
                     ),
                     Text(
                       'ONLINE',

@@ -205,6 +205,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 50.0),
                     child: SingleChildScrollView(
+                      controller: _model.columnController,
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -231,6 +232,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                     time: messagesItem.createdAt,
                                   );
                                 },
+                                controller: _model.listViewController,
                               );
                             },
                           ),
@@ -312,6 +314,12 @@ class _ChatWidgetState extends State<ChatWidget> {
                               pChatId: widget.chat,
                               pSanderUid: currentUserUid,
                               pMessage: _model.messagetextController.text,
+                            );
+                            await _model.listViewController?.animateTo(
+                              _model
+                                  .listViewController!.position.maxScrollExtent,
+                              duration: const Duration(milliseconds: 100),
+                              curve: Curves.ease,
                             );
 
                             setState(() {});

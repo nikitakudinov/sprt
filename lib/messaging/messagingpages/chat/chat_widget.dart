@@ -1,10 +1,14 @@
 import '/auth/supabase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/messaging/messagingcomponents/message/message_widget.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'chat_model.dart';
@@ -31,6 +35,39 @@ class _ChatWidgetState extends State<ChatWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ChatModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await actions.supaRealtime(
+        currentUserUid,
+        'chats',
+        () async {
+          _model.chatsDataC = await ChatsGroup.getchatsCall.call(
+            uid: currentUserUid,
+          );
+          _model.messagesDataC = await ChatsGroup.getmessagesCall.call(
+            uid: currentUserUid,
+          );
+          FFAppState().update(() {
+            FFAppState().updateMAINDATAStruct(
+              (e) => e
+                ..chats = ((_model.chatsDataC?.jsonBody ?? '')
+                        .toList()
+                        .map<ChatStruct?>(ChatStruct.maybeFromMap)
+                        .toList() as Iterable<ChatStruct?>)
+                    .withoutNulls
+                    .toList()
+                ..chatMessages = ((_model.messagesDataC?.jsonBody ?? '')
+                        .toList()
+                        .map<ChatMessageStruct?>(ChatMessageStruct.maybeFromMap)
+                        .toList() as Iterable<ChatMessageStruct?>)
+                    .withoutNulls
+                    .toList(),
+            );
+          });
+        },
+      );
+    });
 
     _model.messagetextController ??= TextEditingController();
     _model.messagetextFocusNode ??= FocusNode();
@@ -260,8 +297,15 @@ class _ChatWidgetState extends State<ChatWidget> {
                           color: FlutterFlowTheme.of(context).secondaryText,
                           size: 24.0,
                         ),
-                        onPressed: () {
-                          print('IconButton pressed ...');
+                        onPressed: () async {
+                          _model.sandMessage =
+                              await ChatsGroup.postmessageCall.call(
+                            pChatId: widget.chat,
+                            pSanderUid: currentUserUid,
+                            pMessage: _model.messagetextController.text,
+                          );
+
+                          setState(() {});
                         },
                       ),
                     ),

@@ -199,6 +199,7 @@ class _ChatWidgetState extends State<ChatWidget> {
             children: [
               Expanded(
                 child: SingleChildScrollView(
+                  primary: false,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -211,7 +212,6 @@ class _ChatWidgetState extends State<ChatWidget> {
                               .toList();
                           return ListView.builder(
                             padding: EdgeInsets.zero,
-                            primary: false,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             itemCount: messages.length,

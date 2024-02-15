@@ -34,11 +34,6 @@ class _HomeWidgetState extends State<HomeWidget> {
         currentUserUid,
         'chats',
         () async {
-          await actions.supaRealtime(
-            currentUserUid,
-            'chats',
-            () async {},
-          );
           _model.apiResultyma = await ChatsGroup.getchatsCall.call(
             uid: currentUserUid,
           );

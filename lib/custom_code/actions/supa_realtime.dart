@@ -13,21 +13,23 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> supaRealtime(
+  String? uid,
   String? tableName,
   Future<dynamic> Function() reloadAction,
 ) async {
   final supabase = SupaFlow.client;
-  final data = await supabase.rpc('get_user_chats_id',
-      params: {'p_player_uid': '730e44e1-893a-4040-8a47-914d30127965'});
+  final data =
+      await supabase.rpc('get_user_chats_id', params: {'p_player_uid': uid});
+  String str = data.join(", ");
+  String myString = 'id=in.(' + str + ')';
   String table = tableName ?? '*';
   final channel = supabase.channel('public:' + table);
   channel.on(
     RealtimeListenTypes.postgresChanges,
-    ChannelFilter(
-        event: '*', schema: 'public', table: table, filter: 'id=in.("5","4")'),
+    ChannelFilter(event: '*', schema: 'public', table: table, filter: myString),
     (payload, [ref]) {
       reloadAction();
-      print('Reloaded.');
+      print(str);
     },
   ).subscribe();
 }

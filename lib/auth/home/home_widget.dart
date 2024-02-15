@@ -1,4 +1,6 @@
 import '/auth/supabase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -32,20 +34,25 @@ class _HomeWidgetState extends State<HomeWidget> {
         currentUserUid,
         'chats',
         () async {
-          await showDialog(
-            context: context,
-            builder: (alertDialogContext) {
-              return AlertDialog(
-                title: const Text('works'),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(alertDialogContext),
-                    child: const Text('Ok'),
-                  ),
-                ],
-              );
-            },
+          await actions.supaRealtime(
+            currentUserUid,
+            'chats',
+            () async {},
           );
+          _model.apiResultyma = await ChatsGroup.getchatsCall.call(
+            uid: currentUserUid,
+          );
+          setState(() {
+            FFAppState().updateMAINDATAStruct(
+              (e) => e
+                ..chats = ((_model.apiResultyma?.jsonBody ?? '')
+                        .toList()
+                        .map<ChatStruct?>(ChatStruct.maybeFromMap)
+                        .toList() as Iterable<ChatStruct?>)
+                    .withoutNulls
+                    .toList(),
+            );
+          });
         },
       );
     });

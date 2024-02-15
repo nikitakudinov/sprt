@@ -662,7 +662,7 @@ class MatchopponentsCall {
 /// Start CHATS Group Code
 
 class ChatsGroup {
-  static String baseUrl = 'https://supabase.proplayclub.ru/rest/v1/';
+  static String baseUrl = 'https://supa.nkbase.ru/rest/v1/';
   static Map<String, String> headers = {
     'apikey':
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
@@ -751,14 +751,14 @@ class GetchatsCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'getchats',
-      apiUrl: '${ChatsGroup.baseUrl}rpc/get_chats',
+      apiUrl: '${ChatsGroup.baseUrl}rpc/get_user_chats',
       callType: ApiCallType.GET,
       headers: {
         'apikey':
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
       },
       params: {
-        'uid': uid,
+        'p_player_uid': uid,
       },
       returnBody: true,
       encodeBodyUtf8: false,

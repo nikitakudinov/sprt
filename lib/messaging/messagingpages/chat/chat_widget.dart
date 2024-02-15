@@ -1,4 +1,3 @@
-import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -125,44 +124,26 @@ class _ChatWidgetState extends State<ChatWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      FutureBuilder<List<MessagesRow>>(
-                        future: MessagesTable().queryRows(
-                          queryFn: (q) => q.eq(
-                            'chat_id',
-                            widget.chat,
-                          ),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                          List<MessagesRow> listViewMessagesRowList =
-                              snapshot.data!;
+                      Builder(
+                        builder: (context) {
+                          final messages = FFAppState()
+                              .MAINDATA
+                              .chatMessages
+                              .where((e) => e.chatId == widget.chat)
+                              .toList();
                           return ListView.builder(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
-                            itemCount: listViewMessagesRowList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewMessagesRow =
-                                  listViewMessagesRowList[listViewIndex];
+                            itemCount: messages.length,
+                            itemBuilder: (context, messagesIndex) {
+                              final messagesItem = messages[messagesIndex];
                               return MessageWidget(
                                 key: Key(
-                                    'Key9lx_${listViewIndex}_of_${listViewMessagesRowList.length}'),
-                                sander: listViewMessagesRow.sander!,
-                                text: listViewMessagesRow.body!,
-                                time: listViewMessagesRow.createdAt.toString(),
+                                    'Key9lx_${messagesIndex}_of_${messages.length}'),
+                                sander: messagesItem.sander,
+                                text: messagesItem.body,
+                                time: messagesItem.createdAt,
                               );
                             },
                           );

@@ -24,7 +24,7 @@ Future<void> supaRealtime(
   channel.on(
     RealtimeListenTypes.postgresChanges,
     ChannelFilter(
-        event: '*', schema: 'public', table: table, filter: 'id=in.["5","4"]'),
+        event: '*', schema: 'public', table: table, filter: 'id=in.("5","4")'),
     (payload, [ref]) {
       reloadAction();
       print('Reloaded.');

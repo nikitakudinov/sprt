@@ -669,6 +669,7 @@ class ChatsGroup {
   };
   static GetchatsCall getchatsCall = GetchatsCall();
   static GetmessagesCall getmessagesCall = GetmessagesCall();
+  static PostmessageCall postmessageCall = PostmessageCall();
 }
 
 class GetchatsCall {
@@ -760,6 +761,88 @@ class GetmessagesCall {
       params: {
         'p_player_uid': uid,
       },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  int? id(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].id''',
+      ));
+  String? lastmessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].last_message''',
+      ));
+  String? lastmessagesander(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$[:].lastmessage_sander''',
+      ));
+  String? updatedat(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].updated_at''',
+      ));
+  String? chattype(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].chat_type''',
+      ));
+  List<int>? chatofteam(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].chat_of_team''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<int>? chatoftournament(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].chat_of_tournament''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List? chatmembers(dynamic response) => getJsonField(
+        response,
+        r'''$[:].chat_members''',
+        true,
+      ) as List?;
+  List? chatmessages(dynamic response) => getJsonField(
+        response,
+        r'''$[:].chat_messages''',
+        true,
+      ) as List?;
+}
+
+class PostmessageCall {
+  Future<ApiCallResponse> call({
+    int? pChatId,
+    String? pSanderUid = '',
+    String? pMessage = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "p_chat_id": $pChatId,
+  "p_sander_uid": "$pSanderUid",
+  "p_message": "$pMessage"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'postmessage',
+      apiUrl: '${ChatsGroup.baseUrl}rpc/sand_message',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

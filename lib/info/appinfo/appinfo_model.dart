@@ -19,10 +19,6 @@ class AppinfoModel extends FlutterFlowModel<AppinfoWidget> {
   ApiCallResponse? tournaments;
   // Stores action output result for [Backend Call - API (getchats)] action in APPINFO widget.
   ApiCallResponse? chats;
-  // Stores action output result for [Backend Call - API (chatmessagesAAA)] action in APPINFO widget.
-  ApiCallResponse? chatmessages;
-  // Stores action output result for [Backend Call - API (authchatmembersAAA)] action in APPINFO widget.
-  ApiCallResponse? chatmembers;
   // Model for image-loader component.
   late ImageLoaderModel imageLoaderModel;
   // Model for countryview component.

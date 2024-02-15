@@ -34,16 +34,25 @@ class _HomeWidgetState extends State<HomeWidget> {
         currentUserUid,
         'chats',
         () async {
-          _model.apiResultyma = await ChatsGroup.getchatsCall.call(
+          _model.chatsData = await ChatsGroup.getchatsCall.call(
             uid: currentUserUid,
           );
-          setState(() {
+          _model.messagesData = await ChatsGroup.getmessagesCall.call(
+            uid: currentUserUid,
+          );
+          FFAppState().update(() {
             FFAppState().updateMAINDATAStruct(
               (e) => e
-                ..chats = ((_model.apiResultyma?.jsonBody ?? '')
+                ..chats = ((_model.chatsData?.jsonBody ?? '')
                         .toList()
                         .map<ChatStruct?>(ChatStruct.maybeFromMap)
                         .toList() as Iterable<ChatStruct?>)
+                    .withoutNulls
+                    .toList()
+                ..chatMessages = ((_model.messagesData?.jsonBody ?? '')
+                        .toList()
+                        .map<ChatMessageStruct?>(ChatMessageStruct.maybeFromMap)
+                        .toList() as Iterable<ChatMessageStruct?>)
                     .withoutNulls
                     .toList(),
             );

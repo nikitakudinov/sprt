@@ -667,82 +667,8 @@ class ChatsGroup {
     'apikey':
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
   };
-  static LASTUPDATEDchatsCall lASTUPDATEDchatsCall = LASTUPDATEDchatsCall();
-  static ChatsCall chatsCall = ChatsCall();
   static GetchatsCall getchatsCall = GetchatsCall();
-  static ChatsbyidsCall chatsbyidsCall = ChatsbyidsCall();
-  static AuthchatmembersAAACall authchatmembersAAACall =
-      AuthchatmembersAAACall();
-  static ChatmessagesAAACall chatmessagesAAACall = ChatmessagesAAACall();
-  static ChatmembersCall chatmembersCall = ChatmembersCall();
-}
-
-class LASTUPDATEDchatsCall {
-  Future<ApiCallResponse> call() async {
-    return ApiManager.instance.makeApiCall(
-      callName: 'LASTUPDATEDchats',
-      apiUrl:
-          '${ChatsGroup.baseUrl}chats?limit=1&order=updated_at.desc&select=updated_at',
-      callType: ApiCallType.GET,
-      headers: {
-        'apikey':
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
-      },
-      params: {},
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      alwaysAllowBody: false,
-    );
-  }
-
-  String? updatedat(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$[:].updated_at''',
-      ));
-}
-
-class ChatsCall {
-  Future<ApiCallResponse> call() async {
-    return ApiManager.instance.makeApiCall(
-      callName: 'CHATS',
-      apiUrl: '${ChatsGroup.baseUrl}chats?',
-      callType: ApiCallType.GET,
-      headers: {
-        'apikey':
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
-      },
-      params: {},
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      alwaysAllowBody: false,
-    );
-  }
-
-  int? id(dynamic response) => castToType<int>(getJsonField(
-        response,
-        r'''$[:].id''',
-      ));
-  String? lastmessage(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$[:].last_message''',
-      ));
-  String? lastmessagesander(dynamic response) =>
-      castToType<String>(getJsonField(
-        response,
-        r'''$[:].lastmessage_sander''',
-      ));
-  String? updatedat(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$[:].updated_at''',
-      ));
-  String? chattype(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$[:].chat_type''',
-      ));
+  static GetmessagesCall getmessagesCall = GetmessagesCall();
 }
 
 class GetchatsCall {
@@ -819,19 +745,21 @@ class GetchatsCall {
       ) as List?;
 }
 
-class ChatsbyidsCall {
+class GetmessagesCall {
   Future<ApiCallResponse> call({
-    String? chatIds = '',
+    String? uid = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'chatsbyids',
-      apiUrl: '${ChatsGroup.baseUrl}chats?id=in.($chatIds)',
+      callName: 'getmessages',
+      apiUrl: '${ChatsGroup.baseUrl}rpc/get_user_messages',
       callType: ApiCallType.GET,
       headers: {
         'apikey':
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
       },
-      params: {},
+      params: {
+        'p_player_uid': uid,
+      },
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -861,121 +789,34 @@ class ChatsbyidsCall {
         response,
         r'''$[:].chat_type''',
       ));
-}
-
-class AuthchatmembersAAACall {
-  Future<ApiCallResponse> call({
-    String? uid = '',
-  }) async {
-    return ApiManager.instance.makeApiCall(
-      callName: 'authchatmembersAAA',
-      apiUrl: '${ChatsGroup.baseUrl}rpc/get_chat_members',
-      callType: ApiCallType.GET,
-      headers: {
-        'apikey':
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
-      },
-      params: {
-        'uid': uid,
-      },
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      alwaysAllowBody: false,
-    );
-  }
-
-  int? chatid(dynamic response) => castToType<int>(getJsonField(
+  List<int>? chatofteam(dynamic response) => (getJsonField(
         response,
-        r'''$[:].chat_id''',
-      ));
-  String? playeruid(dynamic response) => castToType<String>(getJsonField(
+        r'''$[:].chat_of_team''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<int>? chatoftournament(dynamic response) => (getJsonField(
         response,
-        r'''$[:].player_uid''',
-      ));
-}
-
-class ChatmessagesAAACall {
-  Future<ApiCallResponse> call({
-    String? uid = '',
-  }) async {
-    return ApiManager.instance.makeApiCall(
-      callName: 'chatmessagesAAA',
-      apiUrl: '${ChatsGroup.baseUrl}rpc/get_messages',
-      callType: ApiCallType.GET,
-      headers: {
-        'apikey':
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
-      },
-      params: {
-        'uid': uid,
-      },
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      alwaysAllowBody: false,
-    );
-  }
-
-  int? id(dynamic response) => castToType<int>(getJsonField(
+        r'''$[:].chat_of_tournament''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List? chatmembers(dynamic response) => getJsonField(
         response,
-        r'''$[:].id''',
-      ));
-  String? createdat(dynamic response) => castToType<String>(getJsonField(
+        r'''$[:].chat_members''',
+        true,
+      ) as List?;
+  List? chatmessages(dynamic response) => getJsonField(
         response,
-        r'''$[:].created_at''',
-      ));
-  String? sander(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$[:].sander''',
-      ));
-  int? chatid(dynamic response) => castToType<int>(getJsonField(
-        response,
-        r'''$[:].chat_id''',
-      ));
-  String? updatedat(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$[:].updated_at''',
-      ));
-}
-
-class ChatmembersCall {
-  Future<ApiCallResponse> call() async {
-    return ApiManager.instance.makeApiCall(
-      callName: 'chatmembers',
-      apiUrl: '${ChatsGroup.baseUrl}chat_members?',
-      callType: ApiCallType.GET,
-      headers: {
-        'apikey':
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
-      },
-      params: {},
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      alwaysAllowBody: false,
-    );
-  }
-
-  int? id(dynamic response) => castToType<int>(getJsonField(
-        response,
-        r'''$[:].id''',
-      ));
-  int? chatid(dynamic response) => castToType<int>(getJsonField(
-        response,
-        r'''$[:].chat_id''',
-      ));
-  String? playeruid(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$[:].player_uid''',
-      ));
-  String? updatedat(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$[:].updated_at''',
-      ));
+        r'''$[:].chat_messages''',
+        true,
+      ) as List?;
 }
 
 /// End CHATS Group Code

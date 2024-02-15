@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'chats_widget.dart' show ChatsWidget;
 import 'package:flutter/material.dart';
@@ -6,6 +7,10 @@ class ChatsModel extends FlutterFlowModel<ChatsWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (getchats)] action in CHATS widget.
+  ApiCallResponse? chatsData;
+  // Stores action output result for [Backend Call - API (getmessages)] action in CHATS widget.
+  ApiCallResponse? messagesData;
 
   /// Initialization and disposal methods.
 

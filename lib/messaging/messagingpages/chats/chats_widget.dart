@@ -1,6 +1,10 @@
+import '/auth/supabase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'chats_model.dart';
@@ -22,6 +26,27 @@ class _ChatsWidgetState extends State<ChatsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ChatsModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await actions.supaRealtime(
+        currentUserUid,
+        'chats',
+        () async {
+          _model.chatsData = await ChatsGroup.getchatsCall.call(
+            uid: currentUserUid,
+          );
+          _model.messagesData = await ChatsGroup.getmessagesCall.call(
+            uid: currentUserUid,
+          );
+          FFAppState().update(() {
+            FFAppState().updateMAINDATAStruct(
+              (e) => e,
+            );
+          });
+        },
+      );
+    });
   }
 
   @override
@@ -74,106 +99,116 @@ class _ChatsWidgetState extends State<ChatsWidget> {
             children: [
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
-                child: ListView(
-                  padding: const EdgeInsets.fromLTRB(
-                    0,
-                    20.0,
-                    0,
-                    0,
-                  ),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(5.0),
+                child: Builder(
+                  builder: (context) {
+                    final chats = FFAppState().MAINDATA.chats.toList();
+                    return ListView.builder(
+                      padding: const EdgeInsets.fromLTRB(
+                        0,
+                        20.0,
+                        0,
+                        0,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(25.0),
-                                child: Image.asset(
-                                  'assets/images/pro-player-gaming-mascot-logo-600w-1897626409.png',
-                                  width: 50.0,
-                                  height: 50.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'XOR | Admin',
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyLarge,
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        'MOBIUS: ',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Roboto',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                            ),
-                                      ),
-                                      Text(
-                                        'Привет как дела?',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Roboto',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .accent3,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Column(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: chats.length,
+                      itemBuilder: (context, chatsIndex) {
+                        final chatsItem = chats[chatsIndex];
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Container(
-                                  width: 25.0,
-                                  height: 25.0,
                                   decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).tertiary,
-                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
                                   ),
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
-                                  child: Text(
-                                    '20',
-                                    style:
-                                        FlutterFlowTheme.of(context).bodySmall,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(25.0),
+                                    child: Image.asset(
+                                      'assets/images/pro-player-gaming-mascot-logo-600w-1897626409.png',
+                                      width: 50.0,
+                                      height: 50.0,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                              ],
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'XOR | Admin',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyLarge,
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            'MOBIUS: ',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Roboto',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                ),
+                                          ),
+                                          Text(
+                                            chatsItem.lastMessage,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Roboto',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .accent3,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                      width: 25.0,
+                                      height: 25.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiary,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      child: Text(
+                                        '20',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodySmall,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ].divide(const SizedBox(width: 10.0)),
                             ),
-                          ].divide(const SizedBox(width: 10.0)),
-                        ),
-                      ),
-                    ),
-                  ],
+                          ),
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
             ],

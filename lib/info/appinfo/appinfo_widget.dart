@@ -1,6 +1,5 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/countryview/countryview_widget.dart';
 import '/components/image_loader/image_loader_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -38,53 +37,6 @@ class _AppinfoWidgetState extends State<AppinfoWidget> {
       _model.chats = await ChatsGroup.getchatsCall.call(
         uid: currentUserUid,
       );
-      _model.chatmessages = await ChatsGroup.chatmessagesAAACall.call(
-        uid: currentUserUid,
-      );
-      _model.chatmembers = await ChatsGroup.authchatmembersAAACall.call(
-        uid: currentUserUid,
-      );
-      setState(() {
-        FFAppState().updateMAINDATAStruct(
-          (e) => e
-            ..chats = ((_model.chats?.jsonBody ?? '')
-                    .toList()
-                    .map<ChatStruct?>(ChatStruct.maybeFromMap)
-                    .toList() as Iterable<ChatStruct?>)
-                .withoutNulls
-                .toList()
-            ..chatMessages = ((_model.chatmessages?.jsonBody ?? '')
-                    .toList()
-                    .map<ChatMessageStruct?>(ChatMessageStruct.maybeFromMap)
-                    .toList() as Iterable<ChatMessageStruct?>)
-                .withoutNulls
-                .toList()
-            ..chatMembers = ((_model.chatmembers?.jsonBody ?? '')
-                    .toList()
-                    .map<ChatMemberStruct?>(ChatMemberStruct.maybeFromMap)
-                    .toList() as Iterable<ChatMemberStruct?>)
-                .withoutNulls
-                .toList()
-            ..teams = ((_model.teams?.jsonBody ?? '')
-                    .toList()
-                    .map<TeamStruct?>(TeamStruct.maybeFromMap)
-                    .toList() as Iterable<TeamStruct?>)
-                .withoutNulls
-                .toList()
-            ..players = ((_model.players?.jsonBody ?? '')
-                    .toList()
-                    .map<PlayerStruct?>(PlayerStruct.maybeFromMap)
-                    .toList() as Iterable<PlayerStruct?>)
-                .withoutNulls
-                .toList()
-            ..countries = ((_model.countries?.jsonBody ?? '')
-                    .toList()
-                    .map<CountryStruct?>(CountryStruct.maybeFromMap)
-                    .toList() as Iterable<CountryStruct?>)
-                .withoutNulls
-                .toList(),
-        );
-      });
     });
   }
 

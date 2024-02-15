@@ -116,6 +116,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                   );
                 },
               ),
+              Text(
+                'Hello World',
+                style: FlutterFlowTheme.of(context).headlineSmall,
+              ),
             ],
           ),
         ),

@@ -10,7 +10,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start PLAYERS Group Code
 
 class PlayersGroup {
-  static String baseUrl = 'https://supabase.proplayclub.ru/rest/v1/';
+  static String baseUrl = 'https://supankbase.ru/rest/v1/';
   static Map<String, String> headers = {
     'apikey':
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',

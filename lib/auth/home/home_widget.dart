@@ -117,7 +117,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 },
               ),
               Text(
-                'Hello World',
+                currentUserUid,
                 style: FlutterFlowTheme.of(context).headlineSmall,
               ),
             ],

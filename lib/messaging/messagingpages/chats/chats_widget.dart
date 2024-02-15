@@ -1,5 +1,6 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -41,7 +42,19 @@ class _ChatsWidgetState extends State<ChatsWidget> {
           );
           FFAppState().update(() {
             FFAppState().updateMAINDATAStruct(
-              (e) => e,
+              (e) => e
+                ..chats = ((_model.chatsData?.jsonBody ?? '')
+                        .toList()
+                        .map<ChatStruct?>(ChatStruct.maybeFromMap)
+                        .toList() as Iterable<ChatStruct?>)
+                    .withoutNulls
+                    .toList()
+                ..chatMessages = ((_model.messagesData?.jsonBody ?? '')
+                        .toList()
+                        .map<ChatMessageStruct?>(ChatMessageStruct.maybeFromMap)
+                        .toList() as Iterable<ChatMessageStruct?>)
+                    .withoutNulls
+                    .toList(),
             );
           });
         },

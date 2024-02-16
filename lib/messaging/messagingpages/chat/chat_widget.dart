@@ -240,7 +240,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                           (isWeb
                                   ? MediaQuery.viewInsetsOf(context).bottom > 0
                                   : _isKeyboardVisible)
-                              ? 80.0
+                              ? 150.0
                               : 0.0,
                           0.0,
                         )),

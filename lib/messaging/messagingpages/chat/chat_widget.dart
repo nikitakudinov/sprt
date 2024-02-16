@@ -38,6 +38,11 @@ class _ChatWidgetState extends State<ChatWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await _model.listViewController?.animateTo(
+        _model.listViewController!.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 100),
+        curve: Curves.ease,
+      );
       await actions.supaRealtime(
         currentUserUid,
         'chats',

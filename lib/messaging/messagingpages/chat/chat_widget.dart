@@ -209,7 +209,7 @@ class _ChatWidgetState extends State<ChatWidget> {
               alignment: const AlignmentDirectional(0.0, 1.0),
               children: [
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  alignment: const AlignmentDirectional(0.0, -1.0),
                   child: Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 50.0),

@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'message_model.dart';
@@ -85,7 +86,7 @@ class _MessageWidgetState extends State<MessageWidget> {
                         children: [
                           Text(
                             valueOrDefault<String>(
-                              '${widget.time}',
+                              dateTimeFormat('Hm', functions.timestamptzTOdatetime(widget.time)),
                               '15:20',
                             ),
                             textAlign: TextAlign.start,

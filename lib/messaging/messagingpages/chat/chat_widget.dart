@@ -71,6 +71,15 @@ class _ChatWidgetState extends State<ChatWidget> {
 
     _model.messagetextController ??= TextEditingController();
     _model.messagetextFocusNode ??= FocusNode();
+    _model.messagetextFocusNode!.addListener(
+      () async {
+        await _model.columnController?.animateTo(
+          _model.columnController!.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 100),
+          curve: Curves.ease,
+        );
+      },
+    );
   }
 
   @override
@@ -209,32 +218,37 @@ class _ChatWidgetState extends State<ChatWidget> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Builder(
-                            builder: (context) {
-                              final messages = FFAppState()
-                                  .MAINDATA
-                                  .chatMessages
-                                  .where((e) => e.chatId == widget.chat)
-                                  .toList();
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                primary: false,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: messages.length,
-                                itemBuilder: (context, messagesIndex) {
-                                  final messagesItem = messages[messagesIndex];
-                                  return MessageWidget(
-                                    key: Key(
-                                        'Key9lx_${messagesIndex}_of_${messages.length}'),
-                                    sander: messagesItem.sander,
-                                    text: messagesItem.body,
-                                    time: messagesItem.createdAt,
-                                  );
-                                },
-                                controller: _model.listViewController,
-                              );
-                            },
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 50.0),
+                            child: Builder(
+                              builder: (context) {
+                                final messages = FFAppState()
+                                    .MAINDATA
+                                    .chatMessages
+                                    .where((e) => e.chatId == widget.chat)
+                                    .toList();
+                                return ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  primary: false,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: messages.length,
+                                  itemBuilder: (context, messagesIndex) {
+                                    final messagesItem =
+                                        messages[messagesIndex];
+                                    return MessageWidget(
+                                      key: Key(
+                                          'Key9lx_${messagesIndex}_of_${messages.length}'),
+                                      sander: messagesItem.sander,
+                                      text: messagesItem.body,
+                                      time: messagesItem.createdAt,
+                                    );
+                                  },
+                                  controller: _model.listViewController,
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),

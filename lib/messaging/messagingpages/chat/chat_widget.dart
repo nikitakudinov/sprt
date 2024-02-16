@@ -332,6 +332,12 @@ class _ChatWidgetState extends State<ChatWidget> {
                             setState(() {
                               _model.messagetextController?.clear();
                             });
+                            await _model.listViewController?.animateTo(
+                              _model
+                                  .listViewController!.position.maxScrollExtent,
+                              duration: const Duration(milliseconds: 100),
+                              curve: Curves.ease,
+                            );
                             await _model.columnController?.animateTo(
                               _model.columnController!.position.maxScrollExtent,
                               duration: const Duration(milliseconds: 100),

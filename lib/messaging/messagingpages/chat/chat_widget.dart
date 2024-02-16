@@ -315,9 +315,11 @@ class _ChatWidgetState extends State<ChatWidget> {
                               pSanderUid: currentUserUid,
                               pMessage: _model.messagetextController.text,
                             );
-                            await _model.listViewController?.animateTo(
-                              _model
-                                  .listViewController!.position.maxScrollExtent,
+                            setState(() {
+                              _model.messagetextController?.clear();
+                            });
+                            await _model.columnController?.animateTo(
+                              _model.columnController!.position.maxScrollExtent,
                               duration: const Duration(milliseconds: 100),
                               curve: Curves.ease,
                             );

@@ -73,8 +73,8 @@ class _ChatWidgetState extends State<ChatWidget> {
     _model.messagetextFocusNode ??= FocusNode();
     _model.messagetextFocusNode!.addListener(
       () async {
-        await _model.columnController?.animateTo(
-          _model.columnController!.position.maxScrollExtent,
+        await _model.listViewController?.animateTo(
+          _model.listViewController!.position.maxScrollExtent,
           duration: const Duration(milliseconds: 100),
           curve: Curves.ease,
         );
@@ -203,152 +203,142 @@ class _ChatWidgetState extends State<ChatWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Align(
-            alignment: const AlignmentDirectional(0.0, 1.0),
-            child: Stack(
-              alignment: const AlignmentDirectional(0.0, 1.0),
-              children: [
-                Align(
-                  alignment: const AlignmentDirectional(0.0, 1.0),
-                  child: SingleChildScrollView(
-                    controller: _model.columnController,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Builder(
-                          builder: (context) {
-                            final messages = FFAppState()
-                                .MAINDATA
-                                .chatMessages
-                                .where((e) => e.chatId == widget.chat)
-                                .toList();
-                            return ListView.builder(
-                              padding: const EdgeInsets.fromLTRB(
-                                0,
-                                0,
-                                0,
-                                50.0,
-                              ),
-                              primary: false,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: messages.length,
-                              itemBuilder: (context, messagesIndex) {
-                                final messagesItem = messages[messagesIndex];
-                                return MessageWidget(
-                                  key: Key(
-                                      'Key9lx_${messagesIndex}_of_${messages.length}'),
-                                  sander: messagesItem.sander,
-                                  text: messagesItem.body,
-                                  time: messagesItem.createdAt,
-                                );
-                              },
-                              controller: _model.listViewController,
-                            );
-                          },
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: Container(
+                  height: 100.0,
+                  decoration: const BoxDecoration(),
+                  child: Builder(
+                    builder: (context) {
+                      final messages = FFAppState()
+                          .MAINDATA
+                          .chatMessages
+                          .where((e) => e.chatId == widget.chat)
+                          .toList();
+                      return ListView.builder(
+                        padding: const EdgeInsets.fromLTRB(
+                          0,
+                          0,
+                          0,
+                          50.0,
                         ),
-                      ],
-                    ),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: messages.length,
+                        itemBuilder: (context, messagesIndex) {
+                          final messagesItem = messages[messagesIndex];
+                          return MessageWidget(
+                            key: Key(
+                                'Key9lx_${messagesIndex}_of_${messages.length}'),
+                            sander: messagesItem.sander,
+                            text: messagesItem.body,
+                            time: messagesItem.createdAt,
+                          );
+                        },
+                        controller: _model.listViewController,
+                      );
+                    },
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondary,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              8.0, 0.0, 8.0, 0.0),
-                          child: TextFormField(
-                            controller: _model.messagetextController,
-                            focusNode: _model.messagetextFocusNode,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              labelStyle:
-                                  FlutterFlowTheme.of(context).labelMedium,
-                              hintStyle:
-                                  FlutterFlowTheme.of(context).labelMedium,
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: const BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              errorBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              focusedErrorBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                            style: FlutterFlowTheme.of(context).bodyMedium,
-                            validator: _model.messagetextControllerValidator
-                                .asValidator(context),
-                          ),
-                        ),
-                      ),
-                      Padding(
+              ),
+              Container(
+                height: 50.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                        child: FlutterFlowIconButton(
-                          borderRadius: 20.0,
-                          borderWidth: 1.0,
-                          buttonSize: 40.0,
-                          icon: Icon(
-                            Icons.send,
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            size: 24.0,
+                            const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                        child: TextFormField(
+                          controller: _model.messagetextController,
+                          focusNode: _model.messagetextFocusNode,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelStyle:
+                                FlutterFlowTheme.of(context).labelMedium,
+                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: Color(0x00000000),
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            errorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
                           ),
-                          onPressed: () async {
-                            _model.sandMessage =
-                                await ChatsGroup.postmessageCall.call(
-                              pChatId: widget.chat,
-                              pSanderUid: currentUserUid,
-                              pMessage: _model.messagetextController.text,
-                            );
-                            setState(() {
-                              _model.messagetextController?.clear();
-                            });
-                            await _model.listViewController?.animateTo(
-                              _model
-                                  .listViewController!.position.maxScrollExtent,
-                              duration: const Duration(milliseconds: 100),
-                              curve: Curves.ease,
-                            );
-                            await _model.columnController?.animateTo(
-                              _model.columnController!.position.maxScrollExtent,
-                              duration: const Duration(milliseconds: 100),
-                              curve: Curves.ease,
-                            );
-
-                            setState(() {});
-                          },
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          validator: _model.messagetextControllerValidator
+                              .asValidator(context),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                      child: FlutterFlowIconButton(
+                        borderRadius: 20.0,
+                        borderWidth: 1.0,
+                        buttonSize: 40.0,
+                        icon: Icon(
+                          Icons.send,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          size: 24.0,
+                        ),
+                        onPressed: () async {
+                          _model.sandMessage =
+                              await ChatsGroup.postmessageCall.call(
+                            pChatId: widget.chat,
+                            pSanderUid: currentUserUid,
+                            pMessage: _model.messagetextController.text,
+                          );
+                          setState(() {
+                            _model.messagetextController?.clear();
+                          });
+                          await _model.listViewController?.animateTo(
+                            _model.listViewController!.position.maxScrollExtent,
+                            duration: const Duration(milliseconds: 100),
+                            curve: Curves.ease,
+                          );
+                          await _model.listViewController?.animateTo(
+                            _model.listViewController!.position.maxScrollExtent,
+                            duration: const Duration(milliseconds: 100),
+                            curve: Curves.ease,
+                          );
+
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

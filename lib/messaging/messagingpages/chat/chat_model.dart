@@ -11,8 +11,6 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
   ApiCallResponse? chatsDataC;
   // Stores action output result for [Backend Call - API (getmessages)] action in CHAT widget.
   ApiCallResponse? messagesDataC;
-  // State field(s) for Column widget.
-  ScrollController? columnController;
   // State field(s) for ListView widget.
   ScrollController? listViewController;
   // State field(s) for messagetext widget.
@@ -26,14 +24,12 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
 
   @override
   void initState(BuildContext context) {
-    columnController = ScrollController();
     listViewController = ScrollController();
   }
 
   @override
   void dispose() {
     unfocusNode.dispose();
-    columnController?.dispose();
     listViewController?.dispose();
     messagetextFocusNode?.dispose();
     messagetextController?.dispose();

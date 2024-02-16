@@ -6,12 +6,10 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/messaging/messagingcomponents/message/message_widget.dart';
-import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 import 'chat_model.dart';
 export 'chat_model.dart';
@@ -32,8 +30,6 @@ class _ChatWidgetState extends State<ChatWidget> {
   late ChatModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  late StreamSubscription<bool> _keyboardVisibilitySubscription;
-  bool _isKeyboardVisible = false;
 
   @override
   void initState() {
@@ -78,15 +74,6 @@ class _ChatWidgetState extends State<ChatWidget> {
       );
     });
 
-    if (!isWeb) {
-      _keyboardVisibilitySubscription =
-          KeyboardVisibilityController().onChange.listen((bool visible) {
-        setState(() {
-          _isKeyboardVisible = visible;
-        });
-      });
-    }
-
     _model.messagetextController ??= TextEditingController();
     _model.messagetextFocusNode ??= FocusNode();
     _model.messagetextFocusNode!.addListener(
@@ -104,9 +91,6 @@ class _ChatWidgetState extends State<ChatWidget> {
   void dispose() {
     _model.dispose();
 
-    if (!isWeb) {
-      _keyboardVisibilitySubscription.cancel();
-    }
     super.dispose();
   }
 
@@ -231,45 +215,32 @@ class _ChatWidgetState extends State<ChatWidget> {
                 child: Container(
                   height: 100.0,
                   decoration: const BoxDecoration(),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(
-                        0.0,
-                        0.0,
-                        0.0,
-                        valueOrDefault<double>(
-                          (isWeb
-                                  ? MediaQuery.viewInsetsOf(context).bottom > 0
-                                  : _isKeyboardVisible)
-                              ? 150.0
-                              : 0.0,
-                          0.0,
-                        )),
-                    child: Builder(
-                      builder: (context) {
-                        final messages = FFAppState()
-                            .MAINDATA
-                            .chatMessages
-                            .where((e) => e.chatId == widget.chat)
-                            .toList();
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: messages.length,
-                          itemBuilder: (context, messagesIndex) {
-                            final messagesItem = messages[messagesIndex];
-                            return MessageWidget(
-                              key: Key(
-                                  'Key9lx_${messagesIndex}_of_${messages.length}'),
-                              sander: messagesItem.sander,
-                              text: messagesItem.body,
-                              time: messagesItem.createdAt,
-                            );
-                          },
-                          controller: _model.listViewController,
-                        );
-                      },
-                    ),
+                  child: Builder(
+                    builder: (context) {
+                      final messages = FFAppState()
+                          .MAINDATA
+                          .chatMessages
+                          .where((e) => e.chatId == widget.chat)
+                          .toList();
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        reverse: true,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: messages.length,
+                        itemBuilder: (context, messagesIndex) {
+                          final messagesItem = messages[messagesIndex];
+                          return MessageWidget(
+                            key: Key(
+                                'Key9lx_${messagesIndex}_of_${messages.length}'),
+                            sander: messagesItem.sander,
+                            text: messagesItem.body,
+                            time: messagesItem.createdAt,
+                          );
+                        },
+                        controller: _model.listViewController,
+                      );
+                    },
                   ),
                 ),
               ),

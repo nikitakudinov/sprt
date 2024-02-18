@@ -61,7 +61,8 @@ class _PlayersListWidgetState extends State<PlayersListWidget> {
           padding: const EdgeInsets.all(10.0),
           child: Builder(
             builder: (context) {
-              final players = widget.data!.toList();
+              final players =
+                  widget.data!.where((e) => e.uid != currentUserUid).toList();
               return ListView.separated(
                 padding: EdgeInsets.zero,
                 scrollDirection: Axis.vertical,

@@ -112,6 +112,8 @@ class _PlayersListWidgetState extends State<PlayersListWidget> {
                             },
                           );
                         }
+
+                        Navigator.pop(context);
                       }
                     },
                     child: Container(

@@ -220,7 +220,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                       return ListView.builder(
                         padding: const EdgeInsets.fromLTRB(
                           0,
-                          50.0,
+                          70.0,
                           0,
                           0,
                         ),

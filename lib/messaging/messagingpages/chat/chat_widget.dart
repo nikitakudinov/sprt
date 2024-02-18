@@ -136,8 +136,14 @@ class _ChatWidgetState extends State<ChatWidget> {
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                     ),
-                    child: Image.asset(
-                      'assets/images/wallpaperflare.com_wallpaper.jpg',
+                    child: Image.network(
+                      FFAppState()
+                          .MAINDATA
+                          .players
+                          .where((e) => e.uid == currentUserUid)
+                          .toList()
+                          .first
+                          .avatar,
                       fit: BoxFit.cover,
                     ),
                   ),

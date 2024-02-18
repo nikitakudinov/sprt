@@ -200,7 +200,25 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(25.0),
                                       child: Image.network(
-                                        '',
+                                        FFAppState()
+                                            .MAINDATA
+                                            .players
+                                            .where((e) =>
+                                                e.uid ==
+                                                FFAppState()
+                                                    .MAINDATA
+                                                    .chatMembers
+                                                    .where((e) =>
+                                                        (e.chatId ==
+                                                            chatsItem.id) &&
+                                                        (e.playerUid !=
+                                                            currentUserUid))
+                                                    .toList()
+                                                    .first
+                                                    .playerUid)
+                                            .toList()
+                                            .first
+                                            .avatar,
                                         width: 50.0,
                                         height: 50.0,
                                         fit: BoxFit.cover,

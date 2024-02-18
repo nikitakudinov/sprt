@@ -104,40 +104,41 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                 ),
           ),
           actions: [
-            Builder(
-              builder: (context) => FlutterFlowIconButton(
-                borderRadius: 20.0,
-                borderWidth: 1.0,
-                buttonSize: 40.0,
-                icon: Icon(
-                  Icons.person_search,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  size: 24.0,
-                ),
-                onPressed: () async {
-                  await showDialog(
-                    context: context,
-                    builder: (dialogContext) {
-                      return Dialog(
-                        elevation: 0,
-                        insetPadding: EdgeInsets.zero,
-                        backgroundColor: Colors.transparent,
-                        alignment: const AlignmentDirectional(0.0, 0.0)
-                            .resolve(Directionality.of(context)),
-                        child: GestureDetector(
-                          onTap: () => _model.unfocusNode.canRequestFocus
-                              ? FocusScope.of(context)
-                                  .requestFocus(_model.unfocusNode)
-                              : FocusScope.of(context).unfocus(),
+            FlutterFlowIconButton(
+              borderRadius: 20.0,
+              borderWidth: 1.0,
+              buttonSize: 40.0,
+              icon: Icon(
+                Icons.person_search,
+                color: FlutterFlowTheme.of(context).primaryText,
+                size: 24.0,
+              ),
+              onPressed: () async {
+                await showModalBottomSheet(
+                  isScrollControlled: true,
+                  backgroundColor: FlutterFlowTheme.of(context).primary,
+                  barrierColor: FlutterFlowTheme.of(context).tertiary,
+                  enableDrag: false,
+                  context: context,
+                  builder: (context) {
+                    return GestureDetector(
+                      onTap: () => _model.unfocusNode.canRequestFocus
+                          ? FocusScope.of(context)
+                              .requestFocus(_model.unfocusNode)
+                          : FocusScope.of(context).unfocus(),
+                      child: Padding(
+                        padding: MediaQuery.viewInsetsOf(context),
+                        child: SizedBox(
+                          height: MediaQuery.sizeOf(context).height * 0.5,
                           child: PlayersListWidget(
                             data: FFAppState().MAINDATA.players,
                           ),
                         ),
-                      );
-                    },
-                  ).then((value) => setState(() {}));
-                },
-              ),
+                      ),
+                    );
+                  },
+                ).then((value) => safeSetState(() {}));
+              },
             ),
           ],
           centerTitle: true,

@@ -3,6 +3,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -179,6 +180,25 @@ class _HomeWidgetState extends State<HomeWidget> {
                     .first
                     .nickname,
                 style: FlutterFlowTheme.of(context).headlineSmall,
+              ),
+              FFButtonWidget(
+                onPressed: () async {
+                  GoRouter.of(context).prepareAuthEvent();
+                  await authManager.signOut();
+                  GoRouter.of(context).clearRedirectLocation();
+
+                  context.goNamedAuth('LOGIN', context.mounted);
+                },
+                text: 'ВЫЙТИ',
+                options: FFButtonOptions(
+                  height: 30.0,
+                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                  iconPadding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primary,
+                  textStyle: FlutterFlowTheme.of(context).bodySmall,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
               ),
             ],
           ),

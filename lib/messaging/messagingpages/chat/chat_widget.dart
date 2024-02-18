@@ -210,36 +210,34 @@ class _ChatWidgetState extends State<ChatWidget> {
                 child: Container(
                   height: 100.0,
                   decoration: const BoxDecoration(),
-                  child: Builder(
-                    builder: (context) {
-                      final messages = FFAppState()
-                          .MAINDATA
-                          .chatMessages
-                          .where((e) => e.chatId == widget.chat)
-                          .toList();
-                      return ListView.builder(
-                        padding: const EdgeInsets.fromLTRB(
-                          0,
-                          70.0,
-                          0,
-                          0,
-                        ),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: messages.length,
-                        itemBuilder: (context, messagesIndex) {
-                          final messagesItem = messages[messagesIndex];
-                          return MessageWidget(
-                            key: Key(
-                                'Key9lx_${messagesIndex}_of_${messages.length}'),
-                            sander: messagesItem.sander,
-                            text: messagesItem.body,
-                            time: messagesItem.createdAt,
-                          );
-                        },
-                        controller: _model.listViewController,
-                      );
-                    },
+                  child: Align(
+                    alignment: const AlignmentDirectional(0.0, 1.0),
+                    child: Builder(
+                      builder: (context) {
+                        final messages = FFAppState()
+                            .MAINDATA
+                            .chatMessages
+                            .where((e) => e.chatId == widget.chat)
+                            .toList();
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: messages.length,
+                          itemBuilder: (context, messagesIndex) {
+                            final messagesItem = messages[messagesIndex];
+                            return MessageWidget(
+                              key: Key(
+                                  'Key9lx_${messagesIndex}_of_${messages.length}'),
+                              sander: messagesItem.sander,
+                              text: messagesItem.body,
+                              time: messagesItem.createdAt,
+                            );
+                          },
+                          controller: _model.listViewController,
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

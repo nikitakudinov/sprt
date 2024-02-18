@@ -1,3 +1,5 @@
+import '/auth/supabase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -96,25 +98,27 @@ class _PlayersListWidgetState extends State<PlayersListWidget> {
                             }.withoutNulls,
                           );
                         } else {
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                title: const Text('creat_chat'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: const Text('Ok'),
-                                  ),
-                                ],
-                              );
-                            },
+                          _model.creatChat =
+                              await ChatsGroup.creatdialoguechatCall.call(
+                            player1: currentUserUid,
+                            player2: playersItem.uid,
+                          );
+
+                          context.pushNamed(
+                            'CHAT',
+                            queryParameters: {
+                              'chat': serializeParam(
+                                (_model.creatChat?.jsonBody ?? ''),
+                                ParamType.int,
+                              ),
+                            }.withoutNulls,
                           );
                         }
 
                         Navigator.pop(context);
                       }
+
+                      setState(() {});
                     },
                     child: Container(
                       decoration: BoxDecoration(

@@ -19,6 +19,10 @@ Future<void> supaRealtime(
   Future<dynamic> Function() reloadAction,
 ) async {
   final supabase = SupaFlow.client;
+  final authSubscription = supabase.auth.onAuthStateChange.listen((data) {
+    final AuthChangeEvent event = data.event;
+    final Session? session = data.session;
+  });
   final data =
       await supabase.rpc('get_user_chats_id', params: {'p_player_uid': uid});
   String str = data.join(", ");

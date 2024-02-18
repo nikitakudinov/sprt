@@ -152,7 +152,11 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
                 child: Builder(
                   builder: (context) {
-                    final chats = FFAppState().MAINDATA.chats.toList();
+                    final chats = FFAppState()
+                        .MAINDATA
+                        .chats
+                        .sortedList((e) => e.updatedAt)
+                        .toList();
                     return ListView.separated(
                       padding: const EdgeInsets.fromLTRB(
                         0,
@@ -160,7 +164,6 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                         0,
                         0,
                       ),
-                      reverse: true,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemCount: chats.length,

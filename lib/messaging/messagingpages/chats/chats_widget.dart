@@ -167,7 +167,6 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                         0,
                         0,
                       ),
-                      reverse: true,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemCount: chats.length,

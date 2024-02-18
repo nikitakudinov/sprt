@@ -216,7 +216,6 @@ class _ChatWidgetState extends State<ChatWidget> {
                           .toList();
                       return ListView.builder(
                         padding: EdgeInsets.zero,
-                        reverse: true,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: messages.length,

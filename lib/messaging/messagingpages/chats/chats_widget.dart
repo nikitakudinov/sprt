@@ -118,7 +118,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                 await showModalBottomSheet(
                   isScrollControlled: true,
                   backgroundColor: FlutterFlowTheme.of(context).primary,
-                  barrierColor: const Color(0x63202428),
+                  barrierColor: FlutterFlowTheme.of(context).tertiary,
                   enableDrag: false,
                   context: context,
                   builder: (context) {
@@ -167,6 +167,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                         0,
                         0,
                       ),
+                      reverse: true,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemCount: chats.length,
@@ -240,7 +241,25 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'XOR | Admin',
+                                          FFAppState()
+                                              .MAINDATA
+                                              .players
+                                              .where((e) =>
+                                                  e.uid ==
+                                                  FFAppState()
+                                                      .MAINDATA
+                                                      .chatMembers
+                                                      .where((e) =>
+                                                          (e.chatId ==
+                                                              chatsItem.id) &&
+                                                          (e.playerUid !=
+                                                              currentUserUid))
+                                                      .toList()
+                                                      .first
+                                                      .playerUid)
+                                              .toList()
+                                              .first
+                                              .nickname,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyLarge,
                                         ),

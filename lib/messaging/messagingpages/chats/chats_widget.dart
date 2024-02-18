@@ -1,5 +1,6 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/players_list/players_list_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -132,6 +133,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                           height: MediaQuery.sizeOf(context).height * 0.5,
                           child: PlayersListWidget(
                             data: FFAppState().MAINDATA.players,
+                            type: PlayerListType.friendsList,
                           ),
                         ),
                       ),

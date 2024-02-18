@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';

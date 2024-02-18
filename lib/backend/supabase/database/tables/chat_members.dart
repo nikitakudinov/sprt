@@ -25,4 +25,7 @@ class ChatMembersRow extends SupabaseDataRow {
 
   String get playerUid => getField<String>('player_uid')!;
   set playerUid(String value) => setField<String>('player_uid', value);
+
+  String? get chatType => getField<String>('chat_type');
+  set chatType(String? value) => setField<String>('chat_type', value);
 }

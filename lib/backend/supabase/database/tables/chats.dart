@@ -22,4 +22,21 @@ class ChatsRow extends SupabaseDataRow {
 
   String? get lastMessage => getField<String>('last_message');
   set lastMessage(String? value) => setField<String>('last_message', value);
+
+  DateTime? get updatedAt => getField<DateTime>('updated_at');
+  set updatedAt(DateTime? value) => setField<DateTime>('updated_at', value);
+
+  int? get chatOfTournament => getField<int>('chat_of_tournament');
+  set chatOfTournament(int? value) =>
+      setField<int>('chat_of_tournament', value);
+
+  int? get chatOfTeam => getField<int>('chat_of_team');
+  set chatOfTeam(int? value) => setField<int>('chat_of_team', value);
+
+  String? get chatType => getField<String>('chat_type');
+  set chatType(String? value) => setField<String>('chat_type', value);
+
+  String? get lastmessageSander => getField<String>('lastmessage_sander');
+  set lastmessageSander(String? value) =>
+      setField<String>('lastmessage_sander', value);
 }

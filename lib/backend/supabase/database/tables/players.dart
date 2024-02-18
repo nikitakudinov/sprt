@@ -22,4 +22,16 @@ class PlayersRow extends SupabaseDataRow {
 
   String? get nickname => getField<String>('nickname');
   set nickname(String? value) => setField<String>('nickname', value);
+
+  DateTime? get updatedAt => getField<DateTime>('updated_at');
+  set updatedAt(DateTime? value) => setField<DateTime>('updated_at', value);
+
+  int? get team => getField<int>('team');
+  set team(int? value) => setField<int>('team', value);
+
+  int? get country => getField<int>('country');
+  set country(int? value) => setField<int>('country', value);
+
+  String get avatar => getField<String>('avatar')!;
+  set avatar(String value) => setField<String>('avatar', value);
 }

@@ -11,10 +11,12 @@ class ChatMemberStruct extends BaseStruct {
     int? chatId,
     String? playerUid,
     String? updatedAt,
+    String? chatType,
   })  : _id = id,
         _chatId = chatId,
         _playerUid = playerUid,
-        _updatedAt = updatedAt;
+        _updatedAt = updatedAt,
+        _chatType = chatType;
 
   // "id" field.
   int? _id;
@@ -42,12 +44,19 @@ class ChatMemberStruct extends BaseStruct {
   set updatedAt(String? val) => _updatedAt = val;
   bool hasUpdatedAt() => _updatedAt != null;
 
+  // "chat_type" field.
+  String? _chatType;
+  String get chatType => _chatType ?? '';
+  set chatType(String? val) => _chatType = val;
+  bool hasChatType() => _chatType != null;
+
   static ChatMemberStruct fromMap(Map<String, dynamic> data) =>
       ChatMemberStruct(
         id: castToType<int>(data['id']),
         chatId: castToType<int>(data['chat_id']),
         playerUid: data['player_uid'] as String?,
         updatedAt: data['updated_at'] as String?,
+        chatType: data['chat_type'] as String?,
       );
 
   static ChatMemberStruct? maybeFromMap(dynamic data) => data is Map
@@ -59,6 +68,7 @@ class ChatMemberStruct extends BaseStruct {
         'chat_id': _chatId,
         'player_uid': _playerUid,
         'updated_at': _updatedAt,
+        'chat_type': _chatType,
       }.withoutNulls;
 
   @override
@@ -77,6 +87,10 @@ class ChatMemberStruct extends BaseStruct {
         ),
         'updated_at': serializeParam(
           _updatedAt,
+          ParamType.String,
+        ),
+        'chat_type': serializeParam(
+          _chatType,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -103,6 +117,11 @@ class ChatMemberStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        chatType: deserializeParam(
+          data['chat_type'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -114,12 +133,13 @@ class ChatMemberStruct extends BaseStruct {
         id == other.id &&
         chatId == other.chatId &&
         playerUid == other.playerUid &&
-        updatedAt == other.updatedAt;
+        updatedAt == other.updatedAt &&
+        chatType == other.chatType;
   }
 
   @override
   int get hashCode =>
-      const ListEquality().hash([id, chatId, playerUid, updatedAt]);
+      const ListEquality().hash([id, chatId, playerUid, updatedAt, chatType]);
 }
 
 ChatMemberStruct createChatMemberStruct({
@@ -127,10 +147,12 @@ ChatMemberStruct createChatMemberStruct({
   int? chatId,
   String? playerUid,
   String? updatedAt,
+  String? chatType,
 }) =>
     ChatMemberStruct(
       id: id,
       chatId: chatId,
       playerUid: playerUid,
       updatedAt: updatedAt,
+      chatType: chatType,
     );

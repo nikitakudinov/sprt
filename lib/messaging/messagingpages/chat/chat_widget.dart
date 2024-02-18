@@ -218,7 +218,12 @@ class _ChatWidgetState extends State<ChatWidget> {
                           .where((e) => e.chatId == widget.chat)
                           .toList();
                       return ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: const EdgeInsets.fromLTRB(
+                          0,
+                          50.0,
+                          0,
+                          0,
+                        ),
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: messages.length,

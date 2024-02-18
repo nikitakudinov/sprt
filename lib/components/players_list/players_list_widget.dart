@@ -5,6 +5,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'players_list_model.dart';
@@ -175,8 +176,10 @@ class _PlayersListWidgetState extends State<PlayersListWidget> {
                                 decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
                                 ),
-                                child: Image.asset(
-                                  'assets/images/russia-flag-wallpaper-celebration-day_982005-4333.jpg',
+                                child: CachedNetworkImage(
+                                  fadeInDuration: const Duration(milliseconds: 500),
+                                  fadeOutDuration: const Duration(milliseconds: 500),
+                                  imageUrl: playersItem.avatar,
                                   fit: BoxFit.cover,
                                 ),
                               ),

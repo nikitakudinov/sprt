@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -207,8 +208,12 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(25.0),
-                                      child: Image.network(
-                                        FFAppState()
+                                      child: CachedNetworkImage(
+                                        fadeInDuration:
+                                            const Duration(milliseconds: 500),
+                                        fadeOutDuration:
+                                            const Duration(milliseconds: 500),
+                                        imageUrl: FFAppState()
                                             .MAINDATA
                                             .players
                                             .where((e) =>
@@ -316,10 +321,38 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                         ),
                                         alignment:
                                             const AlignmentDirectional(0.0, 0.0),
-                                        child: Text(
-                                          '20',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodySmall,
+                                        child: FutureBuilder<ApiCallResponse>(
+                                          future:
+                                              ChatsGroup.getchatsCall.call(),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation<
+                                                            Color>(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                            final textGetchatsResponse =
+                                                snapshot.data!;
+                                            return Text(
+                                              '20',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodySmall,
+                                            );
+                                          },
                                         ),
                                       ),
                                     ],

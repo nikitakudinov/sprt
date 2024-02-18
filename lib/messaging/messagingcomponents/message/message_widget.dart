@@ -1,3 +1,4 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -49,7 +50,12 @@ class _MessageWidgetState extends State<MessageWidget> {
     context.watch<FFAppState>();
 
     return Align(
-      alignment: const AlignmentDirectional(1.0, 0.0),
+      alignment: AlignmentDirectional(
+          valueOrDefault<double>(
+            widget.sander == currentUserUid ? 1.0 : -1.0,
+            0.0,
+          ),
+          0.0),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Container(

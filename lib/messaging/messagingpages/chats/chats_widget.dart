@@ -153,7 +153,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                 child: Builder(
                   builder: (context) {
                     final chats = FFAppState().MAINDATA.chats.toList();
-                    return ListView.builder(
+                    return ListView.separated(
                       padding: const EdgeInsets.fromLTRB(
                         0,
                         20.0,
@@ -164,6 +164,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemCount: chats.length,
+                      separatorBuilder: (_, __) => const SizedBox(height: 5.0),
                       itemBuilder: (context, chatsIndex) {
                         final chatsItem = chats[chatsIndex];
                         return InkWell(

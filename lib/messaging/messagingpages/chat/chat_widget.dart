@@ -5,11 +5,13 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/messaging/messagingcomponents/message/message_widget.dart';
+import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 import 'chat_model.dart';
 export 'chat_model.dart';
@@ -30,6 +32,8 @@ class _ChatWidgetState extends State<ChatWidget> {
   late ChatModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late StreamSubscription<bool> _keyboardVisibilitySubscription;
+  bool _isKeyboardVisible = false;
 
   @override
   void initState() {
@@ -74,6 +78,15 @@ class _ChatWidgetState extends State<ChatWidget> {
       );
     });
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription =
+          KeyboardVisibilityController().onChange.listen((bool visible) {
+        setState(() {
+          _isKeyboardVisible = visible;
+        });
+      });
+    }
+
     _model.messagetextController ??= TextEditingController();
     _model.messagetextFocusNode ??= FocusNode();
     _model.messagetextFocusNode!.addListener(
@@ -91,6 +104,9 @@ class _ChatWidgetState extends State<ChatWidget> {
   void dispose() {
     _model.dispose();
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription.cancel();
+    }
     super.dispose();
   }
 
@@ -218,15 +234,26 @@ class _ChatWidgetState extends State<ChatWidget> {
                             .MAINDATA
                             .chatMessages
                             .where((e) => e.chatId == widget.chat)
+                            .toList()
+                            .sortedList((e) => e.createdAt)
                             .toList();
                         return ListView.builder(
-                          padding: const EdgeInsets.fromLTRB(
+                          padding: EdgeInsets.fromLTRB(
                             0,
-                            70.0,
+                            (isWeb
+                                    ? MediaQuery.viewInsetsOf(context).bottom >
+                                        0
+                                    : _isKeyboardVisible)
+                                ? 70.0
+                                : 0.0,
                             0,
-                            70.0,
+                            (isWeb
+                                    ? MediaQuery.viewInsetsOf(context).bottom >
+                                        0
+                                    : _isKeyboardVisible)
+                                ? 70.0
+                                : 0.0,
                           ),
-                          reverse: true,
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           itemCount: messages.length,

@@ -172,13 +172,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                 style: FlutterFlowTheme.of(context).headlineSmall,
               ),
               Text(
-                FFAppState()
-                    .MAINDATA
-                    .players
-                    .where((e) => e.uid == currentUserUid)
-                    .toList()
-                    .first
-                    .nickname,
+                valueOrDefault<String>(
+                  FFAppState()
+                      .MAINDATA
+                      .players
+                      .where((e) => e.uid == currentUserUid)
+                      .toList()
+                      .first
+                      .nickname,
+                  'никнейм',
+                ),
                 style: FlutterFlowTheme.of(context).headlineSmall,
               ),
               FFButtonWidget(

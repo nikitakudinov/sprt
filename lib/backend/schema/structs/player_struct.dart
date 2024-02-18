@@ -13,12 +13,14 @@ class PlayerStruct extends BaseStruct {
     String? updatedAt,
     int? team,
     int? country,
+    String? avatar,
   })  : _uid = uid,
         _createdAt = createdAt,
         _nickname = nickname,
         _updatedAt = updatedAt,
         _team = team,
-        _country = country;
+        _country = country,
+        _avatar = avatar;
 
   // "uid" field.
   String? _uid;
@@ -58,6 +60,12 @@ class PlayerStruct extends BaseStruct {
   void incrementCountry(int amount) => _country = country + amount;
   bool hasCountry() => _country != null;
 
+  // "avatar" field.
+  String? _avatar;
+  String get avatar => _avatar ?? '';
+  set avatar(String? val) => _avatar = val;
+  bool hasAvatar() => _avatar != null;
+
   static PlayerStruct fromMap(Map<String, dynamic> data) => PlayerStruct(
         uid: data['uid'] as String?,
         createdAt: data['created_at'] as String?,
@@ -65,6 +73,7 @@ class PlayerStruct extends BaseStruct {
         updatedAt: data['updated_at'] as String?,
         team: castToType<int>(data['team']),
         country: castToType<int>(data['country']),
+        avatar: data['avatar'] as String?,
       );
 
   static PlayerStruct? maybeFromMap(dynamic data) =>
@@ -77,6 +86,7 @@ class PlayerStruct extends BaseStruct {
         'updated_at': _updatedAt,
         'team': _team,
         'country': _country,
+        'avatar': _avatar,
       }.withoutNulls;
 
   @override
@@ -104,6 +114,10 @@ class PlayerStruct extends BaseStruct {
         'country': serializeParam(
           _country,
           ParamType.int,
+        ),
+        'avatar': serializeParam(
+          _avatar,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -139,6 +153,11 @@ class PlayerStruct extends BaseStruct {
           ParamType.int,
           false,
         ),
+        avatar: deserializeParam(
+          data['avatar'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -152,12 +171,13 @@ class PlayerStruct extends BaseStruct {
         nickname == other.nickname &&
         updatedAt == other.updatedAt &&
         team == other.team &&
-        country == other.country;
+        country == other.country &&
+        avatar == other.avatar;
   }
 
   @override
   int get hashCode => const ListEquality()
-      .hash([uid, createdAt, nickname, updatedAt, team, country]);
+      .hash([uid, createdAt, nickname, updatedAt, team, country, avatar]);
 }
 
 PlayerStruct createPlayerStruct({
@@ -167,6 +187,7 @@ PlayerStruct createPlayerStruct({
   String? updatedAt,
   int? team,
   int? country,
+  String? avatar,
 }) =>
     PlayerStruct(
       uid: uid,
@@ -175,4 +196,5 @@ PlayerStruct createPlayerStruct({
       updatedAt: updatedAt,
       team: team,
       country: country,
+      avatar: avatar,
     );

@@ -199,8 +199,8 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(25.0),
-                                      child: Image.asset(
-                                        'assets/images/pro-player-gaming-mascot-logo-600w-1897626409.png',
+                                      child: Image.network(
+                                        '',
                                         width: 50.0,
                                         height: 50.0,
                                         fit: BoxFit.cover,

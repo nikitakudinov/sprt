@@ -59,23 +59,26 @@ class _HomeWidgetState extends State<HomeWidget> {
           });
         },
       );
-      _model.playersData = await PlayersGroup.playersCall.call();
-      _model.chatsDataLoad = await ChatsGroup.getchatsCall.call(
+      _model.playersLoad = await PlayersGroup.playersCall.call();
+      _model.chatsLoad = await ChatsGroup.getchatsCall.call(
         uid: currentUserUid,
       );
       _model.messagesLoad = await ChatsGroup.getmessagesCall.call(
         uid: currentUserUid,
       );
+      _model.chatmemberLoad = await ChatsGroup.getchatmembersCall.call(
+        pPlayerUid: currentUserUid,
+      );
       setState(() {
         FFAppState().updateMAINDATAStruct(
           (e) => e
-            ..players = ((_model.playersData?.jsonBody ?? '')
+            ..players = ((_model.playersLoad?.jsonBody ?? '')
                     .toList()
                     .map<PlayerStruct?>(PlayerStruct.maybeFromMap)
                     .toList() as Iterable<PlayerStruct?>)
                 .withoutNulls
                 .toList()
-            ..chats = ((_model.chatsDataLoad?.jsonBody ?? '')
+            ..chats = ((_model.chatsLoad?.jsonBody ?? '')
                     .toList()
                     .map<ChatStruct?>(ChatStruct.maybeFromMap)
                     .toList() as Iterable<ChatStruct?>)
@@ -85,6 +88,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                     .toList()
                     .map<ChatMessageStruct?>(ChatMessageStruct.maybeFromMap)
                     .toList() as Iterable<ChatMessageStruct?>)
+                .withoutNulls
+                .toList()
+            ..chatMembers = ((_model.chatmemberLoad?.jsonBody ?? '')
+                    .toList()
+                    .map<ChatMemberStruct?>(ChatMemberStruct.maybeFromMap)
+                    .toList() as Iterable<ChatMemberStruct?>)
                 .withoutNulls
                 .toList(),
         );

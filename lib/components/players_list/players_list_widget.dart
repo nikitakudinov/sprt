@@ -103,6 +103,34 @@ class _PlayersListWidgetState extends State<PlayersListWidget> {
                             player1: currentUserUid,
                             player2: playersItem.uid,
                           );
+                          _model.chatsLoad = await ChatsGroup.getchatsCall.call(
+                            uid: currentUserUid,
+                          );
+                          _model.chatsMembersLoad =
+                              await ChatsGroup.getchatmembersCall.call(
+                            pPlayerUid: currentUserUid,
+                          );
+                          setState(() {
+                            FFAppState().updateMAINDATAStruct(
+                              (e) => e
+                                ..chats = ((_model.chatsLoad?.jsonBody ?? '')
+                                        .toList()
+                                        .map<ChatStruct?>(
+                                            ChatStruct.maybeFromMap)
+                                        .toList() as Iterable<ChatStruct?>)
+                                    .withoutNulls
+                                    .toList()
+                                ..chatMembers = ((_model
+                                                .chatsMembersLoad?.jsonBody ??
+                                            '')
+                                        .toList()
+                                        .map<ChatMemberStruct?>(
+                                            ChatMemberStruct.maybeFromMap)
+                                        .toList() as Iterable<ChatMemberStruct?>)
+                                    .withoutNulls
+                                    .toList(),
+                            );
+                          });
 
                           context.pushNamed(
                             'CHAT',

@@ -8,6 +8,10 @@ class PlayersListModel extends FlutterFlowModel<PlayersListWidget> {
 
   // Stores action output result for [Backend Call - API (creatdialoguechat)] action in Container widget.
   ApiCallResponse? creatChat;
+  // Stores action output result for [Backend Call - API (getchats)] action in Container widget.
+  ApiCallResponse? chatsLoad;
+  // Stores action output result for [Backend Call - API (getchatmembers)] action in Container widget.
+  ApiCallResponse? chatsMembersLoad;
 
   /// Initialization and disposal methods.
 

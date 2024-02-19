@@ -671,6 +671,8 @@ class ChatsGroup {
   static ReadchatmessagesCall readchatmessagesCall = ReadchatmessagesCall();
   static GetcountchatureadedmessagesCall getcountchatureadedmessagesCall =
       GetcountchatureadedmessagesCall();
+  static GetchatureadedmessagesidoneCall getchatureadedmessagesidoneCall =
+      GetchatureadedmessagesidoneCall();
   static GetchatureadedmessagesCall getchatureadedmessagesCall =
       GetchatureadedmessagesCall();
   static CreatdialoguechatCall creatdialoguechatCall = CreatdialoguechatCall();
@@ -758,18 +760,22 @@ class ReadchatmessagesCall {
     int? pChatId,
     String? pPlayerUid = '',
   }) async {
+    final ffApiRequestBody = '''
+{
+  "p_chat_id": $pChatId,
+  "p_player_uid": "$pPlayerUid"
+}''';
     return ApiManager.instance.makeApiCall(
       callName: 'readchatmessages',
       apiUrl: '${ChatsGroup.baseUrl}rpc/read_chat_messages',
-      callType: ApiCallType.GET,
+      callType: ApiCallType.POST,
       headers: {
         'apikey':
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
       },
-      params: {
-        'p_player_uid': pPlayerUid,
-        'p_chat_id': pChatId,
-      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -777,56 +783,6 @@ class ReadchatmessagesCall {
       alwaysAllowBody: false,
     );
   }
-
-  int? id(dynamic response) => castToType<int>(getJsonField(
-        response,
-        r'''$[:].id''',
-      ));
-  String? lastmessage(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$[:].last_message''',
-      ));
-  String? lastmessagesander(dynamic response) =>
-      castToType<String>(getJsonField(
-        response,
-        r'''$[:].lastmessage_sander''',
-      ));
-  String? updatedat(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$[:].updated_at''',
-      ));
-  String? chattype(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$[:].chat_type''',
-      ));
-  List<int>? chatofteam(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].chat_of_team''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<int>(x))
-          .withoutNulls
-          .toList();
-  List<int>? chatoftournament(dynamic response) => (getJsonField(
-        response,
-        r'''$[:].chat_of_tournament''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<int>(x))
-          .withoutNulls
-          .toList();
-  List? chatmembers(dynamic response) => getJsonField(
-        response,
-        r'''$[:].chat_members''',
-        true,
-      ) as List?;
-  List? chatmessages(dynamic response) => getJsonField(
-        response,
-        r'''$[:].chat_messages''',
-        true,
-      ) as List?;
 }
 
 class GetcountchatureadedmessagesCall {
@@ -854,10 +810,41 @@ class GetcountchatureadedmessagesCall {
     );
   }
 
-  dynamic count(dynamic response) => getJsonField(
+  int? count(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$''',
-      );
+      ));
+}
+
+class GetchatureadedmessagesidoneCall {
+  Future<ApiCallResponse> call({
+    int? pChatId,
+    String? pPlayerUid = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getchatureadedmessagesidone',
+      apiUrl: '${ChatsGroup.baseUrl}rpc/get_chat_ureaded_messages_idone',
+      callType: ApiCallType.GET,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {
+        'p_player_uid': pPlayerUid,
+        'p_chat_id': pChatId,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  int? count(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$''',
+      ));
 }
 
 class GetchatureadedmessagesCall {

@@ -370,7 +370,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                                   .count(
                                                     textGetcountchatureadedmessagesResponse
                                                         .jsonBody,
-                                                  )
+                                                  )!
                                                   .toString(),
                                               style:
                                                   FlutterFlowTheme.of(context)

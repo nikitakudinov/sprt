@@ -274,16 +274,19 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Text(
-                                              FFAppState()
-                                                  .MAINDATA
-                                                  .players
-                                                  .where((e) =>
-                                                      e.uid ==
-                                                      chatsItem
-                                                          .lastmessageSander)
-                                                  .toList()
-                                                  .first
-                                                  .nickname,
+                                              chatsItem.lastmessageSander ==
+                                                      currentUserUid
+                                                  ? 'Вы:'
+                                                  : FFAppState()
+                                                      .MAINDATA
+                                                      .players
+                                                      .where((e) =>
+                                                          e.uid ==
+                                                          chatsItem
+                                                              .lastmessageSander)
+                                                      .toList()
+                                                      .first
+                                                      .nickname,
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium

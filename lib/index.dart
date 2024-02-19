@@ -8,3 +8,4 @@ export '/team/teampages/team_profile/team_profile_widget.dart'
     show TeamProfileWidget;
 export '/messaging/messagingpages/chats/chats_widget.dart' show ChatsWidget;
 export '/messaging/messagingpages/chat/chat_widget.dart' show ChatWidget;
+export '/test/test_widget.dart' show TestWidget;

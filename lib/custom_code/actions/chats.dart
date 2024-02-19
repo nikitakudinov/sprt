@@ -14,6 +14,6 @@ import 'package:flutter/material.dart';
 Future<List<ChatStruct>> chats() async {
   // Add your function code here!
   final supabase = SupaFlow.client;
-  final data = await supabase.from('chats').select('*');
-  return data;
+  final chats_data = await supabase.from('chats').select('*');
+  return chats_data;
 }

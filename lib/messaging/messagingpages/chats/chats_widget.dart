@@ -274,7 +274,7 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Text(
-                                              chatsItem.lastmessageSander !=
+                                              chatsItem.lastmessageSander ==
                                                       currentUserUid
                                                   ? 'Вы: '
                                                   : valueOrDefault<String>(

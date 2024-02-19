@@ -323,10 +323,10 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                             const AlignmentDirectional(0.0, 0.0),
                                         child: FutureBuilder<ApiCallResponse>(
                                           future: ChatsGroup
-                                              .getchatureadedmessagesCall
+                                              .getcountchatureadedmessagesCall
                                               .call(
-                                            uid: currentUserUid,
                                             pChatId: chatsItem.id,
+                                            pPlayerUid: currentUserUid,
                                           ),
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.
@@ -348,14 +348,16 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                                 ),
                                               );
                                             }
-                                            final textGetchatureadedmessagesResponse =
+                                            final textGetcountchatureadedmessagesResponse =
                                                 snapshot.data!;
                                             return Text(
-                                              getJsonField(
-                                                textGetchatureadedmessagesResponse
-                                                    .jsonBody,
-                                                r'''$''',
-                                              ).toString(),
+                                              ChatsGroup
+                                                  .getcountchatureadedmessagesCall
+                                                  .count(
+                                                    textGetcountchatureadedmessagesResponse
+                                                        .jsonBody,
+                                                  )
+                                                  .toString(),
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall,

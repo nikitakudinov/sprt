@@ -668,6 +668,8 @@ class ChatsGroup {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
   };
   static GetchatsCall getchatsCall = GetchatsCall();
+  static GetcountchatureadedmessagesCall getcountchatureadedmessagesCall =
+      GetcountchatureadedmessagesCall();
   static GetchatureadedmessagesCall getchatureadedmessagesCall =
       GetchatureadedmessagesCall();
   static CreatdialoguechatCall creatdialoguechatCall = CreatdialoguechatCall();
@@ -750,10 +752,41 @@ class GetchatsCall {
       ) as List?;
 }
 
+class GetcountchatureadedmessagesCall {
+  Future<ApiCallResponse> call({
+    int? pChatId,
+    String? pPlayerUid = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getcountchatureadedmessages',
+      apiUrl: '${ChatsGroup.baseUrl}rpc/get_count_chat_ureaded_messages',
+      callType: ApiCallType.GET,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1Nzg0NDAwLAogICJleHAiOiAxODYzNjM3MjAwCn0.sci6jMT24jrFLJgxVmGzy8cSakKlhC2YvSOB5CgSJeI',
+      },
+      params: {
+        'p_player_uid': pPlayerUid,
+        'p_chat_id': pChatId,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  dynamic count(dynamic response) => getJsonField(
+        response,
+        r'''$''',
+      );
+}
+
 class GetchatureadedmessagesCall {
   Future<ApiCallResponse> call({
     String? uid = '',
-    int? pChatId,
+    int? chatId,
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'getchatureadedmessages',
@@ -765,7 +798,7 @@ class GetchatureadedmessagesCall {
       },
       params: {
         'p_player_uid': uid,
-        'p_chat_id': pChatId,
+        'p_chat_id': chatId,
       },
       returnBody: true,
       encodeBodyUtf8: false,

@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
+import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -44,6 +45,8 @@ class _ChatsWidgetState extends State<ChatsWidget> {
           _model.messagesData = await ChatsGroup.getmessagesCall.call(
             uid: currentUserUid,
           );
+          setState(() => _model.apiRequestCompleter = null);
+          await _model.waitForApiRequestCompleted();
           FFAppState().update(() {
             FFAppState().updateMAINDATAStruct(
               (e) => e
@@ -322,12 +325,17 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                         alignment:
                                             const AlignmentDirectional(0.0, 0.0),
                                         child: FutureBuilder<ApiCallResponse>(
-                                          future: ChatsGroup
-                                              .getcountchatureadedmessagesCall
-                                              .call(
-                                            pChatId: chatsItem.id,
-                                            pPlayerUid: currentUserUid,
-                                          ),
+                                          future: (_model
+                                                      .apiRequestCompleter ??=
+                                                  Completer<ApiCallResponse>()
+                                                    ..complete(ChatsGroup
+                                                        .getcountchatureadedmessagesCall
+                                                        .call(
+                                                      pChatId: chatsItem.id,
+                                                      pPlayerUid:
+                                                          currentUserUid,
+                                                    )))
+                                              .future,
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.
                                             if (!snapshot.hasData) {

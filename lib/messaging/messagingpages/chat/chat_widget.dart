@@ -51,10 +51,22 @@ class _ChatWidgetState extends State<ChatWidget> {
           );
         }(),
       );
+      unawaited(
+        () async {
+          _model.readmessages = await ChatsGroup.readchatmessagesCall.call(
+            pChatId: widget.chat,
+            pPlayerUid: currentUserUid,
+          );
+        }(),
+      );
       await actions.supaRealtime(
         currentUserUid,
         'chats',
         () async {
+          _model.readmessage = await ChatsGroup.readchatmessagesCall.call(
+            pChatId: widget.chat,
+            pPlayerUid: currentUserUid,
+          );
           _model.chatsDataC = await ChatsGroup.getchatsCall.call(
             uid: currentUserUid,
           );

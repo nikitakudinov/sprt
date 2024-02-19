@@ -7,6 +7,10 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (readchatmessages)] action in CHAT widget.
+  ApiCallResponse? readmessages;
+  // Stores action output result for [Backend Call - API (readchatmessages)] action in CHAT widget.
+  ApiCallResponse? readmessage;
   // Stores action output result for [Backend Call - API (getchats)] action in CHAT widget.
   ApiCallResponse? chatsDataC;
   // Stores action output result for [Backend Call - API (getmessages)] action in CHAT widget.

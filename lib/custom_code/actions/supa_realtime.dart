@@ -35,6 +35,7 @@ Future<void> supaRealtime(
     (payload, [ref]) {
       reloadAction();
       print(str);
+      print(session);
     },
   ).subscribe();
 }

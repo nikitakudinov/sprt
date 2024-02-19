@@ -322,8 +322,12 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                         alignment:
                                             const AlignmentDirectional(0.0, 0.0),
                                         child: FutureBuilder<ApiCallResponse>(
-                                          future:
-                                              ChatsGroup.getchatsCall.call(),
+                                          future: ChatsGroup
+                                              .getchatureadedmessagesCall
+                                              .call(
+                                            uid: currentUserUid,
+                                            pChatId: chatsItem.id,
+                                          ),
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.
                                             if (!snapshot.hasData) {
@@ -344,10 +348,14 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                                 ),
                                               );
                                             }
-                                            final textGetchatsResponse =
+                                            final textGetchatureadedmessagesResponse =
                                                 snapshot.data!;
                                             return Text(
-                                              '20',
+                                              getJsonField(
+                                                textGetchatureadedmessagesResponse
+                                                    .jsonBody,
+                                                r'''$''',
+                                              ).toString(),
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall,

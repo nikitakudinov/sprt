@@ -118,7 +118,6 @@ class _NavBarPageState extends State<NavBarPage> {
       'HOME': const HomeWidget(),
       'PLAYER-PROFILE': const PlayerProfileWidget(),
       'CHATS': const ChatsWidget(),
-      'test': const TestWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -159,14 +158,6 @@ class _NavBarPageState extends State<NavBarPage> {
               size: 24.0,
             ),
             label: 'Чаты',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.onetwothree,
-              size: 24.0,
-            ),
-            label: 'TEST',
             tooltip: '',
           )
         ],

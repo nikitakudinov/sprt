@@ -276,9 +276,12 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                             Text(
                                               chatsItem.lastmessageSander ==
                                                       currentUserUid
-                                                  ? 'Вы: '
-                                                  : valueOrDefault<String>(
+                                                  ? valueOrDefault<String>(
                                                       '${FFAppState().MAINDATA.players.where((e) => e.uid == chatsItem.lastmessageSander).toList().first.nickname}: ',
+                                                      'Nickname',
+                                                    )
+                                                  : valueOrDefault<String>(
+                                                      'Вы : ',
                                                       'Nickname',
                                                     ),
                                               style:
